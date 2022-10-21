@@ -1,0 +1,12 @@
+
+# Creacion de la base de datos
+CREATE SCHEMA `db_prod`;
+
+# Creacion de la tabla categorias
+CREATE TABLE `db_prod`.`categorias` (
+  `id` INT NOT NULL,
+  `titulo` VARCHAR(45) NULL,
+  `descripcion` VARCHAR(45) NULL,
+  `url_imagen` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE);
