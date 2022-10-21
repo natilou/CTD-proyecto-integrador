@@ -1,0 +1,37 @@
+
+@import "../../commons/_styles.css";
+.form_search{
+    width: 100%;
+    background-color: var(--dark-color);
+    padding: auto;
+    padding-top: 1rem;
+    margin-top: 4.5rem;
+}
+.form_title{
+    color:white;
+    padding:50px auto;
+    margin: 1rem 1rem;
+    font-size: var(--font-size-main);
+    text-align: center;
+}
+.container_form{
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 8rem;
+    padding:50px auto;
+    margin: 1rem 1rem;
+}
+
+.btn_filter{
+    background-color: var(--main-color);
+    border:none;
+    color:white;
+    margin-bottom: 11px;
+    line-height: 19px;
+    border-radius: 6px;
+    height: 40px;
+    font-weight: 700;
+    font-size: var(--font-size-medium);
+    border-radius:5px;
+}
