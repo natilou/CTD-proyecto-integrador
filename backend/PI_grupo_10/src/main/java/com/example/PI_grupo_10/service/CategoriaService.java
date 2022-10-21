@@ -30,13 +30,13 @@ public class CategoriaService {
         Optional<Categoria> optionalCategoria= categoriaRepository.findById(id);
         if (optionalCategoria.isPresent()){
             categoria= optionalCategoria.get();
-            logger.info("Se encontró el odontólogo con el id: " + id);
+            logger.info("Se encontró la categoria con el id: " + id);
         }
         return categoria;
     }
 
     public List<Categoria> buscarTodos(){
-        logger.info("Se buscan todas las categorías");
+        logger.info("Se buscan todas las categorias");
         return categoriaRepository.findAll();
     }
 
@@ -46,12 +46,12 @@ public class CategoriaService {
             throw new ResourceNotFoundException("No existe una categoria con el ID: " +id);
         } else{
             categoriaRepository.deleteById(id);
-            logger.info("Se eliminó la categoria con el id: " + id);
+            logger.info("Se elimino la categoria con el id: " + id);
         }
     }
 
     public Categoria guardar(Categoria c){
-        logger.info("Se crea el odontólogo: " + c);
+        logger.info("Se crea la categoria: " + c);
         return categoriaRepository.save(c);
     }
 }

@@ -17,18 +17,20 @@ public class Categoria {
     public Categoria(){}
 
     //Constructor sin id
-    public Categoria(String title, String description, String url_image) {
+    public Categoria(String title, String description, String url_image, Integer amount) {
         this.title = title;
         this.description = description;
         this.url_image = url_image;
+        this.amount = amount;
     }
 
     //Constructor completo
-    public Categoria(Integer id, String title, String description, String url_image) {
+    public Categoria(Integer id, String title, String description, String url_image, Integer amount) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.url_image = url_image;
+        this.amount = amount;
     }
 
     //Getters & Setters
@@ -56,6 +58,14 @@ public class Categoria {
         this.url_image = url_image;
     }
 
+    public Integer getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Integer amount) {
+        this.amount = amount;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -72,6 +82,7 @@ public class Categoria {
                 ", titulo=" + title +
                 ", descripcion='" + description + '\'' +
                 ", url_imagen='" + url_image + '\''+
+                ", amount='" + amount + '\''+
                 '}';
     }
 }
