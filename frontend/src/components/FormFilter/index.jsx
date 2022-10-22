@@ -1,6 +1,6 @@
 import React from 'react';
 import "./FormFilter.css";
-// import DatalistInput from 'react-datalist-input';
+//import DatalistInput from 'react-datalist-input';
 //import 'react-datalist-input/dist/styles.css'; 
 
 function FormFilter(){
@@ -10,7 +10,7 @@ function FormFilter(){
     Busca ofertas en hoteles, casas y mucho más
     </h1>
     <div className='container_form'>
-    {/*  <DatalistInput
+    { /*<DatalistInput
     placeholder="Chocolate"
     onSelect={(item) => console.log(item.value)}
     items={[

@@ -1,25 +1,17 @@
-import { BrowserRouter } from "react-router-dom";
-import Footer from '../Footer';
-import FormFilter from "../FormFilter";
-import Header from '../Header';
+import { BrowserRouter, Routes, Route} from "react-router-dom";
 import './App.css';
-import categoriData from "../../mock/categories.json"
-import logdgingData from "../../mock/lodging.json"
-import Categories from "../Categories";
-import Recomend from "../Recomend";
+import Home from "../../pages/Home";
+import Register from "../../pages/Register";
+import LogIn from "../../pages/LogIn";
 
 function App() {
   return (
   <BrowserRouter>
-    <div className="App">
-     <Header/>
-     <FormFilter/>
-     <h2 className="title_categories">Buscar por tipo de alojamiento</h2>
-     <Categories data={categoriData} />
-     <h2 className="title_recomend">Recomendaciones</h2>
-     <Recomend dataLodging={logdgingData}/>
-     <Footer/>
-    </div>
+      <Routes>
+            <Route path='/' element={<Home/>} />
+            <Route path='/register' element={<Register/>} />
+            <Route path='/login' element={<LogIn/>} />
+        </Routes>
   </BrowserRouter>
   );
 }
