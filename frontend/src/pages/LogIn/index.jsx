@@ -9,14 +9,20 @@ function LogIn() {
     return (
       <div>
         <Header/>
-          <section className="container_login">
-              <h2>Iniciar Sesión</h2>
-              <label>Correo electrónico</label>
-              <input type="email"/>
-              <label>Constraseña</label>
-              <input type="password"/>
-              <button>Ingresar</button>
-              <p>¿Aún no tienes cuenta?</p><Link to="/register">Crear Cuenta</Link>
+          <section className="container-login">
+              <h2 className="title-login">Iniciar Sesión</h2>
+              <div className="row">
+                <label className="label-login">Correo electrónico</label>
+                <input type="email" className="input-login"/>
+                <label className="label-login">Constraseña</label>
+                <input type="password" className="input-login"/>
+              </div>
+              <button className="btn-login">Ingresar</button>
+              <div className="alternative-login">
+                <span className="span-login">¿Aún no tienes cuenta?</span><Link to="/register"><span className="link-register">Registrate</span></Link>
+              </div>
+             
+              
           </section>
         <Footer/>
       </div>

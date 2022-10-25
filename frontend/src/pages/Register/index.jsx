@@ -9,20 +9,43 @@ function Register() {
     return (
       <div>
         <Header/>
-          <section className="container_register">
-                <h2>Crear una cuenta</h2>
-                <label>Nombre</label>
-                <input type="text"/>
-                <label>Apellido</label>
-                <input type="text"/>
-                <label>Correo electrónico</label>
-                <input type="email"/>
-                <label>Contraseña</label>
-                <input type="password"/>
-                <label>Confirmar contraseña</label>
-                <input type="password"/>
-                <button>Crear una cuenta</button>
-                <p>¿Ya tienes cuenta?</p><Link to="/login">Iniciar Sesion</Link>
+          <section className="container-register">
+              <h2 className="title-register">Crear una cuenta</h2>
+              <div className="row-register-with-col">
+                  <div className="col-register">
+                    <div className="row-register-with-col">
+                      <label className="label-register">Nombre</label>
+                    </div>
+                    <div className="row-register-with-col">
+                      <input className="input-register" type="text"/>
+                    </div>
+                  </div>
+                  <div className="col-register">
+                    <div className="row-register-with-col">
+                      <label className="label-register">Apellido</label>
+                    </div>
+                    <div className="row-register-with-col">
+                    <input className="input-register" type="text"/>
+                    </div>
+                  </div>
+              </div>
+              <div className="row-register">
+                <label className="label-register">Correo electrónico</label>
+                <input className="input-register"type="email"/>
+              </div>
+              <div className="row-register">
+                <label className="label-register">Contraseña</label>
+                <input className="input-register"type="password"/>
+              </div>
+              <div className="row-register">
+                <label className="label-register">Confirmar contraseña</label>
+                <input className="input-register"type="password"/>
+              </div>
+              <button className="btn-register">Crear una cuenta</button>
+              <div className="alternative-register">
+                <span className="span-register">¿Ya tienes cuenta?</span>
+                <Link to="/login">Iniciar Sesión</Link>
+              </div>
           </section>
        <Footer/>
       </div>
