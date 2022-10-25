@@ -5,9 +5,12 @@ import "./LogIn.css"
 
 
 function LogIn() {
+const showLogout=true
+
+
     return (
       <div>
-        <Header/>
+        <Header showLogout={showLogout} />
         <h1>inicio de sesion</h1>
         <Footer/>
       </div>
@@ -15,4 +18,3 @@ function LogIn() {
   }
   
   export default LogIn;
-  

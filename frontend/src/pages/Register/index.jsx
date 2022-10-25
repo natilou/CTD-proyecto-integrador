@@ -5,9 +5,10 @@ import Header from "../../components/Header";
 
 
 function Register() {
+  const showlogin = true 
     return (
       <div>
-        <Header/>
+        <Header showLogin={showlogin}/>
         <h1>Register</h1>
        <Footer/>
       </div>

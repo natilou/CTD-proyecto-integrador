@@ -10,9 +10,11 @@ import Footer from "../../components/Footer";
 
 
 function Home() {
+  const showlogin = true ;
+  const showLogout = true;
     return (
       <div className="App">
-       <Header/>
+       <Header showLogin={showlogin} showLogout={showLogout} />
        <FormFilter/>
        <h2 className="title_categories">Buscar por tipo de alojamiento</h2>
        <Categories data={categoriData} />
