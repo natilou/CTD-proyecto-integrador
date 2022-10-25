@@ -10,7 +10,7 @@ import line from "../../assets/svgs/line.svg";
 function Menu({close}) {
 
 return (
-    <div className="menu_container">
+    <div id="menu_container">
         <section className="close_button_container">
             <button className="close_button" onClick={() => close()}> 
                 <p className="close_text">x</p>
