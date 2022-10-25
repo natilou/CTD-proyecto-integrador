@@ -46,6 +46,31 @@ color:var(--main-color);
 border-radius: 5px;
 }
 
+.menu_icon_container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 100%;
+    position: fixed;
+}
+
+.icon {
+    width: 15px;
+    height: 15px;
+}
+.menu_icon_sub_container{
+    border-width: 0px;
+    height: 70px;
+    width: 70px;
+    align-self: center;
+    background-color: white;
+}
+
+.menu_icon {
+    height: 40px;
+    width: 40px;
+}
+
 @media (min-width: 761px) {
     .header_buttons {
        display: flex;
@@ -53,11 +78,8 @@ border-radius: 5px;
         align-items: center;
         padding-right:21px;
         padding-top: 10px;
-        /*  width: 40vw; */
     }
-    .btn_header{
-        margin-right: 15px;
-    }
+
     .header_logo {
         width: 71px;
         height: 52px;
