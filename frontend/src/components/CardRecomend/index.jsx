@@ -7,9 +7,9 @@ function CardRecomend({dataLodging}) {
     //, score, label_score,
       //    description,city,distance
     return (
-        <article >
-            <figure >
-                <img src={url_image} alt={name} />
+        <article className="card_recomend">
+            <figure className="container_image_recomend" >
+                <img className="image_recomend" src={url_image} alt={name} />
             </figure>
             <h3 >{name}</h3>
             <p>{category} hoteles</p>

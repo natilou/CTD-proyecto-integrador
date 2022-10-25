@@ -4,7 +4,7 @@ import "./Recomend.css";
 
 function Recomend({ dataLodging }) {
     return (
-        <section>
+        <section className="container_cards_recomend">
             {
                 dataLodging.map((item, index) => (
                     <CardRecomend dataLodging={item} key={index}
