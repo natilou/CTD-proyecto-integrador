@@ -1,4 +1,4 @@
-.card_recomend{
+.card_recommendation{
     background-color: white;
     margin: 12px;
     border: 1px solid #5a5a5a;
@@ -7,7 +7,7 @@
     color: var(--dark-blue-color);
  
 }
-.image_recomend{
+.image_recommendation{
     display: block;
     width: 100%;
     border-radius: 5px 5px 0% 0%;

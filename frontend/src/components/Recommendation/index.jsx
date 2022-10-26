@@ -1,13 +1,13 @@
 import React from "react";
-import CardRecomend from "../CardRecomend";
-import "./Recomend.css";
+import CardRecommendation from "../CardRecommendation";
+import "./Recommendation.css";
 
-function Recomend({ dataLodging }) {
+function Recommendation({ dataLodging }) {
     return (
         <section className="container_cards_recomend">
             {
                 dataLodging.map((item, index) => (
-                    <CardRecomend dataLodging={item} key={index}
+                    <CardRecommendation dataLodging={item} key={index}
                     />
                 ))
             }
@@ -16,4 +16,4 @@ function Recomend({ dataLodging }) {
     );
 }
 
-export default Recomend;
+export default Recommendation;

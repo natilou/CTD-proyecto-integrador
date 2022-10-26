@@ -1,15 +1,15 @@
 import React from "react";
-import "./CardRecomend.css";
+import ".//CardRecommendation.css";
 
-function CardRecomend({dataLodging}) {
+function CardRecommendation({dataLodging}) {
     console.log(dataLodging)
    const { name, category,url_image} = dataLodging
     //, score, label_score,
       //    description,city,distance
     return (
-        <article className="card_recomend">
-            <figure className="container_image_recomend" >
-                <img className="image_recomend" src={url_image} alt={name} />
+        <article className="card_recommendation">
+            <figure >
+                <img className="image_recommendation" src={url_image} alt={name} />
             </figure>
             <h3 >{name}</h3>
             <p>{category} hoteles</p>
@@ -17,4 +17,4 @@ function CardRecomend({dataLodging}) {
     );
 }
 
-export default CardRecomend;
+export default CardRecommendation;
