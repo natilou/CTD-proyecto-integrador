@@ -1,5 +1,5 @@
 import React from "react";
-import "./CardRecomend.css";
+import "./CardRecommendation.css";
 import iconStart from "../../assets/images/icons/iconStar.png";
 import "./CardRecommendation.css";
 

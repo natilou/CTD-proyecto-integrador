@@ -1,8 +1,4 @@
-<<<<<<< HEAD:frontend/src/components/CardRecomend/CardRecomend.css
-.card_recommend{
-=======
 .card_recommendation{
->>>>>>> adjust-menu-styles:frontend/src/components/CardRecommendation/CardRecommendation.css
     background-color: white;
     margin: 12px;
     border: 1px solid #5a5a5a;
@@ -12,11 +8,7 @@
     width: 393px;
  
 }
-<<<<<<< HEAD:frontend/src/components/CardRecomend/CardRecomend.css
-.image_recommend{
-=======
 .image_recommendation{
->>>>>>> adjust-menu-styles:frontend/src/components/CardRecommendation/CardRecommendation.css
     display: block;
     width: 100%;
     border-radius: 5px 5px 0% 0%;
