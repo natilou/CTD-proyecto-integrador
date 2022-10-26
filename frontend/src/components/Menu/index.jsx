@@ -7,7 +7,7 @@ import linkedinIcon from "../../assets/svgs/linkedinIcon.svg";
 import twitterIcon from "../../assets/svgs/twitterIcon.svg";
 import line from "../../assets/svgs/line.svg";
 
-function Menu({ close, showLogin, showLogout }) {
+function Menu({ close, showLogin, showLogout, showLine }) {
     return (
         <div id="menu_container">
             <section className="close_button_container">
@@ -22,10 +22,13 @@ function Menu({ close, showLogin, showLogout }) {
                 {
                     showLogout && (
                         <Link to="/register" className="button">Crear cuenta</Link>
-
                     )
                 }
-                <img src={line} alt="line" className="line" />
+                {
+                    showLine && (
+                        <img src={line} alt="line" className="line" />
+                    )
+                }
 
                 {
                     showLogin && (

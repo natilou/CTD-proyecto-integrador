@@ -6,7 +6,7 @@ import { useMediaQuery } from 'react-responsive';
 import menuIcon from '../../assets/svgs/menuIcon.svg';
 import Menu from '../Menu'
 
-function Header({showLogout,showLogin}) {
+function Header({showLogout,showLogin, showLine}) {
     const [showMenu, setShowMenu] = useState(false);
     const isMobile = useMediaQuery({ query: '(max-width: 761px)' });
 
@@ -41,18 +41,17 @@ function Header({showLogout,showLogin}) {
 
                     {
                         showLogin &&(
-                             <Link to="/login"><button className="btn_header">Iniciar Sesion</button></Link>
+                            <Link to="/login"><button className="btn_header">Iniciar Sesion</button></Link>
                         )
                         
                     }
-                     
                     
                 </div>
             )
         }
         {
             showMenu ? (
-                <Menu close={toggleShowMenu} showLogin={showLogin} showLogout={showLogout}/>
+                <Menu close={toggleShowMenu} showLogin={showLogin} showLogout={showLogout} showLine={showLine} />
             ) : (
                 undefined
             )
