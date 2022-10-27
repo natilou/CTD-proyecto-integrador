@@ -1,24 +1,28 @@
 import React from "react";
 import "./Home.css"
-import categoriData from "../../mock/categories.json"
-import logdgingData from "../../mock/lodging.json"
+import categoryData from "../../mock/categories.json"
+import lodgingData from "../../mock/lodging.json"
 import Header from "../../components/Header";
 import FormFilter from "../../components/FormFilter";
 import Categories from "../../components/Categories";
-import Recomend from "../../components/Recomend";
+import Recommendation from "../../components/Recommendation";
 import Footer from "../../components/Footer";
 
 
 function Home() {
+  const showLogin = true ;
+  const showLogout = true;
+  const showLine = true;
+
     return (
-      <div className="App">
-       <Header/>
-       <FormFilter/>
-       <h2 className="title_categories">Buscar por tipo de alojamiento</h2>
-       <Categories data={categoriData} />
-       <h2 className="title_recomend">Recomendaciones</h2>
-       <Recomend dataLodging={logdgingData}/>
-       <Footer/>
+      <div>
+        <Header showLogin={showLogin} showLogout={showLogout} showLine={showLine}/>
+        <FormFilter/>
+        <h2 className="title_categories">Buscar por tipo de alojamiento</h2>
+        <Categories data={categoryData} />
+        <h2 className="main_title_recommedation">Recomendaciones</h2>
+        <Recommendation dataLodging={lodgingData}/>
+        <Footer/>
       </div>
     );
   }

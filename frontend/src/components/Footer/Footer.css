@@ -30,10 +30,10 @@ ul {
         flex-direction: row-reverse;
         position: relative;
         bottom: 1rem;
-        padding-right: 1rem;
+        padding-right: 49px;
         
     }
     .a_footer_icon{
-        padding-right: 3.5rem;
+        padding-right: 30px;
     }
 }

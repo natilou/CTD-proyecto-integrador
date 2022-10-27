@@ -4,11 +4,11 @@
         "category": "Hotels",
         "score": "9.3",
         "label_score": "Very good",
-        "desciption": "Located in Buenos Aires, a 10-minute walk from The Obelisk of Buenos Aires, Huinid Obelisco Hotel provides accommodations with a fitness center, private parking and a bar. Featuring family rooms, this property also provides guests with a sun terrace. The property has a 24-hour front desk, a shuttle service, a business center and free WiFi throughout the property.The hotel will provide guests with air-conditioned rooms with a desk, a safety deposit box, a flat-screen TV and a private bathroom with a bidet. All guest rooms feature a closet.",
+        "description": "Located in Buenos Aires, a 10-minute walk from The Obelisk of Buenos Aires, Huinid Obelisco Hotel provides accommodations with a fitness center, private parking and a bar. Featuring family rooms, this property also provides guests with a sun terrace. The property has a 24-hour front desk, a shuttle service, a business center and free WiFi throughout the property.The hotel will provide guests with air-conditioned rooms with a desk, a safety deposit box, a flat-screen TV and a private bathroom with a bidet. All guest rooms feature a closet.",
         "url_location": "https://www.google.com/maps/place/Huinid+Obelisco+Hotel/@-34.6052281,-58.389083,17z/data=!3m1!4b1!4m8!3m7!1s0x95bccacf3fd8bd0d:0x82dce18d925298a2!5m2!4m1!1i2!8m2!3d-34.6052213!4d-58.3868949",
         "distance": "100",
         "city": "Buenos Aires",
-        "url_image":"https://res.cloudinary.com/dbdrkxooj/image/upload/v1666377109/DH-PI/inner-space-1026452_640_2_ozvna9.png"
+        "url_image":"https://res.cloudinary.com/dbdrkxooj/image/upload/v1666303628/DH-PI/inner-space-1026452_640_2_qejya3.png"
     }, 
     {
         "name": "Diplomatic",
@@ -37,7 +37,7 @@
         "category": "Hotels",
         "score": "10",
         "label_score": "Fantastic",
-        "description": "",
+        "description": "You're eligible for a Genius discount at Art Factory San Telmo! To save at this property, all you have to do is sign in. Hand-painted graffiti style murals and tango lessons can be enjoyed at Art Factory San Telmo. The hostel has artistic designer style décor and rooms with free Wi-Fi. There is a bar with homemade dishes and live music.Art Factory San Telmo is only 200 m from the subway station and 500 m from the historic Plaza de Mayo square. The tour desk can offer tips for getting around the area and there are free daily walking tours through the historic district and Recoleta neighborhood. Bike rental is available.Rooms at Art Factory San Telmo have work desks, fans, and either private or shared bathrooms with showers. Each room features unique design.",
         "url_location": "https://www.google.com/maps/place/Hotel+Ibis+Bogota+Museo/@4.6438184,-74.1253604,13z/data=!4m9!1m2!2m1!1shotel+bogota!3m5!1s0x8e3f999b063aebf7:0x8eea34fd1d01fdf8!5m2!4m1!1i2!15sCgxob3RlbCBib2dvdGGSAQVob3RlbOABAA",
         "distance": "500", 
         "city": "Cordoba",
