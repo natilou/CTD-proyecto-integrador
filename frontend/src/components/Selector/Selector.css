@@ -1,0 +1,92 @@
+@import "../../commons/_styles.css";
+
+.location {
+    background-color: white;
+    border-radius: 0.5rem;
+    display: flex;
+    height: 50px;
+    width: 80%;
+}
+
+.preselected-option {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 100%;
+}
+.select{
+    height: 60px;
+}
+.selected {
+    color: var(--dark-color);
+}
+
+.icon-preselected {
+    margin-left: 5px;
+    margin-right: 5px;
+    width: 15px;
+    height: 15px;
+}
+
+li.select {
+    border-radius: 5px;
+    font-size: 1rem;
+    background-color: white;
+
+}
+
+.list-container {
+    position: relative;
+    margin: 0;
+    width: 425px;
+}
+
+.list-content {
+    display: flex;
+    align-content: center;
+    border: none;
+}
+
+.divider {
+    border-top: 0.1rem solid var(--main-color);
+}
+
+.location-select {
+    border-radius: 0.5rem;
+    border: none;
+}
+
+.city-name {
+    color: var(--dark-color);
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.icon {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.text-container {
+    display: flex;
+    align-items: center;
+}
+
+.country {
+    color: gray;
+    font-size: 1rem;
+}
+
+
+@media (min-width: 761px) {
+.city-name {
+    font-size: 0.8rem;
+}
+}
+
+
+@media (min-width: 320px) {
+.city-name {
+    font-size: 0.8rem;
+}
+}
