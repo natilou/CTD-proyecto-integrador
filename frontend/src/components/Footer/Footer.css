@@ -1,0 +1,39 @@
+@import "../../commons/_styles.css";
+.footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 58px;
+        background-color:var(--main-color);
+        color: white;
+        text-align: center;
+}
+.footer_text {
+    padding: auto;
+    padding-left: 1rem;
+    padding-top: 1rem;
+    text-align: start;
+    font-size: 14px;
+}
+.footer_icons{
+    display: none;
+}
+ul {
+    list-style: none;
+}
+
+@media (min-width: 761px) {
+    .footer_icons{
+        display: block;
+        display: flex;
+        flex-direction: row-reverse;
+        position: relative;
+        bottom: 1rem;
+        padding-right: 1rem;
+        
+    }
+    .a_footer_icon{
+        padding-right: 3.5rem;
+    }
+}

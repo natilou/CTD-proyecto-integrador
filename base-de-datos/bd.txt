@@ -1,12 +1,11 @@
-
-# Creacion de la base de datos
-CREATE SCHEMA `db_prod`;
-
-# Creacion de la tabla categorias
-CREATE TABLE `db_prod`.`categorias` (
-  `id` INT NOT NULL,
-  `titulo` VARCHAR(45) NULL,
-  `descripcion` VARCHAR(45) NULL,
-  `url_imagen` VARCHAR(45) NULL,
+CREATE TABLE `db_prod`.`categories` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `title` VARCHAR(45) NOT NULL,
+  `description` VARCHAR(100) NOT NULL,
+  `amount` VARCHAR(45) NULL,
+  `url_imagen` VARCHAR(200) NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE);
+
+ALTER TABLE `db_prod`.`categories` 
+CHANGE COLUMN `url_imagen` `url_image` VARCHAR(200) NULL DEFAULT NULL ;
