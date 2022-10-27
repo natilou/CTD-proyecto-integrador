@@ -10,8 +10,8 @@ import Swal from 'sweetalert2';
 function LogIn() {
 
   const showLogout = true;
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [displayEmailError, setDisplayEmailError] = useState("none");
   const [displayPasswordError, setDisplayPasswordError] = useState("none");
   let navigate = useNavigate();
@@ -34,7 +34,7 @@ function LogIn() {
     if(email === ""  || password === ""){
       Swal.fire({
         icon: 'error',
-        text: 'El usuario ya se encuentra registrado',
+        text: 'Todos los campos son obligatorios',
       })
     } else if(validateEmailRegistered(email) && validatePasswordRegistered(password)){
       return navigate("/")
