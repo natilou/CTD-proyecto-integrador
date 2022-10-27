@@ -1,0 +1,64 @@
+
+@import "../../commons/_styles.css";
+
+.form_search{
+    width: 100%;
+    background-color: var(--dark-color);
+    padding: auto;
+    padding-top: 1rem;
+    margin-top: 4.5rem;
+}
+.form_title{
+    color:white;
+    padding:50px auto;
+    margin: 1rem 1rem;
+    font-size: var(--font-size-main);
+    text-align: center;
+}
+.container_form{
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    height: 80px;
+    width: 100%;
+    background-color: red;
+}
+.sub-container{
+    display: flex;
+    align-items: center;
+    width: 25%;
+}
+
+.btn_filter{
+    background-color: var(--main-color);
+    border: none;
+    color:white;
+    border-radius: 6px;
+    height: 50px;
+    width: 200px;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+
+@media (max-width: 419px) {
+    .container_form{
+        display:flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        height: 200px;
+        width: 100%;
+        background-color: red;
+    }
+
+    .sub-container{
+        display: flex;
+        align-items: center;
+        width: 100%;
+        justify-content: center;
+    }
+}
+
