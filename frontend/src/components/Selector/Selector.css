@@ -29,9 +29,9 @@
 }
 
 li.select {
-    border-radius: 5px;
     font-size: 1rem;
     background-color: white;
+    height: 60px;
 
 }
 
@@ -43,12 +43,15 @@ li.select {
 
 .list-content {
     display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-content: center;
     border: none;
 }
 
 .divider {
     border-top: 0.1rem solid var(--main-color);
+    width: 100%;
 }
 
 .location-select {
@@ -58,7 +61,7 @@ li.select {
 
 .city-name {
     color: var(--dark-color);
-    font-size: 1rem;
+    font-size: 1.2rem;
     font-weight: bold;
 }
 
@@ -70,6 +73,7 @@ li.select {
 .text-container {
     display: flex;
     align-items: center;
+    width: 100%;
 }
 
 .country {
@@ -78,15 +82,39 @@ li.select {
 }
 
 
-@media (min-width: 761px) {
+@media (max-width: 761px) {
 .city-name {
     font-size: 0.8rem;
+}
+.list-container {
+    position: absolute;
+    margin: 0;
+    width: 200px;
+    z-index: 3;
 }
 }
 
 
-@media (min-width: 320px) {
+@media (max-width: 320px) {
 .city-name {
     font-size: 0.8rem;
 }
+.list-container {
+    position: absolute;
+    margin: 0;
+    width: 250px;
+    z-index: 3;
 }
+}
+
+@media (max-width: 1024px) {
+    .city-name {
+        font-size: 0.8rem;
+    }
+    .list-container {
+        position: absolute;
+        margin: 0;
+        width: 300px;
+        z-index: 3;
+    }
+    }
