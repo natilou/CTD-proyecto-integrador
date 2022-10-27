@@ -2,3 +2,8 @@
     padding-left: var(--font-size-bigger);
     color:var(--dark-blue-color)
 }
+.title_recomend{
+    background-color: var(--dark-color);
+    color: white;
+    padding-left: 1rem;
+}

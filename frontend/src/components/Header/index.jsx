@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import "./Header.css";
 import logo1N from "../../assets/images/logo1N.png";
+import { Link } from "react-router-dom";
 import { useMediaQuery } from 'react-responsive';
 import menuIcon from '../../assets/svgs/menuIcon.svg';
 import Menu from '../Menu'
 
-function Header() {
+function Header({showLogout,showLogin, showLine}) {
     const [showMenu, setShowMenu] = useState(false);
     const isMobile = useMediaQuery({ query: '(max-width: 761px)' });
-
 
     function toggleShowMenu() {
         setShowMenu(!showMenu);
@@ -17,13 +17,14 @@ function Header() {
     return (
         <header className="header">
             <div className="container_logo">
-                <div className="header_logo" to="/">
+                <Link to="/" className="header_logo">
                     <img src={logo1N} alt="Logo" className="_logo" />
-                </div>
+                </Link>
                 <div to="/">
                     <i className="header_slogan">Sentite como en tu hogar</i>
                 </div>
             </div>
+            
         {
             isMobile ? (
                 <button className="menu_icon_sub_container" onClick={toggleShowMenu}>
@@ -31,14 +32,26 @@ function Header() {
                 </button>
             ) : (
                 <div className="header_buttons">
-                    <button className="btn_header">Crear Cuenta</button>
-                    <button className="btn_header">Inciar Sesion</button>
+                    {
+                        showLogout &&(
+                            <Link to="/register"><button className="btn_header">Crear Cuenta</button></Link>
+                            
+                        )
+                    }
+
+                    {
+                        showLogin &&(
+                            <Link to="/login"><button className="btn_header">Iniciar Sesion</button></Link>
+                        )
+                        
+                    }
+                    
                 </div>
             )
         }
         {
             showMenu ? (
-                <Menu close={toggleShowMenu}/>
+                <Menu close={toggleShowMenu} showLogin={showLogin} showLogout={showLogout} showLine={showLine} />
             ) : (
                 undefined
             )

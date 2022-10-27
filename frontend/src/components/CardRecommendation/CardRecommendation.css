@@ -1,0 +1,23 @@
+.card_recommendation{
+    background-color: white;
+    margin: 12px;
+    border: 1px solid #5a5a5a;
+    box-shadow: 0px 4px 4px rgba(75, 63, 63, 0.25);
+    border-radius: 0% 0% 5px 5px;
+    color: var(--dark-blue-color);
+    width: 393px;
+ 
+}
+.image_recommendation{
+    display: block;
+    width: 100%;
+    border-radius: 5px 5px 0% 0%;
+}
+.icon_star{
+    color:black;
+}
+.container_section_score{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
