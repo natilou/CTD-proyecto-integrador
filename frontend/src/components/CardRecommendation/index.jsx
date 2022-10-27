@@ -1,54 +1,68 @@
 import React from "react";
 import "./CardRecommendation.css";
-import iconStart from "../../assets/images/icons/iconStar.png";
+import iconStar from "../../assets/images/icons/iconStar1.png";
+import iconGps from "../../assets/images/Vector.png";
+import iconwifi from "../../assets/images/icons/iconwifi.png";
+import iconnado from "../../assets/images/icons/nado.png";
+
 import "./CardRecommendation.css";
 
-function CardRecommendation({dataLodging}) {
+function CardRecommendation({ dataLodging }) {
     console.log(dataLodging)
-    const { name, category, url_image } = dataLodging
+    const { name, category, url_image, description } = dataLodging
     //, score, label_score,
-    //    description,city,distance
+    //    ,city,distance
     return (
         <article className="card_recommendation">
-            <figure >
+            <figure className="recommendation_figure" >
                 <img className="image_recommendation" src={url_image} alt={name} />
             </figure>
-            <div className="container_section_score">
-                <div>
-                    <section className="container_title_star">
-                        <p>{category}</p>
-                        <ul className="icons_list">
-                            <li>
-                                <img src="https://res.cloudinary.com/dbdrkxooj/image/upload/v1666741925/DH-PI/Star_3_rd9iyd.png" alt="star" className="icon_star" />
-                            </li>
-                            <li>
-                                <img src={iconStart} alt="star" className="icon_star" />
-                            </li>
-                            <li>
-                                <img src={iconStart} alt="star" className="icon_star" />
-                            </li>
-                            <li>
-                                <img src={iconStart} alt="star" className="icon_star" />
-                            </li>
-                            <li>
-                                <img src={iconStart} alt="start" className="icon_start" />
-                            </li>
-                        </ul>
-                    </section>
-                    <h3 >{name}</h3>
+            <div className="constainer_description">
+                <div className="container_section_score">
+                    <div>
+                        <div className="container_title_star">
+                            <p>{category}</p>
+                            <ul className="list_star">
+                                <li>
+                                    <img src={iconStar} alt="star" className="icon_star" />
+                                </li>
+                                <li>
+                                    <img src={iconStar} alt="star" className="icon_star" />
+                                </li>
+                                <li>
+                                    <img src={iconStar} alt="star" className="icon_star" />
+                                </li>
+                                <li>
+                                    <img src={iconStar} alt="star" className="icon_star" />
+                                </li>
+                                <li>
+                                    <img src={iconStar} alt="start" className="icon_star" />
+                                </li>
+                            </ul>
+                        </div>
+                        <h3 className="title_lodging">{name}</h3>
+                    </div>
+                    <div>
+                        <div className="container_number"><p className="number">8</p></div>
+                        <p className="state_score">Muy bueno</p>
+                    </div>
                 </div>
                 <div>
-                    <div><p>8</p></div>
-                    <p>muy bueno</p>
+                    <div className="location_lodging">
+                        <img className="icongps" src={iconGps} alt="icon gps" />
+                        <p className="m_location"> A 920 m del centro - </p>
+                        <p className="link_gps">MOSTRAR EN EL MAPA</p>
+                    </div>
+                    <div className="container_logding_icons">
+                        <img src={iconwifi} alt="star" />
+                        <img src={iconnado} alt="star" />
+                    </div>
+
+                    <p className="description_lodging">{description}</p>
+
                 </div>
+                <button className="btn_lodging">Button</button>
             </div>
-            <section>
-                <img src={iconStart} alt="star" className="icon_star" />
-                <p>metros</p>
-                <p>monstrar en el mapa</p>
-            </section>
-            <p> </p>
-            <botton></botton>           
         </article>
     );
 }

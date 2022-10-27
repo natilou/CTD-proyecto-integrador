@@ -20,7 +20,7 @@ function Home() {
         <FormFilter/>
         <h2 className="title_categories">Buscar por tipo de alojamiento</h2>
         <Categories data={categoryData} />
-        <h2>Recomendaciones</h2>
+        <h2 className="main_title_recommedation">Recomendaciones</h2>
         <Recommendation dataLodging={lodgingData}/>
         <Footer/>
       </div>
