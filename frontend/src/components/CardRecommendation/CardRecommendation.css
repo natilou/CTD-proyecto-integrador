@@ -127,6 +127,11 @@ img {
     position: relative;
     bottom: -10px;
 }
+
+.btn_lodging:hover{
+    cursor: pointer;
+}
+
 .container_logding_icons{
     padding-left: 15px;
 }

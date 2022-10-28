@@ -72,6 +72,10 @@ margin-right: 12px;
     width: 40px;
 }
 
+.menu_icon:hover{
+    cursor: pointer;
+}
+
 @media (min-width: 761px) {
     .header_buttons {
        display: flex;
