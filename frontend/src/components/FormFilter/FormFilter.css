@@ -42,6 +42,9 @@
     font-size: 1.5rem;
 }
 
+.btn_filter:hover{
+    cursor: pointer;
+}
 
 @media (max-width: 419px) {
     .container_form{
