@@ -34,13 +34,18 @@ function Register() {
 
   function handleOnChangeEmail(e){
     let email = e.target.value;
-    validateEmail(email) ? setEmail(email) : setDisplayEmailError("block");
+    validateEmail(email) ? setEmail(email) && setDisplayEmailError("none") : setDisplayEmailError("block");
+    if(email === ""){
+      setDisplayEmailError("none")
+    }
   }
 
   function handleOnChangePassword(e){
     let password = e.target.value;
     if(validatePasswordLength(password)){
       setPassword(password)
+    } else if(password === ""){
+      setDisplayPasswordError("none")
     } else {
       setDisplayPasswordError("block")
     }
@@ -49,6 +54,9 @@ function Register() {
   function handleOnChangePasswordConfirmed(e){
     let passwordConfirmed = e.target.value;
     password !== passwordConfirmed ? setPasswordConfirmedError("block") : setConfirmedPassword(password)
+    if(passwordConfirmed === "" &&  password === ""){
+      setPasswordConfirmedError("none")
+    }
   }
 
   function handleSubmit(){
@@ -100,17 +108,17 @@ function Register() {
             <div className="row-register">
               <label className="label-register">Correo electrónico</label>
               <input className="input-register" type="email" required onChange={handleOnChangeEmail}/>
-              <p style={{display:displayEmailError}}>Correo electrónico inválido</p>
+              <p style={{display:displayEmailError, color:"red"}}>Correo electrónico inválido</p>
             </div>
             <div className="row-register">
               <label className="label-register">Contraseña</label>
               <input className="input-register" type="password" required onChange={handleOnChangePassword}/>
-              <p style={{display:displayPasswordError}}>La contraseña debe tener más de 6 caracteres</p>
+              <p style={{display:displayPasswordError, color:"red"}}>La contraseña debe tener más de 6 caracteres</p>
             </div>
             <div className="row-register">
               <label className="label-register">Confirmar contraseña</label>
               <input className="input-register" type="password" required onChange={handleOnChangePasswordConfirmed}/>
-              <p style={{display:passwordConfirmedError}}>Las contraseñas no coinciden</p>
+              <p style={{display:passwordConfirmedError, color:"red"}}>Las contraseñas no coinciden</p>
             </div>
             <button className="btn-register" onClick={handleSubmit}>Crear una cuenta</button>
             <div className="alternative-register">

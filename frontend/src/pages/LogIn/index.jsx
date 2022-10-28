@@ -19,13 +19,20 @@ function LogIn() {
   function handleOnChangeEmail(e){
     let email = e.target.value;
     validateEmail(email) ? setEmail(email) : setDisplayEmailError("block");
+    if(email === ""){
+      setDisplayEmailError("none")
+    }
   }
 
   function handleOnChangePassword(e){
     let password = e.target.value;
     if(validatePasswordLength(password)){
       setPassword(password)
-    } else {
+    } 
+    else if(password === ""){
+      setDisplayPasswordError("none")
+    } 
+    else {
       setDisplayPasswordError("block")
     }
   }
@@ -54,10 +61,10 @@ function LogIn() {
             <div className="row">
               <label className="label-login">Correo electrónico</label>
               <input type="email" className="input-login" onChange={handleOnChangeEmail}/>
-              <p style={{display:displayEmailError}}>Correo electrónico inválido</p>
+              <p style={{display:displayEmailError, color:"red"}}>Correo electrónico inválido</p>
               <label className="label-login">Contraseña</label>
               <input type="password" className="input-login" onChange={handleOnChangePassword}/>
-              <p style={{display:displayPasswordError}}>La contraseña debe tener más de 6 caracteres</p>
+              <p style={{display:displayPasswordError, color:"red"}}>La contraseña debe tener más de 6 caracteres</p>
             </div>
             <button className="btn-login" onClick={handleSubmit}>Ingresar</button>
             <div className="alternative-login">
