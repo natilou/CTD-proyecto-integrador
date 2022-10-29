@@ -5,10 +5,12 @@ import { Link } from "react-router-dom";
 import { useMediaQuery } from 'react-responsive';
 import menuIcon from '../../assets/svgs/menuIcon.svg';
 import Menu from '../Menu'
+import AvatarView from '../AvatarView'
 
 function Header({showLogout,showLogin, showLine}) {
     const [showMenu, setShowMenu] = useState(false);
     const isMobile = useMediaQuery({ query: '(max-width: 761px)' });
+    const user = JSON.parse(localStorage.getItem("user"));
 
     function toggleShowMenu() {
         setShowMenu(!showMenu);
@@ -33,25 +35,32 @@ function Header({showLogout,showLogin, showLine}) {
             ) : (
                 <div className="header_buttons">
                     {
-                        showLogout &&(
-                            <Link to="/register"><button className="btn_header">Crear Cuenta</button></Link>
-                            
-                        )
-                    }
+                    user ? (
+                    <AvatarView userName={user.username}/>
+                    ) : (
+                        <>
+                            {
+                                showLogout &&(
+                                    <Link to="/register"><button className="btn_header">Crear Cuenta</button></Link>
+                                    
+                                )
+                            }
 
-                    {
-                        showLogin &&(
-                            <Link to="/login"><button className="btn_header">Iniciar Sesion</button></Link>
+                            {
+                                showLogin &&(
+                                    <Link to="/login"><button className="btn_header">Iniciar Sesion</button></Link>
+                                )
+                            
+                            }
+                        </>
                         )
-                        
                     }
-                    
                 </div>
             )
         }
         {
             showMenu ? (
-                <Menu close={toggleShowMenu} showLogin={showLogin} showLogout={showLogout} showLine={showLine} />
+                <Menu close={toggleShowMenu} showLogin={showLogin} showLogout={showLogout} showLine={showLine} user={user}/>
             ) : (
                 undefined
             )

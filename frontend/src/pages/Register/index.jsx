@@ -56,7 +56,7 @@ function Register() {
       usersRegistered.push(
         {
           email: email,
-          username: `${name}-${lastName}`,
+          username: email.split("@")[0],
           password: confirmedPassword
         }
       )
