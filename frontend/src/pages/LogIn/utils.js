@@ -9,10 +9,16 @@ export function validatePasswordLength(password){
     return password.length > passwordValidLength;
 }
 
-export function validatePasswordRegistered(password){
-   return usersRegistered.find(user => user.password === password)
+export function validateEmailAndPassword(email, password){
+   let user = usersRegistered.find(user => user.email === email && user.password === password)
+   return  user ? true : false
 }
 
-export function validateEmailRegistered(email){
-    return usersRegistered.find(user => user.email === email)
+export function getUser(email){
+    let user = usersRegistered.find(user => user.email === email)
+    return user
+}
+
+export function validatePasswordConfirmation(password, passwordConfirmed){
+    return password === passwordConfirmed
 }
