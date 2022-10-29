@@ -4,7 +4,7 @@ import "./AvatarView.css";
 import Swal from 'sweetalert2';
 
 function AvatarView({userName}){
-  const letterToShowInDefaultPicture = userName?.charAt(0);
+  const letterToShowInDefaultPicture = userName?.charAt(0).toUpperCase();
   const isMobile = useMediaQuery({ query: '(max-width: 761px)' });
   
 

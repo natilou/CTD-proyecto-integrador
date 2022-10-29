@@ -52,23 +52,6 @@ function Register() {
         text: 'Todos los campos son obligatorios',
       })
     }
-    else if(!validateEmailAndPassword(email) && validatePasswordConfirmation(password, confirmedPassword) && validatePasswordLength(password)){
-      usersRegistered.push(
-        {
-          email: email,
-          username: email.split("@")[0],
-          password: confirmedPassword
-        }
-      )
-      Swal.fire({
-        icon: 'success',
-        text: 'Usuario registrado con éxito',
-      })
-      setTimeout(()=>{
-        return navigate("/login")
-      },2300)
-
-    } 
     else if(validateEmailAndPassword(email)){
       Swal.fire({
         icon: 'error',
@@ -92,6 +75,22 @@ function Register() {
         icon: 'error',
         text: 'La contraseña debe tener más de 6 caracteres',
       })
+    }
+    else {
+        usersRegistered.push(
+          {
+            email: email,
+            username: email.split("@")[0],
+            password: confirmedPassword
+          }
+        )
+        Swal.fire({
+          icon: 'success',
+          text: 'Usuario registrado con éxito',
+        })
+        setTimeout(()=>{
+          return navigate("/login")
+        },2300)
     }
   }
 
