@@ -5,6 +5,11 @@ export let usersRegistered = [
     {
         email: "viajero@mail.com",
         username: "viajero",
-        password: "viajero1234"
+        password: "1234567"
+    },
+    {
+        email: "grupo10@mail.com",
+        username: "grupo10",
+        password: "1234567"
     },
 ]

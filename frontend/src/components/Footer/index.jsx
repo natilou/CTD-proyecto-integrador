@@ -6,12 +6,11 @@ import linkedin from "../../assets/images/icons/iconlinkedin.png"
 import tweet from "../../assets/images/icons/tweet.png"
 
 
-
 function Footer() {
     return (
         <footer className="footer">
             <p className="footer_text">
-                ©2021 - DigitalBooking
+                ©2022 - DigitalBooking
             </p>
             <ul className="footer_icons">
                 <li><a 

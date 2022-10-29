@@ -4,7 +4,7 @@ import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { validateEmail, validatePasswordLength, validateEmailRegistered } from '../LogIn/utils'
+import { validateEmail, validatePasswordLength, validateEmailAndPassword, validatePasswordConfirmation } from '../LogIn/utils'
 import { usersRegistered } from "../LogIn/constants";
 import Swal from 'sweetalert2';
 
@@ -13,75 +13,88 @@ import Swal from 'sweetalert2';
 function Register() {
 
   const showlogin = true; 
+  const [name, setName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmedPassword, setConfirmedPassword] = useState("")
-  const [displayEmailError, setDisplayEmailError] = useState("none");
-  const [displayPasswordError, setDisplayPasswordError] = useState("none");
-  const [passwordConfirmedError, setPasswordConfirmedError] = useState("none");
-  const [nombre, setNombre] = useState("");
-  const [apellido, setApellido] = useState("");
   let navigate = useNavigate();
 
 
   function handleOnChangeNombre(e){
-    setNombre(e.target.value);
+    setName(e.target.value)
   }
 
   function handleOnChangeApellido(e){
-    setApellido(e.target.value);
+    setLastName(e.target.value);
   }
 
   function handleOnChangeEmail(e){
     let email = e.target.value;
-    validateEmail(email) ? setEmail(email) && setDisplayEmailError("none") : setDisplayEmailError("block");
-    if(email === ""){
-      setDisplayEmailError("none")
-    }
+    setEmail(email)
   }
 
   function handleOnChangePassword(e){
     let password = e.target.value;
-    if(validatePasswordLength(password)){
-      setPassword(password)
-    } else if(password === ""){
-      setDisplayPasswordError("none")
-    } else {
-      setDisplayPasswordError("block")
-    }
+    setPassword(password)
   }
 
   function handleOnChangePasswordConfirmed(e){
     let passwordConfirmed = e.target.value;
-    password !== passwordConfirmed ? setPasswordConfirmedError("block") : setConfirmedPassword(password)
-    if(passwordConfirmed === "" &&  password === ""){
-      setPasswordConfirmedError("none")
-    }
+    setConfirmedPassword(passwordConfirmed)
+    
   }
 
   function handleSubmit(){
-    if(email === "" || nombre === "" || apellido === "" || confirmedPassword === ""){
+    if(email === "" || name === "" || lastName === "" || password === "" || confirmedPassword === ""){
       Swal.fire({
         icon: 'error',
         text: 'Todos los campos son obligatorios',
       })
     }
-    else if(!validateEmailRegistered(email)){
+    else if(!validateEmailAndPassword(email) && validatePasswordConfirmation(password, confirmedPassword) && validatePasswordLength(password)){
       usersRegistered.push(
         {
           email: email,
-          username: `${nombre} ${apellido}`,
+          username: email.split("@")[0],
           password: confirmedPassword
         }
       )
-      return navigate("/")
-    } else {
+      Swal.fire({
+        icon: 'success',
+        text: 'Usuario registrado con éxito',
+      })
+      setTimeout(()=>{
+        return navigate("/login")
+      },2300)
+
+    } 
+    else if(validateEmailAndPassword(email)){
       Swal.fire({
         icon: 'error',
         text: 'El usuario ya se encuentra registrado',
       })
     }
+    else if(!validatePasswordConfirmation(password, confirmedPassword)){
+      Swal.fire({
+        icon: 'error',
+        text: 'Las contraseñas no coinciden',
+      })
+    }
+    else if(!validateEmail(email)){
+      Swal.fire({
+        icon: 'error',
+        text: 'Correo electrónico inválido',
+      })
+    }
+    else if(!validatePasswordLength(password)){
+      Swal.fire({
+        icon: 'error',
+        text: 'La contraseña debe tener más de 6 caracteres',
+      })
+    }
   }
+
   return (
     <div>
       <Header showLogin={showlogin} />
@@ -108,17 +121,14 @@ function Register() {
             <div className="row-register">
               <label className="label-register">Correo electrónico</label>
               <input className="input-register" type="email" required onChange={handleOnChangeEmail}/>
-              <p style={{display:displayEmailError, color:"red"}}>Correo electrónico inválido</p>
             </div>
             <div className="row-register">
               <label className="label-register">Contraseña</label>
               <input className="input-register" type="password" required onChange={handleOnChangePassword}/>
-              <p style={{display:displayPasswordError, color:"red"}}>La contraseña debe tener más de 6 caracteres</p>
             </div>
             <div className="row-register">
               <label className="label-register">Confirmar contraseña</label>
               <input className="input-register" type="password" required onChange={handleOnChangePasswordConfirmed}/>
-              <p style={{display:passwordConfirmedError, color:"red"}}>Las contraseñas no coinciden</p>
             </div>
             <button className="btn-register" onClick={handleSubmit}>Crear una cuenta</button>
             <div className="alternative-register">
