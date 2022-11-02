@@ -15,7 +15,7 @@ function Home() {
   const showLine = true;
 
     return (
-      <div>
+      <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
         <Header showLogin={showLogin} showLogout={showLogout} showLine={showLine}/>
         <FormFilter/>
         <h2 className="title_categories">Buscar por tipo de alojamiento</h2>
