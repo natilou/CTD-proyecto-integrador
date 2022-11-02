@@ -5,7 +5,7 @@ import "./FormFilter.css";
 
 function FormFilter(){  
   return(
-    <form className='form_search'>
+    <section className='form_search'>
       <h1 className='form_title'>
         Busca ofertas en hoteles, casas y mucho más
       </h1>
@@ -14,14 +14,16 @@ function FormFilter(){
           <Selector />
         </div>
         <div className="sub-container">
-          <Calendar />
+          <div className="calendar-container">
+            <Calendar />
+          </div>
         </div>
         <div className="sub-container">
           <button className='btn_filter'>Buscar</button>
         </div>
 
       </div>
-   </form>
+   </section>
  );
 }
 export default FormFilter;
