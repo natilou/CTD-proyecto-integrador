@@ -1,5 +1,5 @@
 .container_cards_recommendation{
-    background-color: var(--dark-color) ;
+    background-color: #F3F1ED ;
     color: white;
     display: flex;
     flex-direction: column;

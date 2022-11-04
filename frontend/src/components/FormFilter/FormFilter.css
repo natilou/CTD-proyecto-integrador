@@ -2,16 +2,17 @@
 @import "../../commons/_styles.css";
 
 .form_search{
+    position: sticky;
     width: 100%;
-    background-color: var(--dark-color);
-    margin-top: 80px;
+    background-color: #31363F;
+    margin-top: 72px;
     padding-top: 10px;
     display: flex;
     flex-direction: column;
 }
 .form_title{
     color:white;
-    margin: 1rem 1rem;
+    margin: 0.3rem 0.5rem;
     font-size: var(--font-size-main);
     text-align: center;
 }
@@ -29,25 +30,64 @@
     align-items: center;
     width: 25%;
     align-self: center;
+    margin-left: 15px;
 }
 
 .calendar-container {
-    width: 80%;
+    width: 100%;
 }
 
 .btn_filter{
     background-color: var(--main-color);
     border: none;
     color:white;
-    border-radius: 6px;
-    height: 50px;
-    width: 200px;
+    border-radius: 5px;
+    height: 40px;
+    width: 80%;
     font-weight: bold;
-    font-size: 1.5rem;
+    font-size: var(--font-size-medium);
 }
 
 .btn_filter:hover{
     cursor: pointer;
+}
+
+/*
+@media (max-width: 700px) {
+    .container_form{
+        display:flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        height: 170px;
+        width: 100%;
+    }
+
+    .sub-container{
+        width: 80%;
+        justify-content: center;
+        align-self: center;
+    }
+
+    .calendar-container {
+        width: 100%;
+    }
+    .btn_filter{
+        width: 60%;
+
+    }
+   
+}
+
+
+@media (max-width: 460px) {
+    .calendar-container {
+        align-self: center;
+    }
+    .btn_filter{
+        width: 100%;
+        margin-bottom: 10px;
+    }
 }
 
 @media (max-width: 419px) {
@@ -66,49 +106,7 @@
         width: 100%;
         justify-content: center;
         align-self: center;
-    }
-
-    .calendar-container {
-        width: 80%;
-        align-self: center;
+        
     }
 }
-
-@media (max-width: 768px) {
-    .container_form{
-        display:flex;
-        flex-direction: column;
-        justify-content: space-around;
-        align-items: center;
-        height: 200px;
-        width: 100%;
-    }
-
-    .sub-container{
-        display: flex;
-        align-items: center;
-        width: 100%;
-        justify-content: center;
-        align-self: center;
-    }
-
-    .calendar-container {
-        width: 80%;
-        align-self: center;
-    }
-}
-
-@media (max-width: 460px) {
-    .calendar-container {
-        width: 80%;
-        align-self: center;
-    }
-}
-
-@media (max-width: 400px) {
-    .calendar-container {
-        width: 100%;
-        align-self: center;
-    }
-}
-
+*/

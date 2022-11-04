@@ -1,10 +1,14 @@
 .title_categories{
     padding-left: var(--font-size-bigger);
-    color:var(--dark-blue-color)
+    color:var(--dark-blue-color);
+    background-color: white;
+    padding-top: 10px;
+    padding-left: 5%;
 }
 .main_title_recommedation{
-    background-color: var(--dark-color);
-    color: white;
-    padding-left: 1rem;
+    background-color:#F3F1ED;
+    color: black;
+    padding-top: 10px;
+    padding-left: 5%;
 
 }
