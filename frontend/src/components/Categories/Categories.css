@@ -4,7 +4,6 @@
     align-items: center;
     justify-content: center;
     background-color: white;
-    
 }
 .card_category{
     margin-bottom: 40px;
@@ -12,10 +11,10 @@
 @media (min-width: 700px) {
     .container_cards{
         flex-direction:row;
-        flex-wrap: wrap;
-
-        
+        flex-wrap: wrap;        
     }   
 
 
 }
+
+
