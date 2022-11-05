@@ -21,13 +21,13 @@ public class Category {
     private String description;
     private String urlImage;
 
-    private transient int amount;//actualiza con el service el length de la lista cuando hace listartodos
+    //private transient int amount;//actualiza con el service el length de la lista cuando hace listartodos
 
     //Constructor sin id
     public Category(String title, String description, String urlImage, Integer amount) {
         this.title = title;
         this.description = description;
         this.urlImage = urlImage;
-        this.amount = amount;
+        //this.amount = amount;
     }
 }

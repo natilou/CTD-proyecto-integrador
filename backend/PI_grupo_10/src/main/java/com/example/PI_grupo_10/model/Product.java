@@ -8,6 +8,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -41,6 +42,7 @@ public class Product {
 
     private String description;
 
+    @JsonIgnore ////////////////////////////////
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
                     CascadeType.PERSIST,
@@ -49,14 +51,25 @@ public class Product {
     @JoinTable(name = "products_features",
             joinColumns = { @JoinColumn(name = "product_id") },
             inverseJoinColumns = { @JoinColumn(name = "feature_id") })
+    //private Set<Feature> features = new HashSet<>();
     private Set<Feature> features = new HashSet<>();
 
-    public Product(String title, Category category, String address, City city, String description, Set<Feature> features) {
+    public Product(String title, Category category, String address, City city, String description) {
         this.title = title;
         this.category = category;
         this.address = address;
         this.city = city;
         this.description = description;
-        this.features = features;
     }
+
 }
+
+/*
+{
+        "title":"Hilton",
+        "category":"1",
+        "address":"Las Flores 1600",
+        "city":"1",
+        "description": "Hermoso hotel de la familia de Paris Hilton"
+}
+*/

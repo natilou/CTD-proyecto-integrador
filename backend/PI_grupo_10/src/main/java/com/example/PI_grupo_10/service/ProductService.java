@@ -1,20 +1,17 @@
 package com.example.PI_grupo_10.service;
 
 import com.example.PI_grupo_10.exceptions.ResourceNotFoundException;
-import com.example.PI_grupo_10.model.Category;
+import com.example.PI_grupo_10.model.Feature;
 import com.example.PI_grupo_10.model.Product;
 import com.example.PI_grupo_10.repository.CategoryRepository;
 import com.example.PI_grupo_10.repository.CityRepository;
 import com.example.PI_grupo_10.repository.ProductRepository;
 import org.apache.log4j.Logger;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class ProductService {
@@ -25,8 +22,10 @@ public class ProductService {
     private static final Logger logger = Logger.getLogger(ProductService.class);
 
     //Inyectar la dependencia
-    public ProductService(ProductRepository productRepository) {
+    public ProductService(ProductRepository productRepository, CityRepository cityRepository, CategoryRepository categoryRepository) {
         this.productRepository = productRepository;
+        this.cityRepository = cityRepository;
+        this.categoryRepository = categoryRepository;
     }
 
     public Product buscar(Integer id){
@@ -37,6 +36,16 @@ public class ProductService {
             logger.info("Se encontró el producto con el id: " + id);
         }
         return product;
+    }
+
+    public Set<Feature> buscarFeatures(Integer id){
+        Product product = null;
+        Optional<Product> optionalProduct= productRepository.findById(id);
+        if (optionalProduct.isPresent()){
+            product = optionalProduct.get();
+            logger.info("Se encontró el producto con el id: " + id);
+        }
+        return product.getFeatures();
     }
 
     public List<Product> listarTodos(){

@@ -21,6 +21,7 @@ public class Feature {
     private String name;
     private String pathIcon;
 
+
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
                     CascadeType.PERSIST,
@@ -30,9 +31,8 @@ public class Feature {
     @JsonIgnore
     private Set<Product> products = new HashSet<>();
 
-    public Feature(String name, String pathIcon, Set<Product> products) {
+    public Feature(String name, String pathIcon) {
         this.name = name;
         this.pathIcon = pathIcon;
-        this.products = products;
     }
 }
