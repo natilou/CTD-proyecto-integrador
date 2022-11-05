@@ -26,4 +26,9 @@ public class City {
     @OnDelete(action = OnDeleteAction.CASCADE)//AVERIGUAR
     @JsonIgnore
     private Country country;
+
+    public City(String name, Country country) {
+        this.name = name;
+        this.country = country;
+    }
 }

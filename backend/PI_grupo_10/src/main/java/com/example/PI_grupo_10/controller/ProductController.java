@@ -23,14 +23,16 @@ public class ProductController {
 
     @Autowired
     private ProductService productService;
-    //////////////
+
+    /*
     @Autowired
     private ProductRepository productRepository;
     @Autowired
     private CityRepository cityRepository;
     @Autowired
     private CategoryRepository categoryRepository;
-    ////////////////
+
+    */
 
     @GetMapping
     public ResponseEntity<List<Product>> listarTodos(){

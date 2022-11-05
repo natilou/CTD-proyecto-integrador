@@ -51,4 +51,12 @@ public class Product {
             inverseJoinColumns = { @JoinColumn(name = "feature_id") })
     private Set<Feature> features = new HashSet<>();
 
+    public Product(String title, Category category, String address, City city, String description, Set<Feature> features) {
+        this.title = title;
+        this.category = category;
+        this.address = address;
+        this.city = city;
+        this.description = description;
+        this.features = features;
+    }
 }

@@ -34,4 +34,11 @@ public class Policy {
     @OnDelete(action = OnDeleteAction.CASCADE)//AVERIGUAR
     @JsonIgnore
     private Type type;
+
+    public Policy(String name, String description, Product product, Type type) {
+        this.name = name;
+        this.description = description;
+        this.product = product;
+        this.type = type;
+    }
 }

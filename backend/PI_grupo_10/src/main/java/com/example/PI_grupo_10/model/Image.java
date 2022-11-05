@@ -27,4 +27,10 @@ public class Image {
     @OnDelete(action = OnDeleteAction.CASCADE)//AVERIGUAR
     @JsonIgnore
     private Product product;
+
+    public Image(String title, String url, Product product) {
+        this.title = title;
+        this.url = url;
+        this.product = product;
+    }
 }

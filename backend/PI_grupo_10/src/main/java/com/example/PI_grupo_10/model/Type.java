@@ -16,4 +16,8 @@ public class Type {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "type_sequence")
     private int id;
     private String title;
+
+    public Type(String title) {
+        this.title = title;
+    }
 }
