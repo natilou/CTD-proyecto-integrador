@@ -20,7 +20,8 @@ public class Category {
     @NotEmpty
     private String description;
     private String urlImage;
-    private int amount;
+
+    private transient int amount;//actualiza con el service el length de la lista cuando hace listartodos
 
     //Constructor sin id
     public Category(String title, String description, String urlImage, Integer amount) {
