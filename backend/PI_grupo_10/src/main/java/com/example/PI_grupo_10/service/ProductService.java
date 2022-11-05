@@ -1,6 +1,8 @@
 package com.example.PI_grupo_10.service;
 
 import com.example.PI_grupo_10.exceptions.ResourceNotFoundException;
+import com.example.PI_grupo_10.model.Category;
+import com.example.PI_grupo_10.model.City;
 import com.example.PI_grupo_10.model.Feature;
 import com.example.PI_grupo_10.model.Product;
 import com.example.PI_grupo_10.repository.CategoryRepository;
@@ -77,5 +79,14 @@ public class ProductService {
         }
     }
 
-
+/*
+    public Category buscarCategory(Integer id) throws ResourceNotFoundException {
+        if (!categoryRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Not found Category with id = " + id);
+        } else {
+            logger.info("Se buscan todos los productos con el categoryId: " + id);
+            return productRepository.getCategory(id);
+        }
+    }
+*/
 }

@@ -2,6 +2,7 @@ package com.example.PI_grupo_10.controller;
 
 import com.example.PI_grupo_10.exceptions.ResourceNotFoundException;
 import com.example.PI_grupo_10.model.Category;
+import com.example.PI_grupo_10.model.City;
 import com.example.PI_grupo_10.model.Feature;
 import com.example.PI_grupo_10.model.Product;
 import com.example.PI_grupo_10.repository.CategoryRepository;
@@ -27,6 +28,7 @@ public class ProductController {
     private ProductService productService;
 
     ///////////////
+    /*
     @Autowired
     private ProductRepository productRepository;
     @Autowired
@@ -34,7 +36,7 @@ public class ProductController {
     @Autowired
     private CategoryRepository categoryRepository;
 //////////////
-
+*/
 
     @GetMapping
     public ResponseEntity<List<Product>> listarTodos(){
@@ -45,12 +47,7 @@ public class ProductController {
     public ResponseEntity<Product> buscar(@PathVariable Integer id) throws ResourceNotFoundException {
         return ResponseEntity.ok(productService.buscar(id));
     }
-/*
-    @GetMapping("/{id}/features")
-    public ResponseEntity<Set<Feature>> buscarFeatures(@PathVariable Integer id) throws ResourceNotFoundException {
-        return ResponseEntity.ok(productService.buscarFeatures(id));
-    }
-*/
+
     @PostMapping
     public ResponseEntity<Product> agregar(@RequestBody Product product){
         return ResponseEntity.ok(productService.agregar(product));
