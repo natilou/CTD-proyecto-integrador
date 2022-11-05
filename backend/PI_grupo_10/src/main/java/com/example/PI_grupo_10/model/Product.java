@@ -32,7 +32,7 @@ public class Product {
     @JoinColumn(name = "category_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)//AVERIGUAR: no va CASCADE
     //@JsonIgnore
-    private Category category; //es int o Category?
+    private Category category;
 
     private String address;
 
@@ -40,7 +40,7 @@ public class Product {
     @JoinColumn(name = "city_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)//AVERIGUAR
     //@JsonIgnore
-    private City city;// es int o City?
+    private City city;
 
     private String description;
 
@@ -54,8 +54,8 @@ public class Product {
             joinColumns = { @JoinColumn(name = "product_id") },
             inverseJoinColumns = { @JoinColumn(name = "feature_id") })
     @JsonIgnore // si lo comento sólo funca cuando no hay features asociadas
-    //@JsonBackReference //"funciona" pero no devuelve nada
-    //@JsonManagedReference
+    //@JsonBackReference //"funciona" pero no devuelve nada - RELACIONADA AL MODELO FEATURE
+
     private Set<Feature> features = new HashSet<>();
 
     public Product(String title, Category category, String address, City city, String description) {
