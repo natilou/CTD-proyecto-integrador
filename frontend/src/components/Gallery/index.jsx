@@ -27,24 +27,24 @@ const Gallery = (props) => {
           </div>
 
         ) : (
-          <div className="main-container">
-            <div className="main-images-container">
-              <div className="main-image-container">
-                <img src={props.images[0].url} alt="" className="main-image"/>
+          <div className="main-container" data-testid="gallery-container">
+            <div className="main-images-container" data-testid="main-images-container">
+              <div className="main-image-container" data-testid="main-image-container">
+                <img src={props.images[0].url} alt="" className="main-image" data-testid="gallery-img"/>
               </div>
-              <div className="secondary-images-container">
-                <div className="secondary-images-sub-container">
-                  <img src={props.images[1].url} alt="" className="secondary-images"/>
-                  <img src={props.images[2].url} alt="" className="secondary-images"/>
+              <div className="secondary-images-container" data-testid="secondary-imgs-container">
+                <div className="secondary-images-sub-container" data-testid="secondary-img-container">
+                  <img src={props.images[1].url} alt="" className="secondary-images" data-testid="secondary-img-1"/>
+                  <img src={props.images[2].url} alt="" className="secondary-images" data-testid="secondary-img-2"/>
                 </div>
-                <div className="secondary-images-sub-container">
-                  <img src={props.images[3].url} alt="" className="secondary-images"/>
-                  <img src={props.images[4].url} alt="" className="secondary-images"/>
+                <div className="secondary-images-sub-container" data-testid="secondary-imgs-container-2">
+                  <img src={props.images[3].url} alt="" className="secondary-images" data-testid="secondary-img-3"/>
+                  <img src={props.images[4].url} alt="" className="secondary-images" data-testid="secondary-img-4"/>
                 </div>
               </div>
             </div>
-            <div className="button-container">
-              <button className="gallery-button" onClick={() => setShowCarousel(true)}>Ver mas</button>
+            <div className="button-container" data-testid="btn-container">
+              <button className="gallery-button" onClick={() => setShowCarousel(true)} data-testid="gallery-btn">Ver mas</button>
             </div>
           </div>
         )

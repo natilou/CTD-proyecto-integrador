@@ -5,21 +5,21 @@ import "./FormFilter.css";
 
 function FormFilter(){  
   return(
-    <section className='form_search'>
-      <h1 className='form_title'>
+    <section className='form_search' data-testid="formfilter-container">
+      <h1 className='form_title' data-testid="formfilter-title">
         Busca ofertas en hoteles, casas y mucho más
       </h1>
-      <div className="container_form">
-        <div className="sub-container">
+      <div className="container_form" data-testid="formfilter-container-form">
+        <div className="sub-container" data-testid="formfilter-selector">
           <Selector />
         </div>
-        <div className="sub-container">
-          <div className="calendar-container">
+        <div className="sub-container" data-testid="formfilter-calendar-subcontainer">
+          <div className="calendar-container" data-testid="formfilter-calendar-container">
             <Calendar />
           </div>
         </div>
-        <div className="sub-container">
-          <button className='btn_filter'>Buscar</button>
+        <div className="sub-container" data-testid="formfilter-btn-container">
+          <button className='btn_filter' data-testid="formfilter-btn">Buscar</button>
         </div>
 
       </div>

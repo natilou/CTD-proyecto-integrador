@@ -28,18 +28,18 @@ function AvatarView({userName}){
   }
 
   return(
-    <div className="main_container">
-      <div className='row-avatar'>
-        <div className="avatar_container">
-          <p className="avatar">
+    <div className="main_container" data-testid="avatar-container">
+      <div className='row-avatar' data-testid="avatar-row">
+        <div className="avatar_container" data-testid="avatar-container-2">
+          <p className="avatar" data-testid="initials">
             {letterToShowInDefaultPicture}
           </p>
         </div>
-        <div className="greeting_name_container">
-          <p className="greeting">
+        <div className="greeting_name_container" data-testid="avatar-greeting-container">
+          <p className="greeting" data-testid="greeting">
             Hola,
           </p>
-          <p className="user_name">
+          <p className="user_name" data-testid="username">
             {userName}
           </p>
         </div>
@@ -49,8 +49,8 @@ function AvatarView({userName}){
           <></>
           
         ): (
-          <button className="button-avatar">
-            <p className="button_text_avatar" onClick={closeSession}>
+          <button className="button-avatar" data-testid="avatar-btn">
+            <p className="button_text_avatar" onClick={closeSession} data-testid="close-session">
               x
             </p>
           </button>
