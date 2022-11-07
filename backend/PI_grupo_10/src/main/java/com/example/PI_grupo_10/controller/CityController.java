@@ -1,8 +1,6 @@
 package com.example.PI_grupo_10.controller;
 
-import com.example.PI_grupo_10.model.Category;
 import com.example.PI_grupo_10.model.City;
-import com.example.PI_grupo_10.service.CategoryService;
 import com.example.PI_grupo_10.service.CityService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

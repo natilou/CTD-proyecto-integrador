@@ -1,23 +1,13 @@
 package com.example.PI_grupo_10.controller;
 
 import com.example.PI_grupo_10.exceptions.ResourceNotFoundException;
-import com.example.PI_grupo_10.model.Category;
-import com.example.PI_grupo_10.model.City;
-import com.example.PI_grupo_10.model.Feature;
 import com.example.PI_grupo_10.model.Product;
-import com.example.PI_grupo_10.repository.CategoryRepository;
-import com.example.PI_grupo_10.repository.CityRepository;
-import com.example.PI_grupo_10.repository.ProductRepository;
-import com.example.PI_grupo_10.service.CategoryService;
 import com.example.PI_grupo_10.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
-import java.util.Set;
 
 @Slf4j
 @RestController
@@ -26,17 +16,6 @@ public class ProductController {
 
     @Autowired
     private ProductService productService;
-
-    ///////////////
-    /*
-    @Autowired
-    private ProductRepository productRepository;
-    @Autowired
-    private CityRepository cityRepository;
-    @Autowired
-    private CategoryRepository categoryRepository;
-//////////////
-*/
 
     @GetMapping
     public ResponseEntity<List<Product>> listarTodos(){
@@ -62,5 +41,5 @@ public class ProductController {
     public ResponseEntity<List<Product>> buscarPorCategoryId(@PathVariable Integer categoryId) throws ResourceNotFoundException {
         return ResponseEntity.ok(productService.buscarPorCategoryId(categoryId));
     }
-}
 
+}

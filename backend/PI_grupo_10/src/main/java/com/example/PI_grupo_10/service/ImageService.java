@@ -2,14 +2,10 @@ package com.example.PI_grupo_10.service;
 
 import com.example.PI_grupo_10.exceptions.ResourceNotFoundException;
 import com.example.PI_grupo_10.model.Image;
-import com.example.PI_grupo_10.model.Product;
-import com.example.PI_grupo_10.repository.CategoryRepository;
-import com.example.PI_grupo_10.repository.CityRepository;
 import com.example.PI_grupo_10.repository.ImageRepository;
 import com.example.PI_grupo_10.repository.ProductRepository;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
