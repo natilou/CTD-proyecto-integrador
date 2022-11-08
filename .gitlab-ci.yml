@@ -13,7 +13,7 @@ front_build:       # This job runs in the build stage, which runs first.
     - cd frontend
     - ls -l
     - npm install
-    - npm run build
+    - CI=false npm run build
     - echo "Compiling the code..."
   artifacts:
     paths:
