@@ -101,6 +101,7 @@ li.select {
 }
 .location {
     width: 100%;
+    align-items: center;
 }
 }
 

@@ -14,7 +14,19 @@ function Home() {
   const showLogin = true ;
   const showLogout = true;
   const showLine = true;
-
+  /*const [first, setfirst] = useState([])
+  const url ='ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/categories'
+  const getProductos  = async (url) => {
+    const respuesta = await fetch(url)
+    const datos = await respuesta.json()
+    console.log(datos)
+    
+    this.setState({
+        productos : datos
+    })
+}*/
+console.log(setSectionCategory)
+  
     return (
       <div>
         <Header showLogin={showLogin} showLogout={showLogout} showLine={showLine}/>

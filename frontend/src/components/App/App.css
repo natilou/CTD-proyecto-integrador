@@ -8,7 +8,7 @@
     font-family: 'Quicksand', sans-serif;
 }
 body{
-    background-color: #F3F1ED;
+    background-color:var(--ligter-color);
 }
 @media (min-width: 761px) {
     
