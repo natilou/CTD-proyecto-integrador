@@ -15,13 +15,13 @@ import java.util.List;
 
 @Slf4j
 @RestController
+@CrossOrigin
 @RequestMapping("/products")
 public class ProductController {
 
     @Autowired
     private ProductService productService;
 
-    ///////////////////////////////
     @Autowired
     private ImageService imageService;
 
@@ -37,9 +37,6 @@ public class ProductController {
     public ResponseEntity<List<Feature>> getAllFeaturesByProductId(@PathVariable(value = "productId") Integer productId) throws ResourceNotFoundException {
         return ResponseEntity.ok(featureService.findFeaturesByProductsId(productId));
     }
-
-
-    //////////////////////////////
 
     @GetMapping
     public ResponseEntity<List<Product>> listarTodos(){
