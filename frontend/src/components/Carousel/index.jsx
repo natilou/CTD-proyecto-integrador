@@ -10,7 +10,7 @@ const Carousel = (props) => {
 
   useEffect(() => {
     getCarouselImages();
-  }, []);
+  },);
 
   async function getCarouselImages() {
     setIsLoading(true);
