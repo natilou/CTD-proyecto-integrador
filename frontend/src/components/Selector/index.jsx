@@ -2,16 +2,16 @@ import { FaMapMarkerAlt } from "react-icons/fa"
 import React, { useState } from "react"
 import "./Selector.css"
 
-function Selector(props) {
+function Selector({cities}) {
    const [isOpen, setIsOpen] = useState(false)
    const [selectedOption, setSelectedOption] = useState(null)
-   const cities = [
-    { id: 1, name: 'San Carlos de Bariloche', country: 'Argentina'},
-    { id: 2, name: 'Buenos Aires', country: 'Argentina'},
-    { id: 3, name: 'Mendoza', country: 'Argentina' },
-    { id: 4, name: 'Córdoba', country: 'Argentina'},
-  ]
-
+  // const cities = [
+   // { id: 1, name: 'San Carlos de Bariloche', country: 'Argentina'},
+   // { id: 2, name: 'Buenos Aires', country: 'Argentina'},
+   // { id: 3, name: 'Mendoza', country: 'Argentina' },
+   // { id: 4, name: 'Córdoba', country: 'Argentina'},
+  //]
+ 
   const toggling = () => setIsOpen(!isOpen)
 
   const handleClick = (city) => () => {

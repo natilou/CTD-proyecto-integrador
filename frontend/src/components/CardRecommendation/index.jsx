@@ -9,20 +9,21 @@ import "./CardRecommendation.css";
 import { Link } from "react-router-dom";
 
 function CardRecommendation({ dataLodging }) {
-    
-    const { name, category, url_image, description } = dataLodging
+
+    const { title, category, address, description, city, } = dataLodging
     //, score, label_score,
     //    ,city,distance
+
     return (
-        <article className="card_recommendation">
+        <article  className="card_recommendation">
             <figure className="recommendation_figure" >
-                <img className="image_recommendation" src={url_image} alt={name} />
+                <img className="image_recommendation" src={category.urlImage} alt={title} />
             </figure>
             <div className="constainer_description">
                 <div className="container_section_score">
                     <div>
                         <div className="container_title_star">
-                            <p>{category}</p>
+                            <p>{category.title}</p>
                             <ul className="list_star">
                                 <li>
                                     <img src={iconStar} alt="star" className="icon_star" />
@@ -41,7 +42,7 @@ function CardRecommendation({ dataLodging }) {
                                 </li>
                             </ul>
                         </div>
-                        <h3 className="title_lodging">{name}</h3>
+                        <h3 className="title_lodging">{city.name}</h3>
                     </div>
                     <div>
                         <div className="container_number"><p className="number">8</p></div>
@@ -51,7 +52,7 @@ function CardRecommendation({ dataLodging }) {
                 <div>
                     <div className="location_lodging">
                         <img className="icongps" src={iconGps} alt="icon gps" />
-                        <p className="m_location"> A 920 m del centro - </p>
+                        <p className="m_location">{address}</p>
                         <p className="link_gps">MOSTRAR EN EL MAPA</p>
                     </div>
                     <div className="container_logding_icons">
@@ -62,7 +63,7 @@ function CardRecommendation({ dataLodging }) {
                     <p className="description_lodging">{description}</p>
 
                 </div>
-                <Link  to={`/product/${name}.${category}`} ><button className="btn_lodging">Ver mas</button> </Link>
+                <Link to={`/product/${title}.${title}`} ><button className="btn_lodging">Ver mas</button> </Link>
             </div>
         </article>
     );
