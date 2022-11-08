@@ -39,7 +39,6 @@ public class Product {
 
     private String description;
 
-
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
                     CascadeType.PERSIST,
@@ -50,7 +49,6 @@ public class Product {
             inverseJoinColumns = { @JoinColumn(name = "feature_id") })
     @JsonIgnore // si lo comento sólo funca cuando no hay features asociadas
     //@JsonBackReference //"funciona" pero no devuelve nada - RELACIONADA AL MODELO FEATURE
-
     private Set<Feature> features = new HashSet<>();
 
     public Product(String title, Category category, String address, City city, String description) {
