@@ -3,7 +3,7 @@ import CardCategory from "../CardCategory";
 import "./Categories.css"
 
 function Categories({ data }) {
-    console.log(data)
+
     return (
         <section className="container_cards" >
             {

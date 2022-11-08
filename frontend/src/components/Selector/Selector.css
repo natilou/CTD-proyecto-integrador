@@ -4,8 +4,8 @@
     background-color: white;
     border-radius: 0.5rem;
     display: flex;
-    height: 50px;
-    width: 80%;
+    height: 40px;
+    width: 100%;
     align-items: center;
 }
 
@@ -18,6 +18,8 @@
 
 .select{
     height: 60px;
+    width: 100%;
+   
 }
 .selected {
     color: var(--dark-color);
@@ -40,7 +42,6 @@ li.select {
 .list-container {
     position: relative;
     margin: 0;
-    width: 425px;
 }
 
 .list-content {
@@ -98,6 +99,10 @@ li.select {
     width: 200px;
     z-index: 3;
 }
+.location {
+    width: 100%;
+    align-items: center;
+}
 }
 
 
@@ -117,10 +122,10 @@ li.select {
     .city-name {
         font-size: 0.8rem;
     }
-    .list-container {
+  /*  .list-container {
         position: absolute;
         margin: 0;
         width: 300px;
         z-index: 3;
-    }
+    }*/
     }

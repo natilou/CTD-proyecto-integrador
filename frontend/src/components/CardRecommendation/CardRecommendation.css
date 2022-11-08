@@ -5,9 +5,12 @@
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 0% 0% 5px 5px;
     color: var(--dark-color);
-    width: 393px;
+    width: 360px;
     height: 491px;
+    
 }
+
+
 
 .image_recommendation {
     display: block;
@@ -177,6 +180,9 @@ img {
         display: flex;
         flex-direction: row;
         border-radius: 8px 8px 8px 8px;
+        transform: translateY(-0.2em);
+        transition: transform 0.1s ease;
+    
     }
     img {
         margin-top: 5px;
@@ -184,4 +190,8 @@ img {
     .constainer_description{
          width: 350px;   
     }   
+    .card_recommendation:hover {
+       transform: translateY(-0.33em);
+      }
+    
 }

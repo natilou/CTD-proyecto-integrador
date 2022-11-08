@@ -7,7 +7,7 @@ import menuIcon from '../../assets/svgs/menuIcon.svg';
 import Menu from '../Menu'
 import AvatarView from '../AvatarView'
 
-function Header({showLogout,showLogin, showLine}) {
+function Header({ showLogout, showLogin, showLine }) {
     const [showMenu, setShowMenu] = useState(false);
     const isMobile = useMediaQuery({ query: '(max-width: 761px)' });
     const user = JSON.parse(localStorage.getItem("user"));
@@ -26,46 +26,39 @@ function Header({showLogout,showLogin, showLine}) {
                     <i className="header_slogan">Sentite como en tu hogar</i>
                 </div>
             </div>
-            
-        {
-            isMobile ? (
-                <button className="menu_icon_sub_container" onClick={toggleShowMenu}>
-                    <img src={menuIcon} alt="menu" className="menu_icon" />
-                </button>
-            ) : (
-                <div className="header_buttons">
-                    {
-                    user ? (
-                    <AvatarView userName={user.username}/>
-                    ) : (
-                        <>
-                            {
-                                showLogout &&(
-                                    <Link to="/register"><button className="btn_header">Crear Cuenta</button></Link>
-                                    
-                                )
-                            }
 
-                            {
-                                showLogin &&(
-                                    <Link to="/login"><button className="btn_header">Iniciar Sesion</button></Link>
-                                )
-                            
-                            }
-                        </>
-                        )
-                    }
-                </div>
-            )
-        }
-        {
-            showMenu ? (
-                <Menu close={toggleShowMenu} showLogin={showLogin} showLogout={showLogout} showLine={showLine} user={user}/>
-            ) : (
-                undefined
-            )
-        }
-
+            {
+                isMobile ? (
+                    <button className="menu_icon_sub_container" onClick={toggleShowMenu}>
+                        <img src={menuIcon} alt="menu" className="menu_icon" />
+                    </button>
+                ) : (
+                    <div className="header_buttons">
+                        {
+                            user ? (
+                                <AvatarView userName={user.username} />
+                            ) : (
+                                <>
+                                    {
+                                        showLogout && (<Link to="/register"><button className="btn_header">Crear Cuenta</button></Link>
+                                        )
+                                    }
+                                    {
+                                        showLogin && (
+                                            <Link to="/login"><button className="btn_header">Iniciar Sesion</button></Link>
+                                        )
+                                    }
+                                </>
+                            )
+                        }
+                    </div>
+                )
+            }
+            {
+                showMenu ? (
+                    <Menu close={toggleShowMenu} showLogin={showLogin} showLogout={showLogout} showLine={showLine} user={user} />
+                ) : (undefined)
+            }
         </header>
     );
 }
