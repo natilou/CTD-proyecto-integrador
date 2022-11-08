@@ -1,7 +1,11 @@
 package com.example.PI_grupo_10.controller;
 
 import com.example.PI_grupo_10.exceptions.ResourceNotFoundException;
+import com.example.PI_grupo_10.model.Feature;
+import com.example.PI_grupo_10.model.Image;
 import com.example.PI_grupo_10.model.Product;
+import com.example.PI_grupo_10.service.FeatureService;
+import com.example.PI_grupo_10.service.ImageService;
 import com.example.PI_grupo_10.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +20,26 @@ public class ProductController {
 
     @Autowired
     private ProductService productService;
+
+    ///////////////////////////////
+    @Autowired
+    private ImageService imageService;
+
+    @Autowired
+    private FeatureService featureService;
+
+    @GetMapping("/{productId}/images")
+    public ResponseEntity<List<Image>> buscarPorProductId(@PathVariable Integer productId) throws ResourceNotFoundException {
+        return ResponseEntity.ok(imageService.buscarPorProductId(productId));
+    }
+
+    @GetMapping("/{productId}/features")
+    public ResponseEntity<List<Feature>> getAllFeaturesByProductId(@PathVariable(value = "productId") Integer productId) throws ResourceNotFoundException {
+        return ResponseEntity.ok(featureService.findFeaturesByProductsId(productId));
+    }
+
+
+    //////////////////////////////
 
     @GetMapping
     public ResponseEntity<List<Product>> listarTodos(){
