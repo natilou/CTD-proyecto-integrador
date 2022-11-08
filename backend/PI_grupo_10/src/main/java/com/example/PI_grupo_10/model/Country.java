@@ -16,4 +16,8 @@ public class Country {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "country_sequence")
     private int id;
     private String name;
+
+    public Country(String name) {
+        this.name = name;
+    }
 }

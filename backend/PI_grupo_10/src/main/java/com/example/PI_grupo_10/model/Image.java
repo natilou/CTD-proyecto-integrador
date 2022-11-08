@@ -4,9 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 
 @Getter
 @Setter
@@ -27,4 +25,10 @@ public class Image {
     @OnDelete(action = OnDeleteAction.CASCADE)//AVERIGUAR
     @JsonIgnore
     private Product product;
+
+    public Image(String title, String url, Product product) {
+        this.title = title;
+        this.url = url;
+        this.product = product;
+    }
 }

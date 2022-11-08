@@ -4,9 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -25,21 +23,22 @@ public class Product {
     private int id;
     private String title;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "category_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)//AVERIGUAR: no va CASCADE
-    @JsonIgnore
-    private Category category; //es int o Category?
+    //@JsonIgnore
+    private Category category;
 
     private String address;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "city_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)//AVERIGUAR
-    @JsonIgnore
-    private City city;// es int o City?
+    //@JsonIgnore
+    private City city;
 
     private String description;
+
 
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
@@ -49,6 +48,17 @@ public class Product {
     @JoinTable(name = "products_features",
             joinColumns = { @JoinColumn(name = "product_id") },
             inverseJoinColumns = { @JoinColumn(name = "feature_id") })
+    @JsonIgnore // si lo comento sólo funca cuando no hay features asociadas
+    //@JsonBackReference //"funciona" pero no devuelve nada - RELACIONADA AL MODELO FEATURE
+
     private Set<Feature> features = new HashSet<>();
+
+    public Product(String title, Category category, String address, City city, String description) {
+        this.title = title;
+        this.category = category;
+        this.address = address;
+        this.city = city;
+        this.description = description;
+    }
 
 }

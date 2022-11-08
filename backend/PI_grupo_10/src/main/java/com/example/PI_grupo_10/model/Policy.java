@@ -4,9 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 
 @Getter
 @Setter
@@ -34,4 +32,11 @@ public class Policy {
     @OnDelete(action = OnDeleteAction.CASCADE)//AVERIGUAR
     @JsonIgnore
     private Type type;
+
+    public Policy(String name, String description, Product product, Type type) {
+        this.name = name;
+        this.description = description;
+        this.product = product;
+        this.type = type;
+    }
 }
