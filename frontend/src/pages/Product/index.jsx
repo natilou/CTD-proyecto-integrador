@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
@@ -7,11 +7,33 @@ import "./Product.css"
 import Gallery from "../../components/Gallery";
 
 function Product() {
-    const {id }= useParams()
-    const showLogin = true ;
+  const [productImages, setProductImages] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const {id}= useParams()
+  const showLogin = true ;
   const showLogout = true;
   const showLine = true;
- 
+
+  useEffect(() => {
+    getImages();
+  }, []);
+
+  async function getImages() {
+    setIsLoading(true);
+    try {
+      setIsLoading(true);
+      await fetch('http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/products/1/images')
+      .then((response) => response.json())
+      .then((data) =>
+      setProductImages(data));
+      setIsLoading(false);
+    } catch (error) {
+      console.log({ error });
+      setIsLoading(false);
+    }
+  }
+
+
     return (
       <div className="main_container_product">
          <Header showLogin={showLogin} showLogout={showLogout} showLine={showLine}/>
@@ -44,8 +66,18 @@ function Product() {
               </div>
          </div>
          <div className="container_gallery">
-         <Gallery/>
+         {
+            !isLoading ? (
+              <Gallery images={productImages}/>
+            ) : (
+              <div style={{ width: '90%',  height: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                <span className="loading-spa">Loading...</span>
+              </div>
+            )
+          }
+
          </div>
+
          <Footer/>
       </div>
     );

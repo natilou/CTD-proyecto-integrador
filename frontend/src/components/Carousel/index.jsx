@@ -1,38 +1,46 @@
-import React from "react";
-import "./Carousel.css";
+import React, { useState, useEffect } from "react";
 import ImageGallery from 'react-image-gallery';
+import "./Carousel.css";
 
 
-const Carousel = () => {
 
-  const images = [
-    {
-      original: 'https://www.portafolio.co/files/article_multimedia/uploads/2021/06/07/60bedba57a5ae.jpeg',
-      thumbnail: 'https://www.portafolio.co/files/article_multimedia/uploads/2021/06/07/60bedba57a5ae.jpeg',
-    },
-    {
-      original: 'https://phantom-elmundo.unidadeditorial.es/3221a050bdc965906082b1c3f61fd93b/crop/0x0/1328x884/resize/550/f/webp/assets/multimedia/imagenes/2021/05/17/16212483528638.jpg',
-      thumbnail: 'https://phantom-elmundo.unidadeditorial.es/3221a050bdc965906082b1c3f61fd93b/crop/0x0/1328x884/resize/550/f/webp/assets/multimedia/imagenes/2021/05/17/16212483528638.jpg',
-    },
-    {
-      original: 'https://www.portafolio.co/files/article_multimedia/uploads/2021/06/07/60bedba57a5ae.jpeg',
-      thumbnail: 'https://www.portafolio.co/files/article_multimedia/uploads/2021/06/07/60bedba57a5ae.jpeg',
-    },
-  ];
+const Carousel = (props) => {
+  const [carouselImages, setCarouselImages] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  // useEffect(() => {
-  //   // TODO cambiar url
-  //   axiosConnection
-  //     .get("/imagenes/listarImagenes")
-  //     .then((response) => {
-  //       setDataImagen(response.data.data);
-  //       console.log(dataImagen);
-  //     });
-  //   return
-  // }, []);
+  useEffect(() => {
+    getCarouselImages();
+  }, []);
+
+  async function getCarouselImages() {
+    setIsLoading(true);
+      const img = props.images.map((item) => {
+        return (
+          {
+            id: item.id,
+            title: item.title,
+            original: item.url,
+            thumbnail: item.url,
+          }
+        )
+      });
+      setCarouselImages(img);
+      setIsLoading(false);
+  }
 
   return (
-    <ImageGallery items={images} slideOnThumbnailOver="true"/>
+    <>
+      {
+        !isLoading ? (
+          <ImageGallery items={carouselImages} thumbnailPosition="right" showIndex="true" showBullets="true"/>
+        ) : (
+          <div style={{ width: '90%',  height: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+            <span className="loading-spa">Loading...</span>
+          </div>
+        )
+      }
+      
+    </>
   );
 }
 
