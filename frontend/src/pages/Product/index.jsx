@@ -46,7 +46,21 @@ function Product() {
           setIsLoading(false);
         }
       }
-    
+       /* 
+      async function getImages() {
+        setIsLoading(true);
+        try {
+          setIsLoading(true);
+          await fetch(`http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/products/${id}/images`)
+          .then((response) => response.json())
+          .then((data) =>
+          setProductImages(data));
+          setIsLoading(false);
+        } catch (error) {
+          console.log({ error });
+          setIsLoading(false);
+        }
+      }*/
     console.log(features)
     return (
         <div className="main_container_product" data-testid="product-container">
