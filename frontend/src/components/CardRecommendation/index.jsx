@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 
 function CardRecommendation({ dataLodging }) {
 
-    const { title, category, address, description, city, } = dataLodging
+    const { id, title, category, address, description, city, } = dataLodging
     //, score, label_score,
     //    ,city,distance
 
@@ -63,7 +63,7 @@ function CardRecommendation({ dataLodging }) {
                     <p className="description_lodging">{description}</p>
 
                 </div>
-                <Link to={`/product/${title}.${title}`} ><button className="btn_lodging">Ver mas</button> </Link>
+                <Link to={`/product/${category.title}/${id}`} ><button className="btn_lodging">Ver mas</button> </Link>
             </div>
         </article>
     );

@@ -40,7 +40,7 @@ function Home() {
       .then((cities) => setCities(cities))
       
     },[]);
-     // console.log(products)
+      console.log(products)
      // console.log(sectionCategory)
      // console.log(cities);
       
