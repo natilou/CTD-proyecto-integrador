@@ -46,7 +46,7 @@ function Selector({cities}) {
                                                 <div className="city-name">
                                                     {city.name}
                                                     <div>
-                                                        <p className="country">{city.country}</p>
+                                                        <p className="country">{city.country.name}</p>
                                                     </div>
                                                 </div>
                                             </div>

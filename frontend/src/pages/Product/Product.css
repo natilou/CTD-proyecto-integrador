@@ -52,7 +52,8 @@
     flex-direction: row;
 }
 .block_icongps{
-    height: 20px;
+    height: 25px;
+    padding-top: 5px;
 }
 .block_city{
     padding-left: 6px;
@@ -99,19 +100,48 @@
     background-color: white;
 }
 .title_description_product{
-    padding: 10px 25px;
+    padding: 10px 30px;
 }
 .text_description{
-    padding: 10px 25px;
+    padding: 10px 30px;
 }
 .container_features{
     background-color: white;
 }
+.title_features{
+    padding: 20px 30px 7px 30px;
+}
+.img_features{
+    height: 35px;
+}
+.container_icon_features{
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 15px 30px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 500;
+}
+.icons_features{
+    display: flex;
+    flex-direction: row;
+    padding-right: 0px;
+    width: 160px;
+    padding-top: 8px;
+    padding-bottom: 15px;
+}
 .hr{
-  height: 2px;
+  height: 3px;
+  opacity: 0.3;
   background-color: var(--main-color);
   width: 100%;
   border: none;
+}
+.icons_features p{
+    padding-top: 7px;
+    padding-left: 12px;
+
 }
 
 .container_politics{
@@ -119,10 +149,11 @@
     padding: 10px 25px;
     display: flex;
     flex-direction: column;
+    padding-bottom: 100px;
 }
 .title_politics{
     background-color: white;
-    padding: 10px 25px;
+    padding: 20px 30px 7px 30px;
 }
 .type_politic{
     margin: 10px;
