@@ -8,9 +8,6 @@ const Gallery = (props) => {
   const [showCarousel, setShowCarousel] = useState(false);
   const isMobile = useMediaQuery({ query: '(max-width: 800px)' });
 
-
-  console.log(props.carouselImages, 'imagenes para el carrusel desde gallery')
-
   return (
     <>
       {
