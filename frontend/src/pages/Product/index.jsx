@@ -19,6 +19,8 @@ function Product() {
     const showLine = true;
     const urlFeaturesID = `http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/products/${id}/features`;
 
+
+
     useEffect(() => {
         fetch(urlFeaturesID)
         .then((response) => response.json())
@@ -26,8 +28,7 @@ function Product() {
         
       },[]);
 
-
-   /*   useEffect(() => {
+      useEffect(() => {
         getImages();
       }, []);
     
@@ -44,9 +45,9 @@ function Product() {
           console.log({ error });
           setIsLoading(false);
         }
-      }*/
+      }
     
-    
+    console.log(features)
     return (
         <div className="main_container_product" data-testid="product-container">
             <Header showLogin={showLogin} showLogout={showLogout} showLine={showLine} />
