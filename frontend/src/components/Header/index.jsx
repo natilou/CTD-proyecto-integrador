@@ -17,13 +17,13 @@ function Header({ showLogout, showLogin, showLine }) {
     }
 
     return (
-        <header className="header">
-            <div className="container_logo">
+        <header className="header" data-testid="header-container">
+            <div className="container_logo" data-testid="header-container-logo">
                 <Link to="/" className="header_logo">
-                    <img src={logo1N} alt="Logo" className="_logo" />
+                    <img src={logo1N} alt="Logo" className="_logo" data-testid="header-logo"/>
                 </Link>
-                <div to="/">
-                    <i className="header_slogan">Sentite como en tu hogar</i>
+                <div to="/" data-testid="header-container-logo-link">
+                    <i className="header_slogan" data-testid="header-icon">Sentite como en tu hogar</i>
                 </div>
             </div>
 
@@ -33,19 +33,19 @@ function Header({ showLogout, showLogin, showLine }) {
                         <img src={menuIcon} alt="menu" className="menu_icon" />
                     </button>
                 ) : (
-                    <div className="header_buttons">
+                    <div className="header_buttons" data-testid="header-buttons">
                         {
                             user ? (
                                 <AvatarView userName={user.username} />
                             ) : (
                                 <>
                                     {
-                                        showLogout && (<Link to="/register"><button className="btn_header">Crear Cuenta</button></Link>
+                                        showLogout && (<Link to="/register"><button className="btn_header" data-testid="header-btn-register">Crear Cuenta</button></Link>
                                         )
                                     }
                                     {
                                         showLogin && (
-                                            <Link to="/login"><button className="btn_header">Iniciar Sesion</button></Link>
+                                            <Link to="/login"><button className="btn_header" data-testid="header-btn-login">Iniciar Sesion</button></Link>
                                         )
                                     }
                                 </>

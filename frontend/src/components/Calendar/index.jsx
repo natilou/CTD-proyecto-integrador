@@ -7,7 +7,6 @@ import "./Calendar.css";
 const Calendar = () => {
   const [dateRange, setDateRange] = useState([null, null]);
   const [startDate, endDate] = dateRange;
-  //console.log({ dateRange })
 
   registerLocale("es", es);
   setDefaultLocale("es");

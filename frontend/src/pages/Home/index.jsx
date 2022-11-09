@@ -40,19 +40,19 @@ function Home() {
       .then((cities) => setCities(cities))
       
     },[]);
-      console.log(products)
+      //console.log(products)
      // console.log(sectionCategory)
-     // console.log(cities);
+     console.log(cities);
       
   
     return (
-      <div>
+      <div data-testid="home-container">
         <Header showLogin={showLogin} showLogout={showLogout} showLine={showLine}/>
         <FormFilter cities={cities} />
-        
-        <h2 className="title_categories">Buscar por tipo de alojamiento</h2>
+
+        <h2 className="title_categories" data-testid="home-title">Buscar por tipo de alojamiento</h2>
         <Categories data={sectionCategory} />
-        <h2 className="main_title_recommedation">Recomendaciones</h2>
+        <h2 className="main_title_recommedation" data-testid="home-title-2">Recomendaciones</h2>
         <Recommendation dataLodging={products}/>
         <Footer/>
       </div>
