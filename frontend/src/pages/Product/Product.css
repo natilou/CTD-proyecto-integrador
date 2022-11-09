@@ -141,5 +141,6 @@
     }
     .type_politic{
         max-width: 360px;
+        margin: 0;
     }
 }
