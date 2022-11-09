@@ -19,10 +19,9 @@ public class City {
     private int id;
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "country_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)//AVERIGUAR
-    @JsonIgnore
     private Country country;
 
     public City(String name, Country country) {
