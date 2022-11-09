@@ -5,7 +5,7 @@ import "./Categories.css"
 function Categories({ data }) {
 
     return (
-        <section className="container_cards" >
+        <section className="container_cards" data-testid="categories-container">
             {
                 data.map((item, index) => (
                     <CardCategory data={item} key={index}

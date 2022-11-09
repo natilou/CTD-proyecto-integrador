@@ -28,7 +28,7 @@ function Home() {
 console.log(setSectionCategory)
   
     return (
-      <div>
+      <div data-testid="home-container">
         <Header showLogin={showLogin} showLogout={showLogout} showLine={showLine}/>
         <FormFilter/>
         {
@@ -37,11 +37,11 @@ console.log(setSectionCategory)
           <Categories data={categoryData} />
           </>
         }
-        <h2 className="title_categories">Buscar por tipo de alojamiento</h2>
+        <h2 className="title_categories" data-testid="home-title">Buscar por tipo de alojamiento</h2>
         <Categories data={categoryData} />
-        <h2 className="main_title_recommedation">Recomendaciones</h2>
+        <h2 className="main_title_recommedation" data-testid="home-title-2">Recomendaciones</h2>
         <Recommendation dataLodging={lodgingData}/>
-        <Footer/>
+        <Footer />
       </div>
     );
   }

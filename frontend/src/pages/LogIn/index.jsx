@@ -82,17 +82,17 @@ function LogIn() {
   return (
     <div>
       <Header showLogout={showLogout} />
-        <section className="container-login">
-            <h2 className="title-login">Iniciar Sesión</h2>
-            <div className="row">
-              <label className="label-login">Correo electrónico</label>
-              <input type="email" className="input-login" onChange={handleOnChangeEmail}/>
-              <label className="label-login">Contraseña</label>
-              <input type="password" className="input-login" onChange={handleOnChangePassword}/>
+        <section className="container-login" data-testid="login-container">
+            <h2 className="title-login" data-testid="login-title">Iniciar Sesión</h2>
+            <div className="row" data-testid="login-row">
+              <label className="label-login" data-testid="login-email-label">Correo electrónico</label>
+              <input type="email" className="input-login" onChange={handleOnChangeEmail} data-testid="login-email-input"/>
+              <label className="label-login" data-testid="login-password-label">Contraseña</label>
+              <input type="password" className="input-login" onChange={handleOnChangePassword} data-testid="login-password-input"/>
             </div>
-            <button className="btn-login" onClick={handleSubmit}>Ingresar</button>
-            <div className="alternative-login">
-              <span className="span-login">¿Aún no tienes cuenta?</span><Link to="/register"><span className="link-register">Registrate</span></Link>
+            <button className="btn-login" onClick={handleSubmit} data-testid="login-btn">Ingresar</button>
+            <div className="alternative-login" data-testid="login-alternative">
+              <span className="span-login" data-testid="login-span1-alternative">¿Aún no tienes cuenta?</span><Link to="/register" data-testid="register-link"><span className="link-register" data-testid="login-span2-alternative">Registrate</span></Link>
             </div>
         </section>
       <Footer/>

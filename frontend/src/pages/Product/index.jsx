@@ -35,26 +35,26 @@ function Product() {
 
 
     return (
-      <div className="main_container_product">
+      <div className="main_container_product" data-testid="product-container">
          <Header showLogin={showLogin} showLogout={showLogout} showLine={showLine}/>
-         <div className="block_header">
-            <div className="block_header_titles">
-                <h3 className="block_d">HOTEL</h3>
-                <h2 className="block_name">{id}</h2>
+         <div className="block_header" data-testid="product-header">
+            <div className="block_header_titles" data-testid="product-title-container">
+                <h3 className="block_d" data-testid="product-title">HOTEL</h3>
+                <h2 className="block_name" data-testid="product-id">{id}</h2>
             </div>
-            <div className="icon_back">
+            <div className="icon_back" data-testid="product-icon-back">
                  <Link to="/" className="back_image">
-                    <img  className="back" src="https://res.cloudinary.com/dbdrkxooj/image/upload/v1667606967/DH-PI/arrows-icon-left-removebg-preview_idlpxq.png" alt="Logo"  />
+                    <img  className="back" src="https://res.cloudinary.com/dbdrkxooj/image/upload/v1667606967/DH-PI/arrows-icon-left-removebg-preview_idlpxq.png" alt="Logo" data-testid="product-img" />
                 </Link>
             </div>
          </div>
-         <div className="block_header_location">
-             <div className="location_lodging">
+         <div className="block_header_location" data-testid="product-location-header">
+             <div className="location_lodging" data-testid="product-lodging">
                 <div>
-                    <img className="icongps" src={iconGps} alt="icon gps" />
-                    <p className=""> Buenos Aires, Ciudad Autonoma de Buenos Aires, Argentina </p>
+                    <img className="icongps" src={iconGps} alt="icon gps" data-testid="product-icon"/>
+                    <p className="" data-testid="product-city"> Buenos Aires, Ciudad Autonoma de Buenos Aires, Argentina </p>
                 </div>  
-                    <p> A 920 m del centro</p>     
+                    <p data-testid="product-distance"> A 920 m del centro</p>     
               </div>
               <div className="">
                    <div>
@@ -65,7 +65,7 @@ function Product() {
                    </div>
               </div>
          </div>
-         <div className="container_gallery">
+         <div className="container_gallery" data-testid="product-gallery">
          {
             !isLoading ? (
               <Gallery images={productImages}/>
