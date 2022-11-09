@@ -36,3 +36,110 @@
     height: 60%;
     align-self: center;
 }
+.block_header_location{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 2, 0.5);
+}
+.container_header_location{
+    display: flex;
+    flex-direction: column;
+    padding-left: 30px;
+    padding-top: 0px;
+}
+.block_location{
+    display: flex;
+    flex-direction: row;
+}
+.block_icongps{
+    height: 20px;
+}
+.block_city{
+    padding-left: 6px;
+    padding-top: 5px;
+}
+.address_header{
+    padding-left: 20px;
+    padding-top: 5px;
+}
+.block_container_score{
+    display: flex;
+    flex-direction: row;
+}
+
+.list_star_header{
+    display: flex;
+    flex-direction: row;
+    text-align: end;
+}
+.icon_star_header{
+    height: 20px;
+}
+.container_number_header{
+   height: 43px;
+   background-color: var(--main-color);
+   font-size: 35px;
+   color: white;
+   width: 40px;
+   font-weight: bolder;
+   text-align: center;
+   border-radius: 10px;
+   margin-right: 40px;
+   margin-left: 10px;
+   margin-top:5px;
+}
+.state_score_header{
+    text-align: end;
+    font-weight: bolder;
+    font-size: 18px;
+    margin-right: 5px;
+    margin-top: 2px;
+}
+.description_product{
+    background-color: white;
+}
+.title_description_product{
+    padding: 10px 25px;
+}
+.text_description{
+    padding: 10px 25px;
+}
+.container_features{
+    background-color: white;
+}
+.hr{
+  height: 2px;
+  background-color: var(--main-color);
+  width: 100%;
+  border: none;
+}
+
+.container_politics{
+    background-color: white;
+    padding: 10px 25px;
+    display: flex;
+    flex-direction: column;
+}
+.title_politics{
+    background-color: white;
+    padding: 10px 25px;
+}
+.type_politic{
+    margin: 10px;
+    width: 90%;
+}
+.politic{
+    margin: 15px 10px;
+    font-weight: 300;
+}
+
+@media (min-width: 761px) {
+    .container_politics{
+        flex-direction:row;
+        flex-wrap: wrap;
+    }
+    .type_politic{
+        max-width: 360px;
+    }
+}

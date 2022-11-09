@@ -96,7 +96,7 @@ li.select {
 .list-container {
     position: absolute;
     margin: 0;
-    width: 200px;
+    width: 25%;
     z-index: 3;
 }
 .location {
@@ -104,6 +104,15 @@ li.select {
     align-items: center;
 }
 }
+
+@media (max-width: 660px) {
+    
+    .list-container {
+        width: 80%;
+        z-index: 2;
+    }
+    
+    }
 
 
 @media (max-width: 320px) {
