@@ -24,7 +24,7 @@ function Product() {
     setIsLoading(true);
     try {
       setIsLoading(true);
-      await fetch('http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/products/1/images')
+      await fetch(`http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/products/${id}/images`)
       .then((response) => response.json())
       .then((data) =>
       setProductImages(data));
@@ -82,7 +82,7 @@ function Product() {
                 <div className="container_gallery" data-testid="product-gallery">
          {
             !isLoading ? (
-              <Gallery images={productImages}/>
+              <Gallery images={productImages} />
             ) : (
               <div style={{ width: '90%',  height: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                 <span className="loading-spa">Loading...</span>
