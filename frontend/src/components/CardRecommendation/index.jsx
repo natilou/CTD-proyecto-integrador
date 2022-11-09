@@ -9,20 +9,21 @@ import "./CardRecommendation.css";
 import { Link } from "react-router-dom";
 
 function CardRecommendation({ dataLodging }) {
-    
-    const { name, category, url_image, description } = dataLodging
+
+    const { id, title, category, address, description, city, } = dataLodging
     //, score, label_score,
     //    ,city,distance
+
     return (
         <article className="card_recommendation" data-testid="cardrecommendation-container">
             <figure className="recommendation_figure" data-testid="cardrecommendation-figure">
-                <img className="image_recommendation" src={url_image} alt={name} data-testid="cardrecommendation-img"/>
+                <img className="image_recommendation" src={category.urlImage} alt={title}  data-testid="cardrecommendation-img"/>
             </figure>
             <div className="constainer_description" data-testid="cardrecommendation-description-container">
                 <div className="container_section_score" data-testid="cardrecommendation-score">
                     <div>
                         <div className="container_title_star" data-testid="cardrecommendation-container-star">
-                            <p>{category}</p>
+                            <p>{category.title}</p>
                             <ul className="list_star" data-testid="cardrecommendation-ul">
                                 <li>
                                     <img src={iconStar} alt="star" className="icon_star" />
@@ -41,7 +42,7 @@ function CardRecommendation({ dataLodging }) {
                                 </li>
                             </ul>
                         </div>
-                        <h3 className="title_lodging" data-testid="cardrecommendation-title">{name}</h3>
+                        <h3 className="title_lodging" data-testid="cardrecommendation-title">{city.name}</h3>
                     </div>
                     <div>
                         <div className="container_number" data-testid="cardrecommendation-score-number"><p className="number">8</p></div>
@@ -51,7 +52,7 @@ function CardRecommendation({ dataLodging }) {
                 <div>
                     <div className="location_lodging" data-testid="cardrecommendation-location">
                         <img className="icongps" src={iconGps} alt="icon gps" data-testid="cardrecommendation-location-icon" />
-                        <p className="m_location" data-testid="cardrecommendation-location-address"> A 920 m del centro - </p>
+                        <p className="m_location" data-testid="cardrecommendation-location-address">{address} </p>
                         <p className="link_gps" data-testid="cardrecommendation-location-link">MOSTRAR EN EL MAPA</p>
                     </div>
                     <div className="container_logding_icons" data-testid="cardrecommendation-icons">
@@ -62,7 +63,7 @@ function CardRecommendation({ dataLodging }) {
                     <p className="description_lodging" data-testid="cardrecommendation-description">{description}</p>
 
                 </div>
-                <Link  to={`/product/${name}.${category}`} data-testid="cardrecommendation-link-url"><button className="btn_lodging" data-testid="cardrecommendation-btn">Ver mas</button> </Link>
+                <Link  to={`/product/${category.title}/${id}`} data-testid="cardrecommendation-link-url"><button className="btn_lodging" data-testid="cardrecommendation-btn">Ver mas</button> </Link>
             </div>
         </article>
     );

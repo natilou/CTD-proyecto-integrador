@@ -6,8 +6,9 @@ function Recommendation({ dataLodging }) {
     return (
         <section className="container_cards_recommendation" data-testid="recommendation-container">
             {
-                dataLodging.map((item, index) => (
-                    <CardRecommendation dataLodging={item} key={index} />
+                dataLodging.map((item) => (
+                    <CardRecommendation dataLodging={item} key={item.id}
+                    />
                 ))
             }
         </section>

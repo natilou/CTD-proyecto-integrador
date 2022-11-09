@@ -2,7 +2,8 @@
     padding-left: var(--font-size-bigger);
     color:var(--dark-blue-color);
     background-color: white;
-    padding-top: 10px;
+    padding-top: 345px;
+    padding-bottom: 5px;
     padding-left: 5%;
 }
 .main_title_recommedation{
@@ -11,4 +12,10 @@
     padding-top: 10px;
     padding-left: 5%;
 
+}
+@media (min-width: 661px) {
+    .title_categories{
+        padding-top: 222px;
+       
+    }
 }

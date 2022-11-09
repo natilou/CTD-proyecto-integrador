@@ -3,7 +3,7 @@ import Calendar from "../Calendar";
 import Selector from '../Selector';
 import "./FormFilter.css";
 
-function FormFilter(){  
+function FormFilter({cities}){  
   return(
     <section className='form_search' data-testid="formfilter-container">
       <h1 className='form_title' data-testid="formfilter-title">
@@ -11,7 +11,7 @@ function FormFilter(){
       </h1>
       <div className="container_form" data-testid="formfilter-container-form">
         <div className="sub-container" data-testid="formfilter-selector">
-          <Selector />
+          <Selector cities={cities} />
         </div>
         <div className="sub-container" data-testid="formfilter-calendar-subcontainer">
           <div className="calendar-container" data-testid="formfilter-calendar-container">
