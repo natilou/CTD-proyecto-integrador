@@ -26,13 +26,15 @@ function Product() {
         fetch(urlFeaturesID)
             .then((response) => response.json())
             .then((cities) => setfeatures(cities))
-    }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[]);
     
     useEffect(() => {
         fetch(urlProductoID)
             .then((response) => response.json())
             .then((cities) => setProduct(cities))
-    }, []);
+            // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[]);
 
 
     useEffect(() => {
@@ -53,23 +55,7 @@ function Product() {
             setIsLoading(false);
         }
     }
-    console.log(product)
-    /* 
-   async function getImages() {
-     setIsLoading(true);
-     try {
-       setIsLoading(true);
-       await fetch(`http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/products/${id}/images`)
-       .then((response) => response.json())
-       .then((data) =>
-       setProductImages(data));
-       setIsLoading(false);
-     } catch (error) {
-       console.log({ error });
-       setIsLoading(false);
-     }
-   }*/
-
+ 
     return (
         <div className="main_container_product" data-testid="product-container">
             <Header showLogin={showLogin} showLogout={showLogout} showLine={showLine} />

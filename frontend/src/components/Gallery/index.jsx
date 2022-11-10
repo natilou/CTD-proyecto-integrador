@@ -18,6 +18,7 @@ const Gallery = (props) => {
 
   useEffect(() => {
     getCarouselImages();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[]);
 
   async function getCarouselImages() {
