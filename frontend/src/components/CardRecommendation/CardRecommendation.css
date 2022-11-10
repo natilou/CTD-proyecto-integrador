@@ -15,7 +15,7 @@
 .image_recommendation {
     display: block;
     width: 100%;
-    height: 280px;
+    height: 240px;
     border-radius: 0px 0px 3% 3%;
 }
 
@@ -127,9 +127,9 @@
     color: white;
     border-radius: 5px;
     margin-right: 12px;
-    margin-left: 25px;
+    margin-left: 15px;
     position: relative;
-    bottom: -10px;
+    bottom: 0px;
 }
 
 .btn_lodging:hover{
@@ -173,6 +173,9 @@
         margin-left: 13px;
         bottom: -20px;
     } 
+    .image_recommendation {
+        height: 280px;
+    }
 }
 @media (min-width: 1300px) {
     .card_recommendation {
