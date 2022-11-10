@@ -5,9 +5,16 @@ import CardRecommendation from '.';
 import { BrowserRouter } from 'react-router-dom';
 
 const dataLodging = {
-    name: "Hunid",
-    category: "Hotels",
-    url_image: "https://res.cloudinary.com/dbdrkxooj/image/upload/v1666303628/DH-PI/inner-space-1026452_640_2_qejya3.png",
+    id: 1,
+    title: "Hunid",
+    category: {
+        id: 1, 
+        title: "Hotels",
+        urlImage: "https://res.cloudinary.com/dbdrkxooj/image/upload/v1666303628/DH-PI/inner-space-1026452_640_2_qejya3.png",
+    },
+    address: "Sarmiendo y Uruguay",
+    city: "Buenos Aires",
+    
     description: "Located in Buenos Aires, a 10-minute walk from The Obelisk of Buenos Aires, Huinid Obelisco Hotel provides accommodations with a fitness center, private parking and a bar. Featuring family rooms, this property also provides guests with a sun terrace. The property has a 24-hour front desk, a shuttle service, a business center and free WiFi throughout the property.The hotel will provide guests with air-conditioned rooms with a desk, a safety deposit box, a flat-screen TV and a private bathroom with a bidet. All guest rooms feature a closet."
 }
 

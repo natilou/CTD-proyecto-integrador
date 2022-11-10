@@ -8,6 +8,7 @@ import { BrowserRouter } from 'react-router-dom';
 const dataMock = [
     
     {
+        "id": 1,
         "name": "Huinid",
         "category": "Hotels",
         "score": "9.3",
@@ -18,7 +19,8 @@ const dataMock = [
         "city": "Buenos Aires",
         "url_image":"https://res.cloudinary.com/dbdrkxooj/image/upload/v1666303628/DH-PI/inner-space-1026452_640_2_qejya3.png"
     }, 
-    {
+    {   
+        "id": 2,
         "name": "Diplomatic",
         "category": "Hotels",
         "score": "9.3",
@@ -30,6 +32,7 @@ const dataMock = [
         "url_image":"https://res.cloudinary.com/dbdrkxooj/image/upload/v1666377109/DH-PI/inner-space-1026452_640_2_ozvna9.png"
     },
     {
+        "id": 3,
         "name": "Sheraton",
         "category": "Hotels",
         "score": "9",

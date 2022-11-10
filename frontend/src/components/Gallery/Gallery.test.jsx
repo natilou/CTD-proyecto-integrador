@@ -34,11 +34,11 @@ const imagesMock = [
 
 
 describe("Test Gallery", () => {
-    it("should render container", () => {
+    it("should render main container", () => {
         render(
             <Gallery images={imagesMock} />
         )
-        expect(screen.getByTestId("gallery-container")).toBeInTheDocument();
+        expect(screen.getByTestId("main-container")).toBeInTheDocument();
     })
 
     it("should render main images container", () => {
@@ -59,7 +59,7 @@ describe("Test Gallery", () => {
         render(
              <Gallery images={imagesMock} />
         )
-        expect(screen.getByTestId("gallery-img")).toBeInTheDocument();
+        expect(screen.getByTestId("main-image")).toBeInTheDocument();
     })
 
     it("should render secondary images container", () => {
