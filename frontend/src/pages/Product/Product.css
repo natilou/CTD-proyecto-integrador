@@ -10,7 +10,7 @@
     justify-content: space-between;
     align-items: center;
     justify-content: space-between;
-    background-color: black;
+    background-color:#31363F; 
     margin-top: 70px;
     color: white;
     height: 68px;
@@ -164,7 +164,16 @@
     font-weight: 300;
 }
 
-
+@media (min-width: 761px) {
+    .container_politics{
+        flex-direction:row;
+        flex-wrap: wrap;
+    }
+    .type_politic{
+        max-width: 360px;
+        margin: 0;
+    }
+}
 .loading-spa {
     color: var(--main-color);
     font-size: 1.5rem;

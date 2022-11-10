@@ -10,65 +10,59 @@ import iconStar from "../../assets/images/icons/iconStar1.png";
 
 function Product() {
     const [productImages, setProductImages] = useState([]);
-    const [features, setfeatures] = useState([])
+   const [product, setProduct] = useState([]);
+   const [features, setfeatures] = useState([])
     const [isLoading, setIsLoading] = useState(true);
     const { id } = useParams()
     const { category } = useParams()
     const showLogin = true;
     const showLogout = true;
     const showLine = true;
-    const urlFeaturesID = `http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/products/${id}/features`;
-
+   const urlFeaturesID = `http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/products/${id}/features`;
+    const urlProductoID = ` http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/products/${id}`
 
 
     useEffect(() => {
         fetch(urlFeaturesID)
-        .then((response) => response.json())
-        .then((cities) => setfeatures(cities))
-        
-      },[]);
-
-      useEffect(() => {
-        getImages();
-      }, []);
+            .then((response) => response.json())
+            .then((cities) => setfeatures(cities))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[]);
     
-      async function getImages() {
+    useEffect(() => {
+        fetch(urlProductoID)
+            .then((response) => response.json())
+            .then((cities) => setProduct(cities))
+            // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[]);
+
+
+    useEffect(() => {
+        getImages();
+    }, []);
+
+    async function getImages() {
         setIsLoading(true);
         try {
-          setIsLoading(true);
-          await fetch('http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/products/1/images')
-          .then((response) => response.json())
-          .then((data) =>
-          setProductImages(data));
-          setIsLoading(false);
+            setIsLoading(true);
+            await fetch('http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/products/1/images')
+                .then((response) => response.json())
+                .then((data) =>
+                    setProductImages(data));
+            setIsLoading(false);
         } catch (error) {
-          console.log({ error });
-          setIsLoading(false);
+            console.log({ error });
+            setIsLoading(false);
         }
-      }
-       /* 
-      async function getImages() {
-        setIsLoading(true);
-        try {
-          setIsLoading(true);
-          await fetch(`http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/products/${id}/images`)
-          .then((response) => response.json())
-          .then((data) =>
-          setProductImages(data));
-          setIsLoading(false);
-        } catch (error) {
-          console.log({ error });
-          setIsLoading(false);
-        }
-      }*/
-    console.log(features)
+    }
+ 
     return (
         <div className="main_container_product" data-testid="product-container">
             <Header showLogin={showLogin} showLogout={showLogout} showLine={showLine} />
             <div className="block_header" data-testid="product-header">
                 <div className="block_header_titles" data-testid="product-title-container">
                     <h3 className="block_d" data-testid="product-title">{category}</h3>
-                    <h2 className="block_name" data-testid="product-id">{id}</h2>
+                    <h2 className="block_name" data-testid="product-id">{product.title}</h2>
                 </div>
                 <div className="icon_back" data-testid="product-icon-back">
                     <Link to="/" className="back_image">
@@ -80,9 +74,9 @@ function Product() {
                 <div className="container_header_location" data-testid="product-lodging">
                     <div className="block_location">
                         <img className="block_icongps" src={iconGps} alt="icon gps" data-testid="product-icon" />
-                        <p className="block_city" data-testid="product-city">Ciudad Autonoma de Buenos Aires, Argentina </p>
+                        <p className="block_city" data-testid="product-city">Ciudad de {product.city.name},{product.city.country.name}</p>
                     </div>
-                    <p className="address_header" data-testid="product-distance"> A 920 m del centro</p>
+                    <p className="address_header" data-testid="product-distance"> {product.address}</p>
                 </div>
                 <div className="block_container_score">
                     <div>
@@ -120,19 +114,13 @@ function Product() {
                         </div>
                     )
                 }
+
             </div>
+
             <div className="description_product">
                 <h2 className="title_description_product">Alojate en el corazon de Buenos Aires</h2>
-                <p className="text_description" >Esta situado a solo unas calles de la avenida Alvear,
-                    de la avenida Quintana, del parque Martin y del distrito de
-                    Recoleta. En las inmediaciones tambien hay varios lugares de interes,
-                    como la calle Florida, e centro comercial Galerias Pacifico, la zona del
-                    Puerto Madero, la plaza de Mayo y el palacio Municipal.
-                    Nuestro clientes dicen que esta parte de Buenos Aires es su favorita, segun
-                    los comentorios independiente.
-                    El Hotel sofisticado de 4 estrellas que goza de una ubicacion tranquila, o poca
-                    distancia de prestigiosas de arte, teatros, museos y zonas comerciales. Ademas hay WIFI
-                    gratuita. El estrablecimiento sirve un desayuno variado de 07:00 a 10:30.
+                <p className="text_description" >
+                   {product.description}
                 </p>
             </div>
             <div className="container_features">
