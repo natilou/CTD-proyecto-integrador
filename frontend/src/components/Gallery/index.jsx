@@ -1,24 +1,60 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Gallery.css";
-import Carousel from "../Carousel";
-import { useMediaQuery } from 'react-responsive';
+import Lightbox from 'react-spring-lightbox';
 
 
 const Gallery = (props) => {
   const [showCarousel, setShowCarousel] = useState(false);
-  const isMobile = useMediaQuery({ query: '(max-width: 800px)' });
+  const [carouselImages, setCarouselImages] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [currentImageIndex, setCurrentIndex] = useState(0);
+
+  const gotoPrevious = () =>
+    currentImageIndex > 0 && setCurrentIndex(currentImageIndex - 1);
+
+  const gotoNext = () =>
+    currentImageIndex + 1 < carouselImages.length &&
+    setCurrentIndex(currentImageIndex + 1);
+
+  useEffect(() => {
+    getCarouselImages();
+  },[]);
+
+  async function getCarouselImages() {
+    setIsLoading(true);
+      const img = props.images.map((item) => {
+        return (
+          {
+            id: item.id,
+            title: item.title,
+            src: item.url,
+          }
+        )
+      });
+      setCarouselImages(img);
+      setIsLoading(false);
+  }
 
   return (
     <>
       {
-        showCarousel | isMobile ? (
+        showCarousel ? (
           <div className="carousel-container">
-            <Carousel images={props.images} />
             {
-              !isMobile && (
-                <div className="carousel-button-container">
-                  <button className="carousel-button" onClick={() => setShowCarousel(false)}>Cerrar</button>
+              isLoading ? (
+                <div style={{ width: '90%',  height: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                  <span className="loading-spa">Cargando...</span>
                 </div>
+              ): (
+                <Lightbox
+                isOpen={showCarousel}
+                onPrev={gotoPrevious}
+                onNext={gotoNext}
+                images={carouselImages}
+                currentIndex={currentImageIndex}
+                renderHeader={() => (<button style={{ backgroundColor: '#F3F1ED', color: 'black', fontSize: '2rem', fontWeight: 'bold', width: '20%', alignSelf: 'end', border: 'none', paddingTop: "15px" }} onClick={() => setShowCarousel(false)}> x </button>)}
+                style={{ background: '#F3F1ED' }}
+            />
               )
             }
           </div>

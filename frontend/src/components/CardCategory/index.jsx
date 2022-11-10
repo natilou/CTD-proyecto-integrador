@@ -1,12 +1,14 @@
 import React from "react";
 import "../CardCategory/CardCategory.css"
 
-function CardCategory({ data,idChange }) {
-
+function CardCategory({ data, onclick }) {
+    async function handleonclick(id){
+        await onclick(id)
+    }
     const { id, title, urlImage } = data;
 
     return (
-        <article onClick={()=> idChange(id)} className="container_article" data-testid="cardcategory-container">
+        <article onClick={()=> handleonclick(id)} className="container_article" data-testid="cardcategory-container">
             <figure className="container_image" data-testid="cardcategory-img-container">
                 <img className="category_image" src={urlImage} alt={title} data-testid="cardcategory-img"/>
             </figure>
