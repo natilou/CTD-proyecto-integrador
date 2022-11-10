@@ -6,6 +6,11 @@ import iconGps from "../../assets/images/Vector.png";
 import "./Product.css"
 import Gallery from "../../components/Gallery";
 import iconStar from "../../assets/images/icons/iconStar1.png";
+import DatePicker, { registerLocale, setDefaultLocale } from "react-datepicker";
+import es from "date-fns/locale/es";
+import { addDays } from 'date-fns';
+import { useMediaQuery } from 'react-responsive';
+import moment from 'moment';
 
 
 function Product() {
@@ -20,7 +25,16 @@ function Product() {
     const showLine = true;
     const urlFeaturesID = `http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/products/${id}/features`;
     const urlProductoID = ` http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/products/${id}`;
-
+    const [startDate, setStartDate] = useState(new Date());
+    const [endDate, setEndDate] = useState(null);
+    const onChange = (dates) => {
+        const [start, end] = dates;
+        setStartDate(start);
+        setEndDate(end);
+    }
+    const isMobile = useMediaQuery({ query: '(max-width: 761px)' });
+    registerLocale("es", es);
+    setDefaultLocale("es");
 
     /*  useEffect(() => {
           fetch(urlFeaturesID)
@@ -161,6 +175,45 @@ function Product() {
                     <h3>Politica de cancelacion</h3>
                     <p className="politic"> Agrega las fechas de tu viaje para obtener los detalles
                         de cancelacion de esta estadia.</p>
+                </div>
+            </div>
+            <div className="container_booking">
+                <h2 className="title_booking">Fechas disponibles</h2>
+                <div className="calendar-booking-container">
+                    <div className="booking-row">
+                        <div className="booking-col">
+                            <DatePicker
+                            monthsShown={isMobile ? 1 : 2}
+                            selected={startDate}
+                            onChange={onChange}
+                            startDate={startDate}
+                            endDate={endDate}
+                            minDate={moment().toDate()}
+                            selectsRange={true}
+                            locale="es"
+                            excludeDates={
+                                [
+                                    addDays(new Date(), 3),
+                                    addDays(new Date(), 4),
+                                    addDays(new Date(), 5),
+                                    addDays(new Date(), 30),
+                                    addDays(new Date(), 31),
+                                    addDays(new Date(), 32),
+                                    addDays(new Date(), 33),
+                                ]}
+                     
+                            inline
+                            />
+                        </div>
+                        <div className="booking-col">
+                            <div className="booking-action">
+                                <div>
+                                    <h4 className="booking-message">Agregá tus fechas de viaje para obtener precios exactos</h4>
+                                </div>
+                                <button className="btn-booking">Iniciar reserva</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <Footer />
