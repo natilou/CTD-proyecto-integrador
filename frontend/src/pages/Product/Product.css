@@ -190,7 +190,7 @@
 }
 
 .container_booking{
-    background-color: #ececef;
+    background-color: #f3f1ed;
     padding: 10px 25px;
     display: flex;
     flex-direction: column;
@@ -211,33 +211,10 @@
 .booking-col{
     width: 50%;
     text-align: center;
+    display: flex;
+    justify-content: center;
 }
 
-.booking-action{
-    background-color: #ffffff;
-    height: 10rem;
-    border-radius: 10px;
-}
-
-.btn-booking{
-    background-color: var(--main-color);
-    border: none;
-    color: white;
-    border-radius: 5px;
-    height: 40px;
-    width: 70%;
-    font-weight: bold;
-    font-size: var(--font-size-medium);
-}
-
-.btn-booking:hover{
-    cursor: pointer;
-}
-
-.booking-message{
-    padding-top: 2rem;
-    padding-bottom: 1rem;
-}
 
 @media(max-width: 800px){
     .container_gallery{
@@ -294,12 +271,6 @@
     .booking-col{
         width: 100%;
     }
-
-    .booking-action{
-        margin-top: 1rem;
-        margin-bottom: 5rem;
-        height: 9rem;
-    }
 }
 
 @media (max-width:400px) {
@@ -315,31 +286,5 @@
     .booking-col{
         width: 100%;
     }
-
-    .booking-action{
-        margin-top: 1rem;
-        height: 9rem;
-        margin-bottom: 5rem;
-    }
 }
 
-@media (max-width: 400px), (max-height: 550px) {
-    .react-datepicker__portal .react-datepicker__day-name,
-  .react-datepicker__portal .react-datepicker__day,
-  .react-datepicker__portal .react-datepicker__time-name {
-      width: 2rem;
-      line-height: 2rem;
-    }
-    .react-datepicker-wrapper, .react-datepicker__input-container, .react-datepicker__input-container input {
-      display: flex;
-      width: 93%;
-      margin-left: 10px;
-      height:  40px;
-      align-self: center;
-  }
-  }
-  .react-datepicker__portal .react-datepicker__current-month,
-  .react-datepicker__portal .react-datepicker-time__header {
-    font-size: 1.44rem;
-  
-  }
