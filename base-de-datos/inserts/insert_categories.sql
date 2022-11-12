@@ -1,0 +1,4 @@
+insert into `categories` (`description`, `id`, `title`, `url_image`) values ('Hoteles', 1, 'Hoteles', 'https://www.cronista.com/files/image/307/307135/5ffe2f480d5e8.jpg');
+insert into `categories` (`description`, `id`, `title`, `url_image`) values ('Hostels', 2, 'Hostels', 'https://nomadsworld.com/wp-content/uploads/2018/11/nomads-st-kilda-dorm-room.jpg');
+insert into `categories` (`description`, `id`, `title`, `url_image`) values ('Bed and Breakfast', 3, 'Bed and Breakfast', 'https://static.hosteltur.com/app/public/uploads/img/articles/2015/08/01/L_5c1a43aecb370_Bed-Breakfast.jpg ');
+insert into `categories` (`description`, `id`, `title`, `url_image`) values ('Departamentos', 4, 'Departamentos', 'https://www.inmuebles24.com/noticias/wp-content/uploads/2020/01/departamentos-de-lujo-2-1024x674.jpeg');
