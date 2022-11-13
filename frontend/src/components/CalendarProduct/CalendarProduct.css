@@ -22,6 +22,13 @@
     border: none;
 }
 
+.react-datepicker__day--outside-month {
+    color: transparent !important;
+    pointer-events: none;
+    background-color: transparent !important;
+  }
+
+
 @media (max-width: 400px), (max-height: 550px) {
     .react-datepicker__portal .react-datepicker__day-name,
     .react-datepicker__portal .react-datepicker__day,
