@@ -8,7 +8,7 @@ import "./CalendarProduct.css"
 
 function CalendarProduct() {
 
-    const [startDate, setStartDate] = useState(new Date());
+    const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
     const onChange = (dates) => {
         const [start, end] = dates;
@@ -22,7 +22,6 @@ function CalendarProduct() {
     return(
         <DatePicker
         monthsShown={isMobile ? 1 : 2}
-        selected={startDate}
         onChange={onChange}
         startDate={startDate}
         endDate={endDate}
