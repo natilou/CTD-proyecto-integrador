@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import DatePicker, { registerLocale, setDefaultLocale } from "react-datepicker";
 import es from "date-fns/locale/es";
 import { addDays } from 'date-fns';
