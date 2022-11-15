@@ -78,12 +78,18 @@
 }
 
 .gallery-button {
-    background-color: white;
+    background-color: #f3f1ed;
     color: var(--dark-blue-color);
     border: none;
     font-size: 1rem;
     text-decoration: underline;
     font-weight: bold;
+    margin-top: 0.5rem
+}
+
+.gallery-button:hover{
+    cursor: pointer;
+    color: var(--main-color);
 }
 
 .carousel-container{

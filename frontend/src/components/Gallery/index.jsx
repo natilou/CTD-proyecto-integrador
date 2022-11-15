@@ -78,7 +78,7 @@ const Gallery = (props) => {
               </div>
             </div>
             <div className="button-container" data-testid="btn-container">
-              <button className="gallery-button" onClick={() => setShowCarousel(true)} data-testid="gallery-btn">Ver mas</button>
+              <button className="gallery-button" onClick={() => setShowCarousel(true)} data-testid="gallery-btn">Ver más</button>
             </div>
           </div>
         )

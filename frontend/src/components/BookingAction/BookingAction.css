@@ -2,7 +2,7 @@
     background-color: #ffffff;
     height: 10rem;
     border-radius: 10px;
-    width: 65%;
+    width: 75%;
 }
 
 .btn-booking{
@@ -11,7 +11,7 @@
     color: white;
     border-radius: 5px;
     height: 40px;
-    width: 60%;
+    width: 55%;
     font-weight: bold;
     font-size: var(--font-size-medium);
     margin-top: 5px;
