@@ -4,8 +4,8 @@ import "./BookingForm.css";
 const BookingForm = (props) => {
 
     return (
-        <>
-            <h2 style={{ textAlign: 'left', width:'100%', marginTop: '20px' }}>Completá tus datos</h2>
+        <div className="booking-form-container">
+            <h2 style={{ textAlign: 'left', width:'100%', marginTop: '20px' }}>Tus datos</h2>
             <div className="form-main-container">
                 <div className="form-sub-container">
                     <label className="label-booking-form">Nombre</label>
@@ -18,7 +18,7 @@ const BookingForm = (props) => {
                     <input type="Apellido" className="input-booking-form"/>
                 </div>
             </div>
-    </>
+    </div>
     );
 
 }

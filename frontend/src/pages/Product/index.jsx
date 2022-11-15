@@ -10,6 +10,7 @@ import CalendarProduct from "../../components/CalendarProduct";
 import BookingAction from "../../components/BookingAction";
 import ProductPolices from "../../components/ProductPolices";
 import BookingForm from "../../components/BookingForm";
+import { useMediaQuery } from 'react-responsive';
 import BookingDetail from "../../components/BookingDetail";
 
 
@@ -25,7 +26,8 @@ function Product() {
     const showLogout = true;
     const showLine = true;
     const urlFeaturesID = `http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/products/${id}/features`;
-    const urlProductoID = ` http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/products/${id}`;
+    const urlProductID = ` http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/products/${id}`;
+    const isMobile = useMediaQuery({ query: '(max-width: 761px)' });
 
     useEffect(() => {
         getData();
@@ -39,7 +41,7 @@ function Product() {
                 .then((response) => response.json())
                 .then((data) =>
                     setProductImages(data));
-            await fetch(urlProductoID)
+            await fetch(urlProductID)
                 .then((response) => response.json())
                 .then((data) => setProduct(data));
             await fetch(urlFeaturesID)
@@ -68,32 +70,32 @@ function Product() {
                         <Header showLogin={showLogin} showLogout={showLogout} showLine={showLine} />            
                         {
                             showBookingScreen ? (
-                                <>
-                                    <div className="block_header" data-testid="product-header">
-                                        <div className="block_header_titles" data-testid="product-title-container">
-                                            <h3 className="block_d" data-testid="product-title">{category}</h3>
-                                            <h2 className="block_name" data-testid="product-id">{product.title}</h2>
+                                <div>
+                                    <div className="block_header">
+                                        <div className="block_header_titles">
+                                            <h3 className="block_d">{category}</h3>
+                                            <h2 className="block_name">{product.title}</h2>
                                         </div>
-                                        <div className="icon_back" data-testid="product-icon-back">
+                                        <div className="icon_back">
                                             <Link onClick={handleBookingButtonClick} className="go-product-button">
-                                                <img className="back" src="https://res.cloudinary.com/dbdrkxooj/image/upload/v1667606967/DH-PI/arrows-icon-left-removebg-preview_idlpxq.png" alt="Logo" data-testid="product-img" />
+                                                <img className="back" src="https://res.cloudinary.com/dbdrkxooj/image/upload/v1667606967/DH-PI/arrows-icon-left-removebg-preview_idlpxq.png" alt="Logo" />
                                             </Link>
                                         </div>
                                     </div>
-                                    <div className="booking-form-main-container">
+                                    <div className="booking-form-main-container" >
                                         <div className="booking-form-and-calendar-container">
                                             <BookingForm />
-                                            <div style={{ display: 'flex', flexDirection: 'column', width: '100%', justifyContent: 'center' }}>
+                                            <div className="booking-calendar-container">
                                                 <h2 style={{ marginBottom: '20px' }}>Seleccioná tu fecha de reserva</h2>
                                                 <CalendarProduct />
                                             </div>
                                         </div>
                                         <div className="booking-detail-container">
-                                            <BookingDetail />
+                                            <BookingDetail productImages={productImages} product={product} />
                                         </div>
                                     </div>
                                     <ProductPolices />
-                                </>
+                                </div>
                             ) : (
                                 <>
                                     <div className="block_header" data-testid="product-header">

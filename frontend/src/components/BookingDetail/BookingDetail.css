@@ -1,3 +1,5 @@
+@import "../../commons/_styles.css";
+
 .booking-detail-main-container {
     display: flex;
     flex-direction: column;
@@ -7,4 +9,148 @@
     background-color: white;
     border-radius: 10px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    padding: 15px;
+}
+
+.booking-detail-title {
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.booking-detail-star-icon{
+    height: 20px;
+}
+
+.booking-detail-icon-star-container{
+    display: flex;
+    flex-direction: row;
+    text-align: end;
+}
+
+.booking-detail-location-container{
+    display: flex;
+    flex-direction: row;
+    padding-top: 0px;
+}
+
+.booking-detail-location-sub-container{
+    display: flex;
+    flex-direction: row;
+}
+
+.booking-detail-location-icon{
+    height: 25px;
+    padding-top: 5px;
+}
+
+.booking-detail-location-city{
+    padding-top: 5px;
+    margin-left: 5px;
+}
+
+.booking-detail-location-address{
+    margin-left: 5px;
+    padding-top: 5px;
+}
+
+.booking-detail-check-in-container{
+    margin-top: 20px;
+    width: 100%;
+    border-style: solid;
+    border-color: #C3BDBE ;
+    border-width: 2px;
+    border-right: 0ch;
+    border-left: 0ch;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.booking-detail-check-out-container{
+    width: 100%;
+    border-style: solid;
+    border-color: #C3BDBE ;
+    border-width: 2px;
+    border-right: 0ch;
+    border-top: 0ch;
+    border-left: 0ch;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.booking-detail-submit-button-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    align-self: center;
+}
+
+.booking-detail-submit-button {
+    background-color: var(--main-color);
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border: none;
+    width: 50%;
+    height: 70px;
+    border-radius: 5px;
+}
+
+@media(max-width: 769px){
+    .booking-detail-main-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        width: 90%;
+        height: 95%;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        padding: 15px;
+    }
+
+    .booking-detail-check-in-container{
+        margin-top: 20px;
+        width: 100%;
+        border-style: solid;
+        border-color: #C3BDBE ;
+        border-width: 2px;
+        border-right: 0ch;
+        border-left: 0ch;
+        height: 50px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .booking-detail-check-out-container{
+        width: 100%;
+        border-style: solid;
+        border-color: #C3BDBE ;
+        border-width: 2px;
+        border-right: 0ch;
+        border-top: 0ch;
+        border-left: 0ch;
+        height: 50px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .booking-detail-submit-button {
+        background-color: var(--main-color);
+        color: white;
+        font-size: 1rem;
+        font-weight: bold;
+        border: none;
+        width: 90%;
+        height: 50px;
+        border-radius: 5px;
+    }
 }
