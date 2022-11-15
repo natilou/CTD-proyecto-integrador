@@ -83,7 +83,6 @@ function Product() {
                                     <div className="booking-form-main-container">
                                         <div className="booking-form-and-calendar-container">
                                             <BookingForm />
-
                                             <div style={{ display: 'flex', flexDirection: 'column', width: '100%', justifyContent: 'center' }}>
                                                 <h2 style={{ marginBottom: '20px' }}>Seleccioná tu fecha de reserva</h2>
                                                 <CalendarProduct />
@@ -145,15 +144,14 @@ function Product() {
                                     <div className="container_gallery" data-testid="product-gallery">
                                         <Gallery images={productImages} />
                                     </div>
-
                                     <div className="description_product">
-                                        <h2 className="title_description_product">Alojate en el corazon de Buenos Aires</h2>
+                                        <h2 className="title_description_product">Alojate en el corazón de {product.city.name}</h2>
                                         <p className="text_description" >
                                             {product.description}
                                         </p>
                                     </div>
                                     <div className="container_features">
-                                        <h2 className="title_features">¿Que ofrece este lugar?</h2>
+                                        <h2 className="title_features">¿Qué ofrece este lugar?</h2>
                                         <hr className="hr" />
                                         <div className="container_icon_features">
                                             {

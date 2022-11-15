@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 function CardRecommendation({ dataLodging }) {
 
     const { id, title, category, address, description, city, } = dataLodging
+    console.log("datalodging", dataLodging)
     //, score, label_score,
     //    ,city,distance
 
@@ -42,7 +43,7 @@ function CardRecommendation({ dataLodging }) {
                                 </li>
                             </ul>
                         </div>
-                        <h3 className="title_lodging" data-testid="cardrecommendation-title">{city.name}</h3>
+                        <h3 className="title_lodging" data-testid="cardrecommendation-title">{title}</h3>
                     </div>
                     <div>
                         <div className="container_number" data-testid="cardrecommendation-score-number"><p className="number">8</p></div>
@@ -52,7 +53,7 @@ function CardRecommendation({ dataLodging }) {
                 <div>
                     <div className="location_lodging" data-testid="cardrecommendation-location">
                         <img className="icongps" src={iconGps} alt="icon gps" data-testid="cardrecommendation-location-icon" />
-                        <p className="m_location" data-testid="cardrecommendation-location-address">{address} </p>
+                        <p className="m_location" data-testid="cardrecommendation-location-address">{address}, {city.name} </p>
                         <p className="link_gps" data-testid="cardrecommendation-location-link">MOSTRAR EN EL MAPA</p>
                     </div>
                     <div className="container_logding_icons" data-testid="cardrecommendation-icons">
