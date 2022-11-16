@@ -22,7 +22,7 @@ public class Image {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "product_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)//AVERIGUAR
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private Product product;
 
