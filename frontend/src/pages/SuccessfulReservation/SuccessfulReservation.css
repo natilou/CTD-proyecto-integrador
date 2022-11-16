@@ -1,0 +1,48 @@
+.successful-reservation-container{
+    margin: 20rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 15rem;
+}
+
+.message-container{
+    width: 50%;
+    height: 100%;
+    text-align: center;
+    background-color: #ffffff;
+    border-radius: 5px;
+    box-shadow: 3px 3px 3px #e1e0de;
+}
+
+.btn-successful{
+    background-color: var(--main-color);
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #ffffff;
+    width: 25%;
+    height: 2rem;
+    box-shadow: 3px 3px 3px #e1e0de;
+
+}
+
+.btn-successful:hover{
+    cursor: pointer;
+}
+
+.message-title{
+    margin: 1rem;
+    font-weight: bolder;
+    font-size: xx-large;
+    color: var(--main-color)
+}
+
+.second-message-title{
+    margin: 1rem;
+}
+
+.check-icon{
+    margin: 1rem;
+}
