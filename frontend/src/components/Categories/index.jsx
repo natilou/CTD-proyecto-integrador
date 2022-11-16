@@ -2,13 +2,13 @@ import React from "react";
 import CardCategory from "../CardCategory";
 import "./Categories.css"
 
-function Categories({ data }) {
-
+function Categories({ data, onclick }) {
+    
     return (
-        <section className="container_cards" >
+        <section className="container_cards" data-testid="categories-container">
             {
                 data.map((item, index) => (
-                    <CardCategory data={item} key={index}
+                    <CardCategory data={item} key={index} onclick={onclick}
                     />
                 ))
             }

@@ -28,8 +28,6 @@ public class Feature {
             },
             mappedBy = "features")
     @JsonIgnore
-    //@JsonBackReference
-    //@JsonManagedReference //"funciona" pero no devuelve nada - RELACIONADA AL MODELO PRODUCT
     private Set<Product> products = new HashSet<>();
 
     public Feature(String name, String pathIcon) {

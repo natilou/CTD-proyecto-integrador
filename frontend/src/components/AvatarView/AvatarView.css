@@ -102,13 +102,13 @@
         text-align: end;
         align-items: center;
         justify-content: center;
-        margin-left: 17rem;
+        margin-left: 14rem;
         margin-top: 1rem;
         margin-bottom: 0.5rem;
     }
 
     .greeting_name_container{
         align-items: flex-end;
-        margin-left: 15rem;
+        margin-left: 14rem;
     }
 }

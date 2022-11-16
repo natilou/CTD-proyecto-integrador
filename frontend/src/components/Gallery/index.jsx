@@ -1,151 +1,84 @@
 import React, { useState, useEffect } from "react";
 import "./Gallery.css";
-import Carousel from "../Carousel";
-import { useMediaQuery } from 'react-responsive';
-//import Axios from 'axios'
+import Lightbox from 'react-spring-lightbox';
 
 
-const Gallery = () => {
+const Gallery = (props) => {
   const [showCarousel, setShowCarousel] = useState(false);
-  const [productImages, setProductImages] = useState([]);
-  const isMobile = useMediaQuery({ query: '(max-width: 1023px)' });
-  console.log(productImages);
+  const [carouselImages, setCarouselImages] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [currentImageIndex, setCurrentIndex] = useState(0);
 
-  // useEffect(() => {
-  //   Axios.get("http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/categories").then((response) => {
-  //     console.log(response.data);
-  //   })
-  // }, []);
+  const gotoPrevious = () =>
+    currentImageIndex > 0 && setCurrentIndex(currentImageIndex - 1);
 
-  // useEffect(() => {
-  //   fetch('https://randomuser.me/api/')
-  //     .then((response) => response.json())
-  //     .then((data) => console.log(data))
-  //     .catch((error) => {
-  //       console.log(error)
-  //     })
-  // }, []);
+  const gotoNext = () =>
+    currentImageIndex + 1 < carouselImages.length &&
+    setCurrentIndex(currentImageIndex + 1);
 
   useEffect(() => {
-    fetch('http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/categories').then((response) => response.json())
-    // .then((data) => console.log(data))
-  }, []);
+    getCarouselImages();
+    
+  },[]);
 
-
-
-  // useEffect(() => {
-  //   fetch('http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/categories', {
-  //     method: 'GET',
-  //     headers: {
-  //       'Content-Type':'application/json',
-  //       'Access-Control-Allow-Methods':'POST,PATCH,OPTIONS',
-  //     }
-
-  //   })
-  //     .then((response) => response.json())
-  //     .then((data) => console.log(data))
-  //     .catch((error) => {
-  //       console.log(error)
-  //     })
-  // }, []);
-
-  // console.log(response.data);
-  // setProductImages(response.data.data);
-  // console.log(productImages, 'dentro de fetch');
-
-  // async function getProductImages() {
-
-
-  // }
-
-  const images = [
-    {
-        id: 1,
-        url: "https://www.portafolio.co/files/article_multimedia/uploads/2021/06/07/60bedba57a5ae.jpeg",
-        productId: 1,
-    },
-    {
-        id: 2,
-        url: "https://phantom-elmundo.unidadeditorial.es/3221a050bdc965906082b1c3f61fd93b/crop/0x0/1328x884/resize/550/f/webp/assets/multimedia/imagenes/2021/05/17/16212483528638.jpg",
-        productId: 1,
-    },
-    {
-        id: 3,
-        url: "https://www.portafolio.co/files/article_multimedia/uploads/2021/06/07/60bedba57a5ae.jpeg",
-        productId: 1,
-    },
-    {
-        id: 4,
-        url: "https://phantom-elmundo.unidadeditorial.es/3221a050bdc965906082b1c3f61fd93b/crop/0x0/1328x884/resize/550/f/webp/assets/multimedia/imagenes/2021/05/17/16212483528638.jpg",
-        productId: 1,
-    },
-    {
-        id: 5,
-        url: "https://www.portafolio.co/files/article_multimedia/uploads/2021/06/07/60bedba57a5ae.jpeg",
-        productId: 1,
-    },
-    {
-        id: 6,
-        url: "https://phantom-elmundo.unidadeditorial.es/3221a050bdc965906082b1c3f61fd93b/crop/0x0/1328x884/resize/550/f/webp/assets/multimedia/imagenes/2021/05/17/16212483528638.jpg",
-        productId: 1,
-    },
-    {
-        id: 7,
-        url: "https://www.portafolio.co/files/article_multimedia/uploads/2021/06/07/60bedba57a5ae.jpeg",
-        productId: 1,
-    },
-    {
-        id: 8,
-        url: "https://phantom-elmundo.unidadeditorial.es/3221a050bdc965906082b1c3f61fd93b/crop/0x0/1328x884/resize/550/f/webp/assets/multimedia/imagenes/2021/05/17/16212483528638.jpg",
-        productId: 1,
-    },
-  ]
-
-  // useEffect(() => {
-  //   // TODO cambiar url
-  //   axiosConnection
-  //     .get("/imagenes/listarImagenes")
-  //     .then((response) => {
-  //       setDataImagen(response.data.data);
-  //       console.log(dataImagen);
-  //     });
-  //   return
-  // }, []);
+  async function getCarouselImages() {
+    setIsLoading(true);
+      const img = props.images.map((item) => {
+        return (
+          {
+            id: item.id,
+            title: item.title,
+            src: item.url,
+          }
+        )
+      });
+      setCarouselImages(img);
+      setIsLoading(false);
+  }
 
   return (
     <>
       {
-        showCarousel | isMobile ? (
-          <>
-          {
-            !isMobile && (
-              <div className="carousel-button-container">
-              <button className="carousel-button" onClick={() => setShowCarousel(false)}>Cerrar</button>
-            </div>
-            )
-          }
-          <Carousel />
-        </>
+        showCarousel ? (
+          <div className="carousel-container">
+            {
+              isLoading ? (
+                <div style={{ width: '90%',  height: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                  <span className="loading-spa">Cargando...</span>
+                </div>
+              ): (
+                <Lightbox
+                isOpen={showCarousel}
+                onPrev={gotoPrevious}
+                onNext={gotoNext}
+                images={carouselImages}
+                currentIndex={currentImageIndex}
+                renderHeader={() => (<button style={{ backgroundColor: '#F3F1ED', color: 'black', fontSize: '2rem', fontWeight: 'bold', width: '20%', alignSelf: 'end', border: 'none', paddingTop: "15px" }} onClick={() => setShowCarousel(false)}> x </button>)}
+                style={{ background: '#F3F1ED' }}
+            />
+              )
+            }
+          </div>
 
         ) : (
-          <div className="main-container">
-            <div className="main-images-container">
-              <div className="main-image-container">
-                <img src={images[0].url} alt="" className="main-image"/>
+          <div className="main-container" data-testid="main-container">
+            <div className="main-images-container" data-testid="main-images-container">
+              <div className="main-image-container" data-testid="main-image-container">
+                <img src={props.images[0].url} alt="" className="main-image" data-testid="main-image"/>
               </div>
-              <div className="secondary-images-container">
-                <div className="secondary-images-sub-container">
-                  <img src={images[1].url} alt="" className="secondary-images"/>
-                  <img src={images[2].url} alt="" className="secondary-images"/>
+              <div className="secondary-images-container" data-testid="secondary-imgs-container">
+                <div className="secondary-images-sub-container" data-testid="secondary-img-container">
+                  <img src={props.images[1].url} alt="" className="secondary-images" data-testid="secondary-img-1"/>
+                  <img src={props.images[2].url} alt="" className="secondary-images" data-testid="secondary-img-2"/>
                 </div>
-                <div className="secondary-images-sub-container">
-                  <img src={images[3].url} alt="" className="secondary-images"/>
-                  <img src={images[4].url} alt="" className="secondary-images"/>
+                <div className="secondary-images-sub-container" data-testid="secondary-imgs-container-2">
+                  <img src={props.images[3].url} alt="" className="secondary-images" data-testid="secondary-img-3"/>
+                  <img src={props.images[4].url} alt="" className="secondary-images" data-testid="secondary-img-4"/>
                 </div>
               </div>
             </div>
-            <div className="button-container">
-              <button className="gallery-button" onClick={() => setShowCarousel(true)}>Ver mas</button>
+            <div className="button-container" data-testid="btn-container">
+              <button className="gallery-button" onClick={() => setShowCarousel(true)} data-testid="gallery-btn">Ver más</button>
             </div>
           </div>
         )
