@@ -9,15 +9,13 @@ import iconStar from "../../assets/images/icons/iconStar1.png";
 import CalendarProduct from "../../components/CalendarProduct";
 import BookingAction from "../../components/BookingAction";
 import ProductPolices from "../../components/ProductPolices";
-import BookingForm from "../../components/BookingForm";
-import { useMediaQuery } from 'react-responsive';
-import BookingDetail from "../../components/BookingDetail";
+import Booking from '../Booking';
 
 
 function Product() {
     const [productImages, setProductImages] = useState([]);
     const [product, setProduct] = useState([]);
-    const [features, setfeatures] = useState([])
+    const [features, setFeatures] = useState([])
     const [isLoading, setIsLoading] = useState(true);
     const [showBookingScreen, setShowBookingScreen] = useState(false);
     const { id } = useParams()
@@ -27,7 +25,6 @@ function Product() {
     const showLine = true;
     const urlFeaturesID = `http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/products/${id}/features`;
     const urlProductID = ` http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/products/${id}`;
-    const isMobile = useMediaQuery({ query: '(max-width: 761px)' });
 
     useEffect(() => {
         getData();
@@ -46,7 +43,7 @@ function Product() {
                 .then((data) => setProduct(data));
             await fetch(urlFeaturesID)
                 .then((response) => response.json())
-                .then((cities) => setfeatures(cities));
+                .then((cities) => setFeatures(cities));
             setIsLoading(false);
         } catch (error) {
             console.log({ error });
@@ -70,32 +67,7 @@ function Product() {
                         <Header showLogin={showLogin} showLogout={showLogout} showLine={showLine} />            
                         {
                             showBookingScreen ? (
-                                <div>
-                                    <div className="block_header">
-                                        <div className="block_header_titles">
-                                            <h3 className="block_d">{category}</h3>
-                                            <h2 className="block_name">{product.title}</h2>
-                                        </div>
-                                        <div className="icon_back">
-                                            <Link onClick={handleBookingButtonClick} className="go-product-button">
-                                                <img className="back" src="https://res.cloudinary.com/dbdrkxooj/image/upload/v1667606967/DH-PI/arrows-icon-left-removebg-preview_idlpxq.png" alt="Logo" />
-                                            </Link>
-                                        </div>
-                                    </div>
-                                    <div className="booking-form-main-container" >
-                                        <div className="booking-form-and-calendar-container">
-                                            <BookingForm />
-                                            <div className="booking-calendar-container">
-                                                <h2 style={{ marginBottom: '20px' }}>Seleccioná tu fecha de reserva</h2>
-                                                <CalendarProduct />
-                                            </div>
-                                        </div>
-                                        <div className="booking-detail-container">
-                                            <BookingDetail productImages={productImages} product={product} />
-                                        </div>
-                                    </div>
-                                    <ProductPolices />
-                                </div>
+                                <Booking />
                             ) : (
                                 <>
                                     <div className="block_header" data-testid="product-header">
