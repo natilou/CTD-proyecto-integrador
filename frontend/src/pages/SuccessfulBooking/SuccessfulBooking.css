@@ -1,14 +1,14 @@
-.successful-reservation-container{
-    margin: 20rem;
+.successful-booking-container{
+    margin-top: 20rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 15rem;
+    height: 18rem;
 }
 
 .message-container{
-    width: 50%;
-    height: 100%;
+    width: 70%;
+    height: 120%;
     text-align: center;
     background-color: #ffffff;
     border-radius: 5px;
@@ -25,7 +25,7 @@
     width: 25%;
     height: 2rem;
     box-shadow: 3px 3px 3px #e1e0de;
-
+    margin-top: 1rem;
 }
 
 .btn-successful:hover{
@@ -44,5 +44,36 @@
 }
 
 .check-icon{
-    margin: 1rem;
+    width: 10%;
+    margin-top: 1rem;
+}
+
+
+
+@media (max-width: 500px) { 
+    .successful-reservation-container {
+        margin: 0;
+        margin-top: 20rem;
+    }
+
+    .check-icon{
+        width: 20%;
+    }
+
+}
+
+@media (max-width: 1000px) { 
+    .successful-reservation-container {
+        margin: 0;
+        margin-top: 20rem;
+    }
+
+    .check-icon{
+        width: 10%;
+    }
+
+    .message-container{
+        width: 70%;
+    }
+
 }
