@@ -20,7 +20,6 @@ public class Feature {
     private String name;
     private String pathIcon;
 
-
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
                     CascadeType.PERSIST,

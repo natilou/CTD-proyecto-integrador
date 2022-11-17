@@ -22,7 +22,7 @@ public class Category {
     private String urlImage;
 
     //Constructor sin id
-    public Category(String title, String description, String urlImage, Integer amount) {
+    public Category(String title, String description, String urlImage) {
         this.title = title;
         this.description = description;
         this.urlImage = urlImage;

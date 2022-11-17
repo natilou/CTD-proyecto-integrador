@@ -20,7 +20,7 @@ public class City {
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "country_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)//AVERIGUAR
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Country country;
 
     public City(String name, Country country) {

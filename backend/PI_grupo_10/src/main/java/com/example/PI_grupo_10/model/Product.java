@@ -25,14 +25,14 @@ public class Product {
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "category_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)//AVERIGUAR: no va CASCADE
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Category category;
 
     private String address;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "city_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)//AVERIGUAR
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private City city;
 
     private String description;
