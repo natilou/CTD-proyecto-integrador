@@ -15,7 +15,7 @@ const ProductPolices = (props) => {
             </div>
             <div className="type_politic">
                 <h3>Salud y seguridad</h3>
-                <p className="politic">se aplican las pautas de distanciamiento social y otras
+                <p className="politic">Se aplican las pautas de distanciamiento social y otras
                     normas relacionadas con el coranavirus</p>
                 <p className="politic">Detector de humo</p>
                 <p className="politic">Depósito de seguridad</p>
