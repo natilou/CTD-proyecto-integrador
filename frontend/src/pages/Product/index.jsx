@@ -132,7 +132,7 @@ function Product() {
                                                 features &&
                                                 features.map((item) => (
                                                     <div className="icons_features" key={`${id}${item.name}`}>
-                                                        <img className="img_features" src={`https://res.cloudinary.com/dbdrkxooj/image/upload/v1667983955/DH-PI/${item.name}.png`} alt={`icon ${item.name}`} />
+                                                        <img className="img_features" src={`${item.pathIcon}`} alt={`icon ${item.name}`} />
                                                         <p>{item.name}</p>
                                                     </div>
                                                 ))

@@ -2,10 +2,12 @@ import React from 'react';
 import { useMediaQuery } from 'react-responsive';
 import "./AvatarView.css";
 import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
 function AvatarView({userName}){
   const letterToShowInDefaultPicture = userName?.charAt(0).toUpperCase();
   const isMobile = useMediaQuery({ query: '(max-width: 761px)' });
+  let navigate = useNavigate();
   
 
   function closeSession(){
@@ -20,7 +22,7 @@ function AvatarView({userName}){
           localStorage.removeItem("user")
         window.location.reload(true)
         }, 900)
-        
+        return navigate("/")
       } else if (result.isDenied) {
         Swal.fire('Sigue navegando!', '', 'success')
       }
