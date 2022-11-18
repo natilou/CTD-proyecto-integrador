@@ -38,10 +38,10 @@ front_deploy:      # This job runs in the deploy stage.
     name: amazon/aws-cli
     entrypoint: [""]
   script:
-    #- aws --version
+    - aws --version
     - ls frontend/build/
-    #- aws s3 rm s3://$S3_BUCKET --recursive
-    #- aws s3 cp frontend/build/ s3://$S3_BUCKET --recursive
+    - aws s3 rm s3://$S3_BUCKET --recursive
+    - aws s3 cp frontend/build/ s3://$S3_BUCKET --recursive
     - echo "Deploying application..."
   rules:
     - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME =~ /^develop/ || $CI_MERGE_REQUEST_TARGET_BRANCH_NAME =~ /^main/
@@ -101,8 +101,8 @@ back_deploy-job:      # This job runs in the deploy stage.
     - apt-get update && apt-get install -y openssh-client
     - cd backend/PI_grupo_10/target
     - ls -l 
-    #- scp -o StrictHostKeyChecking=no -i $EC2_SSH_key PI_grupo_10-1.0.0.jar ubuntu@ec2-3-21-197-14.us-east-2.compute.amazonaws.com:/home/ubuntu
-    #- ssh -o StrictHostKeyChecking=no -i $EC2_SSH_key ubuntu@ec2-3-21-197-14.us-east-2.compute.amazonaws.com "sudo service digital-booking stop && sudo cp -f /home/ubuntu/PI_grupo_10-1.0.0.jar /opt/digital_booking/ && sudo service digital-booking start"
+    - scp -o StrictHostKeyChecking=no -i $EC2_SSH_key PI_grupo_10-1.0.0.jar ubuntu@ec2-3-21-197-14.us-east-2.compute.amazonaws.com:/home/ubuntu
+    - ssh -o StrictHostKeyChecking=no -i $EC2_SSH_key ubuntu@ec2-3-21-197-14.us-east-2.compute.amazonaws.com "sudo service digital-booking stop && sudo cp -f /home/ubuntu/PI_grupo_10-1.0.0.jar /opt/digital_booking/ && sudo service digital-booking start"
     - echo "Application successfully deployed."
   rules:
     - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME =~ /^develop/ || $CI_MERGE_REQUEST_TARGET_BRANCH_NAME =~ /^main/
