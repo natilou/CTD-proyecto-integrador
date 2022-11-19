@@ -22,6 +22,23 @@ function Booking() {
     const showLine = true;
     const urlProductID = ` http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/products/${id}`;
 
+    const user = {
+        id: 1,
+        name: "viajero",
+        lastName: "grupo10",
+        email: "viajero@mail.com",
+        password: "1234567",
+        roleId: 1
+    }
+    const bookingInformationForBd = {
+        userId: user.id,
+        productId: id,
+        startDate: start,
+        endDate: end,
+    }
+
+    console.log({ bookingInformationForBd });
+
     useEffect(() => {
         getData();
     }, []);
@@ -76,7 +93,7 @@ function Booking() {
                                 </div>
                                 <div className="booking-form-main-container" >
                                     <div className="booking-form-and-calendar-container">
-                                        <BookingForm />
+                                        <BookingForm user={user} />
                                         <div className="booking-calendar-container">
                                             <h2 style={{ marginBottom: '20px' }}>Seleccioná tu fecha de reserva</h2>
                                             <CalendarProduct handleStartDateChange={handleStartDateChange} handleEndDateChange={handleEndDateChange} />

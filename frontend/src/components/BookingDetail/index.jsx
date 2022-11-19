@@ -5,8 +5,6 @@ import locationIcon from "../../assets/images/Vector.png";
 import "./BookingDetail.css";
 
 const BookingDetail = ({ product, productImages, start, end }) => {
-    console.log({ start });
-    console.log({ end });
 
     return (
         <div className="booking-detail-main-container">
