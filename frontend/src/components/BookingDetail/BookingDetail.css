@@ -102,6 +102,10 @@
     border-radius: 5px;
 }
 
+.booking-detail-submit-button:hover{
+    cursor: pointer;
+}
+
 @media(max-width: 769px){
     .booking-detail-main-container {
         display: flex;

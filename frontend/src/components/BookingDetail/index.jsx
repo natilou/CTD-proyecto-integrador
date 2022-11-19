@@ -57,7 +57,7 @@ const BookingDetail = ({ product, productImages, start, end }) => {
                 </p>
             </div>
             <div className="booking-detail-submit-button-container">
-                <Link to="/successful-reservation"><button className="booking-detail-submit-button">
+                <Link to="/successful-booking"><button className="booking-detail-submit-button">
                     Confirmar reserva
                 </button>
                 </Link>
