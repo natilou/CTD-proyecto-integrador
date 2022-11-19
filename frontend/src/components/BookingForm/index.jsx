@@ -1,7 +1,9 @@
 import React from "react";
 import "./BookingForm.css";
 
-const BookingForm = (props) => {
+const BookingForm = ({ user }) => {
+
+
 
     return (
         <div className="booking-form-container">
@@ -9,13 +11,13 @@ const BookingForm = (props) => {
             <div className="form-main-container">
                 <div className="form-sub-container">
                     <label className="label-booking-form">Nombre</label>
-                    <input type="Nombre" className="input-booking-form"/>
+                    <input type="Nombre" className="input-booking-form" value={user.name} disabled/>
                     <label className="label-booking-form">Correo</label>
-                    <input type="Correo" className="input-booking-form" />
+                    <input type="Correo" className="input-booking-form" value={user.email} disabled/>
                 </div>
                 <div className="form-sub-container">
                     <label className="label-booking-form">Apellido</label>
-                    <input type="Apellido" className="input-booking-form"/>
+                    <input type="Apellido" className="input-booking-form" value={user.lastName} disabled/>
                 </div>
             </div>
     </div>
