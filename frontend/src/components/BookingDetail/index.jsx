@@ -4,9 +4,9 @@ import iconStar from "../../assets/images/icons/iconStar1.png";
 import locationIcon from "../../assets/images/Vector.png";
 import "./BookingDetail.css";
 
-const BookingDetail = ({ product, productImages }) => {
-    console.log({ productImages });
-    console.log({ product });
+const BookingDetail = ({ product, productImages, start, end }) => {
+    console.log({ start });
+    console.log({ end });
 
     return (
         <div className="booking-detail-main-container">
@@ -45,7 +45,7 @@ const BookingDetail = ({ product, productImages }) => {
                     Check in
                 </p>
                 <p>
-                    29/11/2022
+                    {start}
                 </p>
             </div>
             <div className="booking-detail-check-out-container">
@@ -53,7 +53,7 @@ const BookingDetail = ({ product, productImages }) => {
                     Check out
                 </p>
                 <p>
-                    29/11/2022
+                    {end}
                 </p>
             </div>
             <div className="booking-detail-submit-button-container">

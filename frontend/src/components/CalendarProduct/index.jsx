@@ -6,14 +6,30 @@ import { useMediaQuery } from 'react-responsive';
 import moment from 'moment';
 import "./CalendarProduct.css"
 
-function CalendarProduct() {
+function CalendarProduct({ handleStartDateChange, handleEndDateChange }) {
 
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
+    // const [start, setStar] = useState(null);
+    // const [end, setEnd] = useState(null);
+
+    console.log({startDate});
+    console.log({endDate});
+
     const onChange = (dates) => {
         const [start, end] = dates;
         setStartDate(start);
         setEndDate(end);
+        const startDay = start.getDate();
+        const startMonth = start.getMonth() + 1;
+        const startYear = start.getFullYear();
+        handleStartDateChange(`${startDay}/${startMonth}/${startYear}`);
+        const endDay = end.getDate();
+        console.log({endDay});
+        const endMonth = end.getMonth() + 1;
+        const endYear = end.getFullYear();
+        handleEndDateChange(`${endDay}/${endMonth}/${endYear}`);
+
     }
     const isMobile = useMediaQuery({ query: '(max-width: 761px)' });
     registerLocale("es", es);

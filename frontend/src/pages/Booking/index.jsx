@@ -13,6 +13,8 @@ function Booking() {
     const [productImages, setProductImages] = useState([]);
     const [product, setProduct] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [start, setStar] = useState(null);
+    const [end, setEnd] = useState(null);
     const { id } = useParams()
     const { category } = useParams()
     const showLogin = true;
@@ -23,6 +25,14 @@ function Booking() {
     useEffect(() => {
         getData();
     }, []);
+
+    function handleStartDateChange(date) {
+        setStar(date)
+    }
+
+    function handleEndDateChange(date) {
+        setEnd(date)
+    }
 
     async function getData() {
         setIsLoading(true);
@@ -69,11 +79,11 @@ function Booking() {
                                         <BookingForm />
                                         <div className="booking-calendar-container">
                                             <h2 style={{ marginBottom: '20px' }}>Seleccioná tu fecha de reserva</h2>
-                                            <CalendarProduct />
+                                            <CalendarProduct handleStartDateChange={handleStartDateChange} handleEndDateChange={handleEndDateChange} />
                                         </div>
                                     </div>
                                     <div className="booking-detail-container">
-                                        <BookingDetail productImages={productImages} product={product} />
+                                        <BookingDetail productImages={productImages} product={product} start={start} end={end} />
                                     </div>
                                 </div>
                                 <ProductPolices />
