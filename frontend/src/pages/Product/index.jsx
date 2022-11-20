@@ -40,7 +40,10 @@ function Product() {
                     setProductImages(data));
             await fetch(urlProductID)
                 .then((response) => response.json())
-                .then((data) => setProduct(data));
+                .then((data) => {
+                    setProduct(data)
+                    console.log(product)
+                });
             await fetch(urlFeaturesID)
                 .then((response) => response.json())
                 .then((cities) => setFeatures(cities));

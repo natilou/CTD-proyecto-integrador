@@ -64,7 +64,7 @@ function Home() {
       setIsLoading(false);
     }
   }
-  console.log(poble)
+  console.log(products)
   return (
     <>
       {
