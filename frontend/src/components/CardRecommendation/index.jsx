@@ -10,8 +10,8 @@ import { Link } from "react-router-dom";
 
 function CardRecommendation({ dataLodging }) {
 
-    const { id, title, category, address, description, city, } = dataLodging
-    console.log("datalodging", dataLodging)
+    const { id, title, category, address, description, city } = dataLodging
+
     //, score, label_score,
     //    ,city,distance
 
