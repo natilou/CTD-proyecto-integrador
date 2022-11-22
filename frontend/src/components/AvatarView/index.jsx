@@ -9,7 +9,6 @@ function AvatarView({userName}){
   const isMobile = useMediaQuery({ query: '(max-width: 761px)' });
   let navigate = useNavigate();
   
-
   function closeSession(){
     Swal.fire({
       title: '¿Deseas cerrar sesión?',

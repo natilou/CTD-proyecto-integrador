@@ -42,7 +42,6 @@ function Product() {
                 .then((response) => response.json())
                 .then((data) => {
                     setProduct(data)
-                    console.log(product)
                 });
             await fetch(urlFeaturesID)
                 .then((response) => response.json())

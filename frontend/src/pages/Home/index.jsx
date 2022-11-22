@@ -64,7 +64,6 @@ function Home() {
       setIsLoading(false);
     }
   }
-  console.log(products)
   return (
     <>
       {
