@@ -40,7 +40,7 @@ public class PiGrupo10Application {
 					.addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
 /*					.authorizeRequests()
 					.antMatchers(HttpMethod.POST, "/auth").permitAll()
-					.anyRequest().authenticated();*/
+					.anyRequest().authenticated();*git/
 		}
 	}
 }
