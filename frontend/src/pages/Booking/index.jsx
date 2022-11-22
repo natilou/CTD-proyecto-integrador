@@ -29,9 +29,6 @@ function Booking() {
         startDate: start,
         endDate: end,
     }
-
-    console.log({ bookingInformationForBd });
-
     useEffect(() => {
         getData();
     }, []);
@@ -61,8 +58,6 @@ function Booking() {
             setIsLoading(false);
         }
     }
-
-    console.log("product", product)
 
     return (
         <>
@@ -95,7 +90,7 @@ function Booking() {
                                         </div>
                                     </div>
                                     <div className="booking-detail-container">
-                                        <BookingDetail productImages={productImages} product={product} start={start} end={end} />
+                                        <BookingDetail productImages={productImages} product={product} start={start} end={end}  user={user}/>
                                     </div>
                                 </div>
                                 <ProductPolices />

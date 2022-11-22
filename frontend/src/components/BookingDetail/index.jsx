@@ -6,12 +6,41 @@ import "./BookingDetail.css";
 import Swal from 'sweetalert2';
 
 
-const BookingDetail = ({ product, productImages, start, end }) => {
+const BookingDetail = ({ product, productImages, start, end , user}) => {
     let navigate = useNavigate();
+    const urlBooking = `http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/bookings`
+    const header = {
+        "content-type": "application/json",
+        "accept": "application/json"
+    }
+    const payload = {
+        productId: product.id,
+        initialDate: start,
+        endDate: end,
+        userId: 1,
+    }
 
     const handleClick = () => {
         start && end ? 
-        navigate("/successful-booking")
+        (
+            fetch(urlBooking,{
+                method: "POST",
+                headers: header,
+                body: JSON.stringify(payload)
+            })
+            .then(response => response.json())
+            .then(response => {
+                response.status !== 201
+                ?
+                Swal.fire({
+                    icon: 'error',
+                    text: 'Lamentablemente la reserva no ha podido realizarse. Por favor, intente más tarde',
+                })
+                :
+                navigate("/successful-booking")
+            })
+            .catch(error => console.log(error))
+        )
         : 
          Swal.fire({
             icon: 'error',
@@ -73,9 +102,6 @@ const BookingDetail = ({ product, productImages, start, end }) => {
                 </button>
 
             </div>
-
-
-
         </div>
     );
 

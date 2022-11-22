@@ -9,26 +9,9 @@ function FormFilter({ cities, setProducts }){
   const [rangeSelected, setRangeSelected] = useState([null, null]);
 
   const lookForDate = () => {
-    // let startRange = rangeSelected[0]
-    // let startDay = startRange.getDate();
-    // let startMonth = startRange.getMonth();
-    // let startYear = startRange.getFullYear();
-
-    // let endRange = rangeSelected[1];
-    // let endDay = endRange.getDate();
-    // let endMonth = endRange.getMonth();
-    // let endYear = endRange.getFullYear();
-
-    // let dateSelected = `${startDay}-${startMonth}-${startYear}--${endDay}-${endMonth}-${endYear}`
-    // console.log(dateSelected)
-
     let startDate = rangeSelected[0].toISOString();
     let endDate = rangeSelected[1].toISOString();
     let dateSelected = `q=${startDate}&q=${endDate}`;
-    console.log('http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/products/?' + new URLSearchParams({
-      startDate: startDate,
-      endDate: endDate
-    }));
 
     try {
       // fetch(`http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/products/${dateSelected}`)
@@ -50,7 +33,6 @@ function FormFilter({ cities, setProducts }){
             "city": "Buenos Aires",
             "url_image":"https://res.cloudinary.com/dbdrkxooj/image/upload/v1666303628/DH-PI/inner-space-1026452_640_2_qejya3.png"
         }]);
-          console.log(data)
         });
     } catch (error) {
       console.log({ error });
