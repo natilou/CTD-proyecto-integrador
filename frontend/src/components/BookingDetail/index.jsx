@@ -1,10 +1,23 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import iconStar from "../../assets/images/icons/iconStar1.png";
 import locationIcon from "../../assets/images/Vector.png";
 import "./BookingDetail.css";
+import Swal from 'sweetalert2';
+
 
 const BookingDetail = ({ product, productImages, start, end }) => {
+    let navigate = useNavigate();
+
+    const handleClick = () => {
+        start && end ? 
+        navigate("/successful-booking")
+        : 
+         Swal.fire({
+            icon: 'error',
+            text: 'Debes seleccionar una fecha de check-in y check-out',
+        })
+    }
 
     return (
         <div className="booking-detail-main-container">
@@ -55,10 +68,9 @@ const BookingDetail = ({ product, productImages, start, end }) => {
                 </p>
             </div>
             <div className="booking-detail-submit-button-container">
-                <Link to="/successful-booking"><button className="booking-detail-submit-button">
+                <button className="booking-detail-submit-button" onClick={handleClick}>
                     Confirmar reserva
                 </button>
-                </Link>
 
             </div>
 

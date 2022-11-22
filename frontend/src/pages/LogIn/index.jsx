@@ -69,7 +69,7 @@ function LogIn() {
     }
     else if(validateEmailAndPassword(email, password)){
       let user = getUser(email, password);
-      localStorage.setItem("user", JSON.stringify({email: user.email, username: user.username}));
+      localStorage.setItem("user", JSON.stringify({email: user.email, name: user.name, lastName: user.lastName}));
       return navigate("/")
     } else if((validateEmail(email) && validatePasswordLength(password)) && !validateEmailAndPassword(email, password)){
       Swal.fire({

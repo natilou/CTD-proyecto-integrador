@@ -22,14 +22,7 @@ function Booking() {
     const showLine = true;
     const urlProductID = ` http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/products/${id}`;
 
-    const user = {
-        id: 1,
-        name: "viajero",
-        lastName: "grupo10",
-        email: "viajero@mail.com",
-        password: "1234567",
-        roleId: 1
-    }
+    const user = JSON.parse(localStorage.getItem("user"));
     const bookingInformationForBd = {
         userId: user.id,
         productId: id,
@@ -69,6 +62,8 @@ function Booking() {
         }
     }
 
+    console.log("product", product)
+
     return (
         <>
             {
@@ -82,11 +77,11 @@ function Booking() {
                             <div>
                                 <div className="booking-block-header">
                                     <div className="booking-block-header-titles">
-                                        <h3 className="booking-block-d">{category}</h3>
+                                        <h3 className="booking-block-d">{product.category.title}</h3>
                                         <h2>{product.title}</h2>
                                     </div>
                                     <div className="booking-icon-back">
-                                        <Link className="go-product-button">
+                                        <Link className="go-product-button" to={`/product/${product.category.title}/${product.id}`}>
                                             <img className="booking-back-icon" src="https://res.cloudinary.com/dbdrkxooj/image/upload/v1667606967/DH-PI/arrows-icon-left-removebg-preview_idlpxq.png" alt="Logo" />
                                         </Link>
                                     </div>
