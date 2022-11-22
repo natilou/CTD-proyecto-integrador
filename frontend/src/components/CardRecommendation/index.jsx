@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 
 function CardRecommendation({ dataLodging }) {
 
-    const { id, title, category, address, description, city } = dataLodging
+    const { id, title, category, address, description, city, coverImageUrl } = dataLodging
 
     //, score, label_score,
     //    ,city,distance
@@ -18,7 +18,7 @@ function CardRecommendation({ dataLodging }) {
     return (
         <article className="card_recommendation" data-testid="cardrecommendation-container">
             <figure className="recommendation_figure" data-testid="cardrecommendation-figure">
-                <img className="image_recommendation" src={category.urlImage} alt={title}  data-testid="cardrecommendation-img"/>
+                <img className="image_recommendation" src={coverImageUrl} alt={title}  data-testid="cardrecommendation-img"/>
             </figure>
             <div className="constainer_description" data-testid="cardrecommendation-description-container">
                 <div className="container_section_score" data-testid="cardrecommendation-score">
