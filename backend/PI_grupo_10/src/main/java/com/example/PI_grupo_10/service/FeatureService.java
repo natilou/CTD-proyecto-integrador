@@ -4,19 +4,16 @@ import com.example.PI_grupo_10.exceptions.ResourceNotFoundException;
 import com.example.PI_grupo_10.model.Feature;
 import com.example.PI_grupo_10.repository.FeatureRepository;
 import com.example.PI_grupo_10.repository.ProductRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@AllArgsConstructor
 @Service
 public class FeatureService {
     private FeatureRepository featureRepository;
     private ProductRepository productRepository;
-
-    public FeatureService(FeatureRepository featureRepository, ProductRepository productRepository) {
-        this.featureRepository = featureRepository;
-        this.productRepository = productRepository;
-    }
 
     public List<Feature> findFeaturesByProductsId(Integer productId) throws ResourceNotFoundException {
         if (!productRepository.existsById(productId)) {
