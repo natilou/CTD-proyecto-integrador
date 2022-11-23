@@ -97,9 +97,13 @@
     font-size: 1.2rem;
     font-weight: bold;
     border: none;
-    width: 50%;
+    width: 90%;
     height: 70px;
     border-radius: 5px;
+}
+
+.booking-detail-submit-button:hover{
+    cursor: pointer;
 }
 
 @media(max-width: 769px){

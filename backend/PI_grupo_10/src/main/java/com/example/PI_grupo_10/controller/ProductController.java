@@ -38,9 +38,14 @@ public class ProductController {
         return ResponseEntity.ok(featureService.findFeaturesByProductsId(productId));
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<Product>> listarTodos(){
         return ResponseEntity.ok(productService.listarTodos());
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Product>> listarOchoProductos(){
+        return ResponseEntity.ok(productService.listarOchoProductos());
     }
 
     @GetMapping("/{id}")

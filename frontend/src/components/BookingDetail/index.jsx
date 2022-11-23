@@ -1,12 +1,52 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import iconStar from "../../assets/images/icons/iconStar1.png";
 import locationIcon from "../../assets/images/Vector.png";
 import "./BookingDetail.css";
+import Swal from 'sweetalert2';
 
-const BookingDetail = ({ product, productImages }) => {
-    console.log({ productImages });
-    console.log({ product });
+
+const BookingDetail = ({ product, productImages, start, end , user}) => {
+    let navigate = useNavigate();
+    const urlBooking = `http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/bookings`
+    const header = {
+        "content-type": "application/json",
+        "accept": "application/json"
+    }
+    const payload = {
+        productId: product.id,
+        initialDate: start,
+        endDate: end,
+        userId: 1,
+    }
+
+    const handleClick = () => {
+        start && end ? 
+        (
+            fetch(urlBooking,{
+                method: "POST",
+                headers: header,
+                body: JSON.stringify(payload)
+            })
+            .then(response => response.json())
+            .then(response => {
+                response.status !== 201
+                ?
+                Swal.fire({
+                    icon: 'error',
+                    text: 'Lamentablemente la reserva no ha podido realizarse. Por favor, intente más tarde',
+                })
+                :
+                navigate("/successful-booking")
+            })
+            .catch(error => console.log(error))
+        )
+        : 
+         Swal.fire({
+            icon: 'error',
+            text: 'Debes seleccionar una fecha de check-in y check-out',
+        })
+    }
 
     return (
         <div className="booking-detail-main-container">
@@ -45,7 +85,7 @@ const BookingDetail = ({ product, productImages }) => {
                     Check in
                 </p>
                 <p>
-                    29/11/2022
+                    {start}
                 </p>
             </div>
             <div className="booking-detail-check-out-container">
@@ -53,19 +93,15 @@ const BookingDetail = ({ product, productImages }) => {
                     Check out
                 </p>
                 <p>
-                    29/11/2022
+                    {end}
                 </p>
             </div>
             <div className="booking-detail-submit-button-container">
-                <Link to="/successful-reservation"><button className="booking-detail-submit-button">
+                <button className="booking-detail-submit-button" onClick={handleClick}>
                     Confirmar reserva
                 </button>
-                </Link>
 
             </div>
-
-
-
         </div>
     );
 

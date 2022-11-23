@@ -64,7 +64,6 @@ function Home() {
       setIsLoading(false);
     }
   }
-  console.log(poble)
   return (
     <>
       {
@@ -76,7 +75,7 @@ function Home() {
           : (
             <div data-testid="home-container">
               <Header showLogin={showLogin} showLogout={showLogout} showLine={showLine} />
-              <FormFilter cities={cities} />
+              <FormFilter cities={cities} setProducts={setProducts} />
               <h2 className="title_categories" data-testid="home-title">Buscar por tipo de alojamiento</h2>
 
               <Categories data={sectionCategory} onclick={getCategory} />

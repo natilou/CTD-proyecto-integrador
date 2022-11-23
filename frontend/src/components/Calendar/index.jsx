@@ -5,7 +5,7 @@ import es from "date-fns/locale/es";
 import "react-datepicker/dist/react-datepicker.css";
 import "./Calendar.css";
 
-const Calendar = () => {
+const Calendar = ({ setRangeSelected }) => {
   const [dateRange, setDateRange] = useState([null, null]);
   const [startDate, endDate] = dateRange;
   const isMobile = useMediaQuery({ query: '(max-width: 761px)' });
@@ -22,6 +22,7 @@ const Calendar = () => {
         endDate={endDate}
         onChange={(update) => {
           setDateRange(update);
+          setRangeSelected(update);
         }}
         minDate={new Date()}
         locale="es"

@@ -40,7 +40,7 @@ function Menu({ close, showLogin, showLogout, showLine, user }) {
                 <div className="title_container" data-testid="menu-title">
                     {
                         user ? (
-                        <AvatarView userName={user.username}/>
+                        <AvatarView userName={user.name}/>
                         ) : (
                             <p className="close_text">MENÚ</p>
                         )

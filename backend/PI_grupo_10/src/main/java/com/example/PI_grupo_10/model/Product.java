@@ -48,11 +48,19 @@ public class Product {
     @JsonIgnore
     private Set<Feature> features = new HashSet<>();
 
-    public Product(String title, Category category, String address, City city, String description) {
+
+    @JoinColumn(name = "cover_image_url", nullable = false)
+    private String coverImageUrl;
+
+    public Product(String title, Category category, String address, City city, String description, String coverImageUrl) {
+
+    //private String mainImage;  implementar en base de datos y borrarla de la tabla de IMAGES
+
         this.title = title;
         this.category = category;
         this.address = address;
         this.city = city;
         this.description = description;
+        this.coverImageUrl = coverImageUrl;
     }
 }

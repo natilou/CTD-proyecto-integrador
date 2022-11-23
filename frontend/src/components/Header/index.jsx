@@ -12,6 +12,7 @@ function Header({ showLogout, showLogin, showLine }) {
     const isMobile = useMediaQuery({ query: '(max-width: 761px)' });
     const user = JSON.parse(localStorage.getItem("user"));
 
+
     function toggleShowMenu() {
         setShowMenu(!showMenu);
     }
@@ -36,7 +37,7 @@ function Header({ showLogout, showLogin, showLine }) {
                     <div className="header_buttons" data-testid="header-buttons">
                         {
                             user ? (
-                                <AvatarView userName={user.username} />
+                                <AvatarView userName={user.name} />
                             ) : (
                                 <>
                                     {

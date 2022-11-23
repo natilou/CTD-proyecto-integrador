@@ -1,5 +1,6 @@
 package com.example.PI_grupo_10.model;
 
+import com.example.PI_grupo_10.model.dto.BookingDto;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -46,5 +47,14 @@ public class Booking {
         this.endDate = endDate;
         this.product = product;
         this.user = user;
+    }
+
+    public Booking(BookingDto bookingDto) {
+        this.id = bookingDto.id;
+        this.initialHour = bookingDto.initialHour;
+        this.initialDate = bookingDto.initialDate;
+        this.endDate = bookingDto.endDate;
+        this.product = bookingDto.product;
+        this.user = bookingDto.user;
     }
 }

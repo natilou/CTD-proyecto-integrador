@@ -13,6 +13,8 @@ function Booking() {
     const [productImages, setProductImages] = useState([]);
     const [product, setProduct] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [start, setStar] = useState(null);
+    const [end, setEnd] = useState(null);
     const { id } = useParams()
     const { category } = useParams()
     const showLogin = true;
@@ -20,9 +22,24 @@ function Booking() {
     const showLine = true;
     const urlProductID = ` http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/products/${id}`;
 
+    const user = JSON.parse(localStorage.getItem("user"));
+    const bookingInformationForBd = {
+        userId: user.id,
+        productId: id,
+        startDate: start,
+        endDate: end,
+    }
     useEffect(() => {
         getData();
     }, []);
+
+    function handleStartDateChange(date) {
+        setStar(date)
+    }
+
+    function handleEndDateChange(date) {
+        setEnd(date)
+    }
 
     async function getData() {
         setIsLoading(true);
@@ -55,25 +72,25 @@ function Booking() {
                             <div>
                                 <div className="booking-block-header">
                                     <div className="booking-block-header-titles">
-                                        <h3 className="booking-block-d">{category}</h3>
+                                        <h3 className="booking-block-d">{product.category.title}</h3>
                                         <h2>{product.title}</h2>
                                     </div>
                                     <div className="booking-icon-back">
-                                        <Link className="go-product-button">
+                                        <Link className="go-product-button" to={`/product/${product.category.title}/${product.id}`}>
                                             <img className="booking-back-icon" src="https://res.cloudinary.com/dbdrkxooj/image/upload/v1667606967/DH-PI/arrows-icon-left-removebg-preview_idlpxq.png" alt="Logo" />
                                         </Link>
                                     </div>
                                 </div>
                                 <div className="booking-form-main-container" >
                                     <div className="booking-form-and-calendar-container">
-                                        <BookingForm />
+                                        <BookingForm user={user} />
                                         <div className="booking-calendar-container">
                                             <h2 style={{ marginBottom: '20px' }}>Seleccioná tu fecha de reserva</h2>
-                                            <CalendarProduct />
+                                            <CalendarProduct handleStartDateChange={handleStartDateChange} handleEndDateChange={handleEndDateChange} />
                                         </div>
                                     </div>
                                     <div className="booking-detail-container">
-                                        <BookingDetail productImages={productImages} product={product} />
+                                        <BookingDetail productImages={productImages} product={product} start={start} end={end}  user={user}/>
                                     </div>
                                 </div>
                                 <ProductPolices />
