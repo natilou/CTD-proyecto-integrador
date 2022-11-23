@@ -4,20 +4,17 @@ import com.example.PI_grupo_10.exceptions.ResourceNotFoundException;
 import com.example.PI_grupo_10.model.Image;
 import com.example.PI_grupo_10.repository.ImageRepository;
 import com.example.PI_grupo_10.repository.ProductRepository;
+import lombok.AllArgsConstructor;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
+@AllArgsConstructor
 @Service
 public class ImageService {
 
     private ProductRepository productRepository;
     private ImageRepository imageRepository;
-
-    public ImageService(ProductRepository productRepository, ImageRepository imageRepository) {
-        this.productRepository = productRepository;
-        this.imageRepository = imageRepository;
-    }
 
     private static final Logger logger = Logger.getLogger(ProductService.class);
 

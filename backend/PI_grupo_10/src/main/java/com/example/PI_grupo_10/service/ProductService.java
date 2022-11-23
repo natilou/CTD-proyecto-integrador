@@ -7,7 +7,13 @@ import com.example.PI_grupo_10.repository.CityRepository;
 import com.example.PI_grupo_10.repository.FeatureRepository;
 import com.example.PI_grupo_10.repository.ProductRepository;
 import org.apache.log4j.Logger;
+import org.springframework.data.domain.Page;
+
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,9 +49,13 @@ public class ProductService {
         return productRepository.findAll();
     }
 
+    public List<Product> listarOchoProductos() {
+        logger.info("Se buscan 8 productos random");
+        return productRepository.findTop8();
+    }
+
     public Product agregar(Product p) {
         logger.info("Se crea el producto: " + p);
-
         return productRepository.save(p);
     }
 

@@ -3,21 +3,19 @@ package com.example.PI_grupo_10.service;
 import com.example.PI_grupo_10.exceptions.ResourceNotFoundException;
 import com.example.PI_grupo_10.model.Category;
 import com.example.PI_grupo_10.repository.CategoryRepository;
+import lombok.AllArgsConstructor;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+@AllArgsConstructor
 @Service
 public class CategoryService {
 
     private CategoryRepository categoryRepository;
-    private static final Logger logger = Logger.getLogger(CategoryService.class);
 
-    //Inyectar la dependencia
-    public CategoryService(CategoryRepository categoryRepository) {
-        this.categoryRepository = categoryRepository;
-    }
+    private static final Logger logger = Logger.getLogger(CategoryService.class);
 
     public Category editar(Category c) {
         logger.info("Se actualiza la categoría con el id: " + c.getId());
