@@ -9,7 +9,6 @@ const Calendar = ({ setRangeSelected }) => {
   const [dateRange, setDateRange] = useState([null, null]);
   const [startDate, endDate] = dateRange;
   const isMobile = useMediaQuery({ query: '(max-width: 761px)' });
-
   registerLocale("es", es);
   setDefaultLocale("es");
 
