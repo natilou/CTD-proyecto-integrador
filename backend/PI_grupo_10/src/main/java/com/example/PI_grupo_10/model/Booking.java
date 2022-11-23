@@ -22,9 +22,6 @@ public class Booking {
     private int id;
 
     @Basic
-    private java.time.LocalDateTime initialHour;
-
-    @Basic
     private java.time.LocalDate initialDate;
 
     @Basic
@@ -42,7 +39,6 @@ public class Booking {
     private User user;
 
     public Booking(LocalDateTime initialHour, LocalDate initialDate, LocalDate endDate, Product product, User user) {
-        this.initialHour = initialHour;
         this.initialDate = initialDate;
         this.endDate = endDate;
         this.product = product;
@@ -51,7 +47,6 @@ public class Booking {
 
     public Booking(BookingDto bookingDto) {
         this.id = bookingDto.id;
-        this.initialHour = bookingDto.initialHour;
         this.initialDate = bookingDto.initialDate;
         this.endDate = bookingDto.endDate;
         this.product = bookingDto.product;
