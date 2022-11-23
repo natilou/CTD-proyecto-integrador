@@ -2,7 +2,7 @@ import { FaMapMarkerAlt } from "react-icons/fa"
 import React, { useState } from "react"
 import "./Selector.css"
 
-function Selector({cities}) {
+function Selector({cities, setGetIdCity}) {
    const [isOpen, setIsOpen] = useState(false)
    const [selectedOption, setSelectedOption] = useState(null)
   // const cities = [
@@ -14,10 +14,13 @@ function Selector({cities}) {
  
   const toggling = () => setIsOpen(!isOpen)
 
-  const handleClick = (city) => () => {
-    setSelectedOption(city)
-    setIsOpen(false)
+  const handleClick = (city,id) => () => {
+    setSelectedOption(city);
+    setIsOpen(false);
+    setGetIdCity(id)
+    console.log(id)
   }
+  
 
   return (
     <section className="location">
@@ -37,7 +40,7 @@ function Selector({cities}) {
                         <ul className="select">
                             {
                                 cities.map((city) => (
-                                    <li value={city.name} key={city.id} className="select" onClick={handleClick(city.name)}>
+                                    <li value={city.name} key={city.id} className="select" onClick={handleClick(city.name,city.id)}>
                                         <div className="list-content">
                                             <div className="text-container">
                                                 <div className="icon">

@@ -57,8 +57,12 @@
 }
 
 .title_lodging {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    height: 27px;
     font-size: var(--font-size-bigger);
     padding-left: 15px;
+    width: 250px;
 }
 
 .container_number {
@@ -84,7 +88,7 @@
     display: flex;
     flex-direction: row;
     padding-left: 15px;
-    padding-top: 15px;
+    padding-top: 8px;
     font-size: var(--font-size-small);
 }
 
@@ -95,6 +99,10 @@
 }
 .m_location {
     padding-left: 5px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    height: 15px;
+    width: 350px;
 }
 
 .link_gps {
@@ -106,7 +114,7 @@
 .description_lodging {
     text-overflow: ellipsis;
     overflow: hidden;
-    height: 4rem;
+    height: 4.3rem;
     font-size: var(--font-size-small);
     padding-left: 17px;
     padding-right: 10px;
