@@ -37,10 +37,10 @@ public class PiGrupo10Application {
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
 			http.csrf().disable()
-					.addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
-/*					.authorizeRequests()
-					.antMatchers(HttpMethod.POST, "/auth").permitAll()
-					.anyRequest().authenticated();*git/
+					.addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
+					.authorizeRequests()
+					.antMatchers("/bookings").authenticated()
+					.antMatchers("/**").permitAll();
 		}
 	}
 }

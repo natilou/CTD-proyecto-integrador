@@ -14,8 +14,8 @@ import java.util.stream.Collectors;
 @Service
 public class JwtGenerator {
     // Setear desde application.properties
-    @Value("${app.jwt.secret}")
-    private String secret;
+    //    @Value("${app.jwt.secret}")
+    //    private String secret;
 
     public String generateToken(String email) {
         String secretKey = "mySecretKey";
