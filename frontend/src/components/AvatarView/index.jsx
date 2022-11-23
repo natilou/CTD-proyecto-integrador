@@ -51,7 +51,7 @@ function AvatarView({userName}){
           
         ): (
           <button className="button-avatar" data-testid="avatar-btn">
-            <p className="button_text_avatar" onClick={closeSession} data-testid="close-session">
+            <p role="closeSession" className="button_text_avatar" onClick={closeSession} data-testid="close-session">
               x
             </p>
           </button>

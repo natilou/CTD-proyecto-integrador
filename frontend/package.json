@@ -55,5 +55,8 @@
       "src/index.js",
       "src/components/App/index.js"
     ]
+  },
+  "devDependencies": {
+    "jest-fetch-mock": "^3.0.3"
   }
 }
