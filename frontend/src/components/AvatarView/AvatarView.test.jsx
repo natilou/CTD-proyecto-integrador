@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { BrowserRouter } from "react-router-dom";
 import '@testing-library/jest-dom';
 import AvatarView from '.';
@@ -107,5 +107,19 @@ describe("Test avatar", () => {
             </BrowserRouter>
         )
         expect(screen.getByTestId("avatar-btn")).toBeInTheDocument();
+    })
+
+    it("should appear an alert when click the X button asking to close session", () => {
+        render(
+            <BrowserRouter>
+                 <AvatarView 
+                userName={userName}
+                />
+            </BrowserRouter>
+        )
+        const btn = screen.getByRole("closeSession");
+        fireEvent.click(btn)
+        expect(screen.getByRole("dialog")).toBeInTheDocument();
+        expect(screen.getByRole("dialog")).toHaveTextContext("¿Deseas cerrar sesión?")
     })
 });
