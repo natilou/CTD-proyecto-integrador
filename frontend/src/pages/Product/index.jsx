@@ -150,7 +150,8 @@ function Product() {
                                                     <CalendarProduct />
                                                 </div>
                                                 <div className="booking-col">
-                                                    <BookingAction id={id}/>
+                                                    <BookingAction id={id}
+                                                    />
                                                 </div>
                                             </div>
                                         </div>

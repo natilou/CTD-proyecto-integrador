@@ -11,9 +11,12 @@ function Home() {
   const [sectionCategory, setSectionCategory] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isLoadingData, setIsLoadingData] = useState(true);
+  const [isLoadingDataCities, setIsLoadingDataCities] = useState(true);
   const [products, setProducts] = useState([]);
   const [cities, setCities] = useState([]);
-  const [poble, setPoble] = useState([]);
+  const [dataFilterCategory, setDataFilterCategory] = useState([]);
+  const [dataCities, setDataCities] = useState([]);
+  const [idCity, setIdCity] = useState();
   const showLogin = true;
   const showLogout = true;
   const showLine = true;
@@ -56,7 +59,7 @@ function Home() {
       setIsLoading(true);
       await fetch(`http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/products/categories/${Number(id)}`)
         .then((response) => response.json())
-        .then((data) => setPoble(data));
+        .then((data) => setDataFilterCategory(data));
 
       setIsLoading(false);
     } catch (error) {
@@ -64,6 +67,24 @@ function Home() {
       setIsLoading(false);
     }
   }
+
+  async function getFilterCities(id) {
+    setIdCity(id-1);
+    setIsLoadingDataCities(true);
+    try {
+      setIsLoadingDataCities(true);
+      await fetch(`http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/products/cities/${Number(id)}`)
+        .then((response) => response.json())
+        .then((data) => setDataCities(data));
+
+      setIsLoadingDataCities(false);
+      
+    } catch (error) {
+      console.log({ error });
+      setIsLoadingDataCities(false);
+    }
+  }
+
   return (
     <>
       {
@@ -75,7 +96,7 @@ function Home() {
           : (
             <div data-testid="home-container">
               <Header showLogin={showLogin} showLogout={showLogout} showLine={showLine} />
-              <FormFilter cities={cities} setProducts={setProducts} />
+              <FormFilter cities={cities} setProducts={setProducts}  getFilterCities={getFilterCities} />
               <h2 className="title_categories" data-testid="home-title">Buscar por tipo de alojamiento</h2>
 
               <Categories data={sectionCategory} onclick={getCategory} />
@@ -83,8 +104,15 @@ function Home() {
               {
                 !isLoading &&(
                     <div>
-                      <h2 className="main_title_recommedation" data-testid="home-title-2">{poble[0].category.title}</h2>
-                      <Recommendation dataLodging={poble} />
+                      <h2 className="main_title_recommedation" data-testid="home-title-2">{dataFilterCategory[0].category.title}</h2>
+                      <Recommendation dataLodging={dataFilterCategory} />
+                    </div>)
+              }
+              {
+                !isLoadingDataCities &&(
+                    <div id="FilterCity">
+                      <h2 className="main_title_recommedation" data-testid="home-title-2">Ciudad de {cities[idCity].name}</h2>
+                      <Recommendation dataLodging={dataCities} />
                     </div>)
               }
               <h2 className="main_title_recommedation" data-testid="home-title-2">Recomendaciones</h2>
