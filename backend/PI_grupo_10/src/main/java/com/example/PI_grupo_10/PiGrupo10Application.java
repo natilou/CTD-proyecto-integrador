@@ -43,28 +43,4 @@ public class PiGrupo10Application {
 					.antMatchers("/**").permitAll();
 		}
 	}
-
-	@Bean
-    public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOriginPatterns(Arrays.asList(""));
-        //config.setAllowedOrigins(Arrays.asList("http://localhost:4200/", ""));
-        config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        config.setAllowCredentials(true);
-        config.setAllowedHeaders(Arrays.asList("Content-Type", "Authorization"));
-        UrlBasedCorsConfigurationSource cors = new UrlBasedCorsConfigurationSource();
-        cors.registerCorsConfiguration("/", config);
-        return cors;
-    }
-
-    /
-     * Registro los filtros configurados anteriormente para que sea un filter implementado por sprinb
-     * de esta manera uso e implemento el registro y apertura de los cors
-     */
-    @Bean
-    public FilterRegistrationBean<CorsFilter> corsFilter() {
-        FilterRegistrationBean<CorsFilter> bean = new FilterRegistrationBean<CorsFilter>(new CorsFilter(corsConfigurationSource()));
-        bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
-        return bean;
-    }
 }

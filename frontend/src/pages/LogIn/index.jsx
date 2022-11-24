@@ -69,20 +69,8 @@ function LogIn() {
     }
     else if(validateEmailAndPassword(email, password)){
       let user = getUser(email, password);
-      fetch(`http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/auth/?email=${email}&&password=${password}`, {
-        method: "POST", 
-        headers: {
-          "content-type": "application/json",
-          "accept": "application/json"
-        }
-      })
-      .then(response => response.json())
-      .then(response => {
-        localStorage.setItem("user", JSON.stringify({id: user.id, email: user.email, name: user.name, lastName: user.lastName})); 
-        localStorage.setItem("jwt", JSON.stringify({jwt: response.token})); 
-      })
-      .then(() => navigate("/"))
-      .catch(error => console.log(error))
+      localStorage.setItem("user", JSON.stringify({email: user.email, name: user.name, lastName: user.lastName}));
+      return navigate("/")
     } else if((validateEmail(email) && validatePasswordLength(password)) && !validateEmailAndPassword(email, password)){
       Swal.fire({
         icon: 'error',

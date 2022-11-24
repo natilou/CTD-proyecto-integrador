@@ -6,25 +6,18 @@ import "./BookingDetail.css";
 import Swal from 'sweetalert2';
 
 
-const BookingDetail = ({ product, productImages, start, end }) => {
+const BookingDetail = ({ product, productImages, start, end , user}) => {
     let navigate = useNavigate();
-    const jwt =  JSON.parse(localStorage.getItem("jwt"));
-    const user =  JSON.parse(localStorage.getItem("user"));
     const urlBooking = `http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/bookings`
     const header = {
-        "Authorization": `Bearer ${jwt}`,
         "content-type": "application/json",
         "accept": "application/json"
     }
     const payload = {
-        productId: {
-            id: product.id
-        },
+        productId: product.id,
         initialDate: start,
         endDate: end,
-        userId:  {
-            id: user.id
-        }
+        userId: 1,
     }
 
     const handleClick = () => {
