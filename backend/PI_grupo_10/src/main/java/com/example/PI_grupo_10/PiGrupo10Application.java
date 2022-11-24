@@ -55,13 +55,12 @@ public class PiGrupo10Application {
 	@Bean
 	public CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration config = new CorsConfiguration();
-		config.setAllowedOriginPatterns(Arrays.asList(""));
-		//config.setAllowedOrigins(Arrays.asList("http://localhost:4200/", ""));
+		config.setAllowedOrigins(Arrays.asList("http://localhost:3000", "http://s3-group-10-c6-fe.s3-website.us-east-2.amazonaws.com"));
 		config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
 		config.setAllowCredentials(true);
 		config.setAllowedHeaders(Arrays.asList("Content-Type", "Authorization"));
 		UrlBasedCorsConfigurationSource cors = new UrlBasedCorsConfigurationSource();
-		cors.registerCorsConfiguration("/", config);
+		cors.registerCorsConfiguration("/**", config);
 		return cors;
 	}
 
