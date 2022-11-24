@@ -5,7 +5,6 @@ import com.example.PI_grupo_10.model.dto.BookingDto;
 import com.example.PI_grupo_10.repository.BookingRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 
 @Service
 public class BookingService {
@@ -15,6 +14,7 @@ public class BookingService {
     public BookingService(BookingRepository bookingRepository){
         this._bookingRepository = bookingRepository;
     }
+
     public BookingDto guardar(BookingDto bookingDto){
         Booking bookingEntidad = new Booking(bookingDto);
         Booking bookingGuardada = this._bookingRepository.save(bookingEntidad);
@@ -35,4 +35,5 @@ public class BookingService {
 
         return new BookingDto(booking.get());
     }
+
 }

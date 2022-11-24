@@ -1,6 +1,7 @@
 package com.example.PI_grupo_10.controller;
 
 import com.example.PI_grupo_10.exceptions.ResourceNotFoundException;
+import com.example.PI_grupo_10.model.Booking;
 import com.example.PI_grupo_10.model.Feature;
 import com.example.PI_grupo_10.model.Image;
 import com.example.PI_grupo_10.model.Product;
@@ -11,6 +12,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Slf4j
@@ -66,6 +71,17 @@ public class ProductController {
     @GetMapping("/categories/{categoryId}")
     public ResponseEntity<List<Product>> buscarPorCategoryId(@PathVariable Integer categoryId) throws ResourceNotFoundException {
         return ResponseEntity.ok(productService.buscarPorCategoryId(categoryId));
+    }
+
+    @GetMapping("/dates")
+    public List<Product> obtenerProductosPorFechasDisponibles(@RequestParam String initialDate, @RequestParam String endDate) throws ParseException {
+        log.info("Se reciben los datos:" + initialDate +" "+endDate);
+        String pattern = "yyyy-MM-dd";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        Date iDate = simpleDateFormat.parse(initialDate);
+        Date eDate = simpleDateFormat.parse(endDate);
+        log.info("Se convierten los datos:" + iDate +" "+eDate);
+        return productService.obtenerProductosPorFechasDisponibles(iDate, eDate);
     }
 
 }
