@@ -20,7 +20,7 @@
 }
 .avatar{
     color: white;
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     font-weight: bold;
 }
 
@@ -29,8 +29,16 @@
     flex-direction: row;
     justify-content: flex-start;
     align-items: flex-start;
+<<<<<<< HEAD
     margin-top: 0.3rem;
     margin-bottom: 0.5rem;
+=======
+    margin-top: 1.2rem;
+    margin-bottom: 0.4rem;
+    margin-right: 0.5rem;
+    font-size: 1.5rem;
+
+>>>>>>> 1e890c4 (doc's context)
 }
 
 .greeting{
@@ -42,8 +50,11 @@
     font-weight: bolder;
     padding-left: 0.3rem;
     color: #f0572d;
+<<<<<<< HEAD
     padding-right: 1rem;
     padding-bottom: 0.3rem;
+=======
+>>>>>>> 1e890c4 (doc's context)
 }
 
 .button-avatar{
@@ -66,6 +77,9 @@
 
 .row-avatar{
     width: 100%;
+    display:flex;
+    flex-direction: row-reverse;
+    padding-right: 5px;
 }
 
 
@@ -84,20 +98,16 @@
         margin-bottom: 0.5rem;
     }
     .greeting_name_container{
-        align-items: flex-end;
-        align-items: center;
-        justify-content: center;
         margin-left: 15rem;
     }
     .row-avatar{
-        display: flex;
         flex-direction: column;
         align-content: flex-end;
         justify-content: flex-end;
         width: 100%;
     }
     .user_name{
-        color: #31363f;
+        color:white;
     }
     .greeting{
         color: #ffffff;
@@ -117,5 +127,8 @@
     .greeting_name_container{
         align-items: flex-end;
         margin-left: 14rem;
+    }
+    .user_name{
+        color: white;
     }
 }
