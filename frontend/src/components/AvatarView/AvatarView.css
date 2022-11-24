@@ -29,16 +29,11 @@
     flex-direction: row;
     justify-content: flex-start;
     align-items: flex-start;
-<<<<<<< HEAD
-    margin-top: 0.3rem;
-    margin-bottom: 0.5rem;
-=======
     margin-top: 1.2rem;
     margin-bottom: 0.4rem;
     margin-right: 0.5rem;
     font-size: 1.5rem;
 
->>>>>>> 1e890c4 (doc's context)
 }
 
 .greeting{
@@ -50,11 +45,7 @@
     font-weight: bolder;
     padding-left: 0.3rem;
     color: #f0572d;
-<<<<<<< HEAD
-    padding-right: 1rem;
-    padding-bottom: 0.3rem;
-=======
->>>>>>> 1e890c4 (doc's context)
+ 
 }
 
 .button-avatar{
