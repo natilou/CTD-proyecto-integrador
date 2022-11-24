@@ -90,7 +90,7 @@ function Booking() {
                                         </div>
                                     </div>
                                     <div className="booking-detail-container">
-                                        <BookingDetail productImages={productImages} product={product} start={start} end={end}  user={user}/>
+                                        <BookingDetail productImages={productImages} product={product} start={start} end={end}/>
                                     </div>
                                 </div>
                                 <ProductPolices />

@@ -10,19 +10,19 @@ const BookingDetail = ({ product, productImages, start, end }) => {
     let navigate = useNavigate();
     const jwt =  JSON.parse(localStorage.getItem("jwt"));
     const user =  JSON.parse(localStorage.getItem("user"));
-    const urlBooking = `localhost:8080/bookings`
+    const urlBooking = `http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/bookings`
     const header = {
-        "Authorization": `Bearer ${jwt}`,
+        "Authorization": `Bearer ${jwt.token}`,
         "content-type": "application/json",
         "accept": "application/json"
     }
     const payload = {
-        productId: {
+        product: {
             id: product.id
         },
         initialDate: start,
         endDate: end,
-        userId:  {
+        user:  {
             id: user.id
         }
     }
@@ -37,7 +37,7 @@ const BookingDetail = ({ product, productImages, start, end }) => {
             })
             .then(response => response.json())
             .then(response => {
-                response.status !== 201
+                !response
                 ?
                 Swal.fire({
                     icon: 'error',
