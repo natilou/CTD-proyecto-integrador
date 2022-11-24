@@ -11,7 +11,6 @@ function Header({ showLogout, showLogin, showLine }) {
     const [showMenu, setShowMenu] = useState(false);
     const isMobile = useMediaQuery({ query: '(max-width: 761px)' });
     const user = JSON.parse(localStorage.getItem("user"));
-    console.log(user)
 
     function toggleShowMenu() {
         setShowMenu(!showMenu);

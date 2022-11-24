@@ -18,7 +18,6 @@ function Selector({cities, setGetIdCity}) {
     setSelectedOption(city);
     setIsOpen(false);
     setGetIdCity(id)
-    console.log(id)
   }
   
 

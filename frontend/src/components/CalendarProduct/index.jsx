@@ -18,11 +18,11 @@ function CalendarProduct({ handleStartDateChange, handleEndDateChange }) {
         const startDay = start.getDate();
         const startMonth = start.getMonth() + 1;
         const startYear = start.getFullYear();
-        handleStartDateChange(`${startDay}/${startMonth}/${startYear}`);
+        handleStartDateChange(`${startYear}-${startMonth}-${startDay}`);
         const endDay = end.getDate();
         const endMonth = end.getMonth() + 1;
         const endYear = end.getFullYear();
-        handleEndDateChange(`${endDay}/${endMonth}/${endYear}`);
+        handleEndDateChange(`${endYear}-${endMonth}-${endDay}`);
 
     }
     const isMobile = useMediaQuery({ query: '(max-width: 761px)' });
