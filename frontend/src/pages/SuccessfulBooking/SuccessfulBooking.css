@@ -60,7 +60,6 @@
     }
 
     .successful-booking-container {
-        margin-left: 5rem;
         margin-top: 5rem;
         width: 100%;
         margin-right: -5rem;
@@ -72,6 +71,17 @@
 
 }
 
+@media (max-width: 700px) { 
+
+    .successful-booking-container {
+        margin-left: 5rem;
+        margin-top: 5rem;
+        width: 100%;
+        margin-right: -5rem;
+    }
+
+}
+
 @media (max-width: 1000px) { 
     .super-container{
         margin: 0;
@@ -79,7 +89,7 @@
     }
 
     .successful-booking-container {
-        margin-left: 12rem;
+        margin-left: 13rem;
         margin-top: 5rem;
         width: 100%;
         margin-right: -5rem;
