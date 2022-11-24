@@ -15,32 +15,23 @@ function FormFilter({ cities, setProducts,getFilterCities }){
       }
   
 
-  const lookForDate = () => {
-    let startDate = rangeSelected[0].toISOString();
-    let endDate = rangeSelected[1].toISOString();
-    let dateSelected = `q=${startDate}&q=${endDate}`;
+  async function lookForDate () {
+    let startDay = rangeSelected[0].getDate();
+    let startMonth= rangeSelected[0].getMonth()+1;
+    let startYear = rangeSelected[0].getFullYear();
+    let endDay = rangeSelected[1].getDate();
+    let endMonth= rangeSelected[1].getMonth();
+    let endYear = rangeSelected[1].getFullYear();
+    let startDate = `${startYear}-${startMonth}-${startDay}`;
+    let endDate = `${endYear}-${endMonth}-${endDay}`;
 
     try {
-      // fetch(`http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/products/${dateSelected}`)
-      fetch('http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/products/?' + new URLSearchParams({
-        startDate: startDate,
+      await fetch("http:://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/products/dates?" + new URLSearchParams({
+        initialDate: startDate,
         endDate: endDate
       }))
         .then((response) => response.json())
-        .then((data) => {
-          setProducts([{
-            "id": 1,
-            "name": "Huinid",
-            "category": "Hotels",
-            "score": "9.3",
-            "label_score": "Very good",
-            "description": "Located in Buenos Aires, a 10-minute walk from The Obelisk of Buenos Aires, Huinid Obelisco Hotel provides accommodations with a fitness center, private parking and a bar. Featuring family rooms, this property also provides guests with a sun terrace. The property has a 24-hour front desk, a shuttle service, a business center and free WiFi throughout the property.The hotel will provide guests with air-conditioned rooms with a desk, a safety deposit box, a flat-screen TV and a private bathroom with a bidet. All guest rooms feature a closet.",
-            "url_location": "https://www.google.com/maps/place/Huinid+Obelisco+Hotel/@-34.6052281,-58.389083,17z/data=!3m1!4b1!4m8!3m7!1s0x95bccacf3fd8bd0d:0x82dce18d925298a2!5m2!4m1!1i2!8m2!3d-34.6052213!4d-58.3868949",
-            "distance": "100",
-            "city": "Buenos Aires",
-            "url_image":"https://res.cloudinary.com/dbdrkxooj/image/upload/v1666303628/DH-PI/inner-space-1026452_640_2_qejya3.png"
-        }]);
-        });
+        .then(response => console.log(response))
     } catch (error) {
       console.log({ error });
     }
@@ -63,7 +54,7 @@ function FormFilter({ cities, setProducts,getFilterCities }){
           </div>
         </div>
         <a href='#City' className="sub-container" data-testid="formfilter-btn-container">
-          <button onClick={handleClickCity(getIdCity)} className='btn_filter' data-testid="formfilter-btn">Buscar</button>
+          <button onClick={getIdCity ? handleClickCity(getIdCity) : lookForDate} className='btn_filter' data-testid="formfilter-btn">Buscar</button>
         </a>
 
       </div>
