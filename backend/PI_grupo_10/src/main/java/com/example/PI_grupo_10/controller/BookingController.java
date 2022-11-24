@@ -1,13 +1,17 @@
 package com.example.PI_grupo_10.controller;
 
+import com.example.PI_grupo_10.model.Booking;
+import com.example.PI_grupo_10.model.Product;
 import com.example.PI_grupo_10.model.dto.BookingDto;
 import com.example.PI_grupo_10.service.BookingService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+@Slf4j
 @RestController
 @CrossOrigin
 @RequestMapping("/bookings")
@@ -36,4 +40,5 @@ public class BookingController
 
         return ResponseEntity.ok(booking);
     }
+
 }

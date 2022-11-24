@@ -40,7 +40,7 @@ public class CategoryService {
     public void eliminar(Integer id) throws ResourceNotFoundException {
         if (this.buscar(id)==null){
             logger.error("Se quiere eliminar una categoria con un id inexistente en la base de datos.");
-            throw new ResourceNotFoundException("No existe una categoria con el ID: " +id);
+            throw new ResourceNotFoundException("No existe una categoria con el ID: " + id);
         } else{
             categoryRepository.deleteById(id);
             logger.info("Se elimino la categoria con el id: " + id);

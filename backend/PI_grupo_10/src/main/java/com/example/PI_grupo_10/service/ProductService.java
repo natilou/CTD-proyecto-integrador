@@ -7,15 +7,9 @@ import com.example.PI_grupo_10.repository.CityRepository;
 import com.example.PI_grupo_10.repository.FeatureRepository;
 import com.example.PI_grupo_10.repository.ProductRepository;
 import org.apache.log4j.Logger;
-import org.springframework.data.domain.Page;
-
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class ProductService {
@@ -75,6 +69,10 @@ public class ProductService {
             logger.info("Se buscan todos los productos con el categoryId: " + categoryId);
             return productRepository.findByCategoryId(categoryId);
         }
+    }
+
+    public List<Product> obtenerProductosPorFechasDisponibles(Date iDate, Date eDate){
+        return productRepository.findByAvailableDate(iDate,eDate);
     }
 }
 
