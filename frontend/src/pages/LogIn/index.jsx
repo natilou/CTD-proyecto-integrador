@@ -78,10 +78,18 @@ function LogIn() {
       })
       .then(response => response.json())
       .then(response => {
-        localStorage.setItem("user", JSON.stringify({id: user.id, email: user.email, name: user.name, lastName: user.lastName})); 
-        localStorage.setItem("jwt", JSON.stringify({jwt: response.token})); 
+        if (response.status === 200){
+          localStorage.setItem("user", JSON.stringify({id: user.id, email: user.email, name: user.name, lastName: user.lastName})); 
+          localStorage.setItem("jwt", JSON.stringify({jwt: response.token})); 
+          navigate("/")
+        } else {
+          Swal.fire({
+            icon: 'error',
+            text: 'Lamentablemente no ha podido iniciar sesión. Por favor, intente más tarde',
+          })
+        }
+        
       })
-      .then(() => navigate("/"))
       .catch(error => console.log(error))
     } else if((validateEmail(email) && validatePasswordLength(password)) && !validateEmailAndPassword(email, password)){
       Swal.fire({

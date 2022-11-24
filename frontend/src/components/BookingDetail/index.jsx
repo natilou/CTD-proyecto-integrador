@@ -10,7 +10,7 @@ const BookingDetail = ({ product, productImages, start, end }) => {
     let navigate = useNavigate();
     const jwt =  JSON.parse(localStorage.getItem("jwt"));
     const user =  JSON.parse(localStorage.getItem("user"));
-    const urlBooking = `http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/bookings`
+    const urlBooking = `localhost:8080/bookings`
     const header = {
         "Authorization": `Bearer ${jwt}`,
         "content-type": "application/json",
