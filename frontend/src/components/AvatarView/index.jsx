@@ -19,6 +19,7 @@ function AvatarView({userName}){
       if (result.isConfirmed) {
         setTimeout(()=>{
           localStorage.removeItem("user")
+          localStorage.removeItem("jwt")
         window.location.reload(true)
         }, 900)
         return navigate("/")
