@@ -4,7 +4,7 @@ import Calendar from "../Calendar";
 import Selector from '../Selector';
 import "./FormFilter.css";
 
-function FormFilter({ cities, setProducts,getFilterCities }){ 
+function FormFilter({ cities, setProducts, getFilterCities }){ 
     //getFilterCities={getFilterCities}
       const [getIdCity, setGetIdCity] = useState()
       const [rangeSelected, setRangeSelected] = useState([null, null]);
@@ -26,12 +26,18 @@ function FormFilter({ cities, setProducts,getFilterCities }){
     let endDate = `${endYear}-${endMonth}-${endDay}`;
 
     try {
-      await fetch("http:://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/products/dates?" + new URLSearchParams({
+      await fetch("http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/products/dates?" + new URLSearchParams({
         initialDate: startDate,
         endDate: endDate
-      }))
+      }), 
+      {
+        method: "GET", 
+        headers: {
+          "content-type": "application/json",
+          "accept": "application/json"
+      }})
         .then((response) => response.json())
-        .then(response => console.log(response))
+        .then(response =>setProducts(response))
     } catch (error) {
       console.log({ error });
     }
