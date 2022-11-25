@@ -1,0 +1,102 @@
+.super-container{
+    margin-top: 20rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.successful-booking-container{
+    width: 40%;
+    margin-left: 3rem;    
+}
+
+.message-container{
+    width: 70%;
+    text-align: center;
+    background-color: #ffffff;
+    border-radius: 5px;
+    box-shadow: 3px 3px 3px #e1e0de;
+    height: 18rem;
+}
+
+.btn-successful{
+    background-color: var(--main-color);
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #ffffff;
+    width: 25%;
+    height: 2rem;
+    box-shadow: 3px 3px 3px #e1e0de;
+    margin-top: 1rem;
+}
+
+.btn-successful:hover{
+    cursor: pointer;
+}
+
+.message-title{
+    margin: 1rem;
+    font-weight: bolder;
+    font-size: xx-large;
+    color: var(--main-color)
+}
+
+.second-message-title{
+    margin: 1rem;
+}
+
+.check-icon{
+    width: 10%;
+    margin-top: 1rem;
+}
+
+
+
+@media (max-width: 500px) { 
+    .super-container{
+        margin: 0;
+    }
+
+    .successful-booking-container {
+        margin-top: 5rem;
+        width: 100%;
+        margin-right: -5rem;
+    }
+
+    .check-icon{
+        width: 15%;
+    }
+
+}
+
+@media (max-width: 700px) { 
+
+    .successful-booking-container {
+        margin-left: 5rem;
+        margin-top: 5rem;
+        width: 100%;
+        margin-right: -5rem;
+    }
+
+}
+
+@media (max-width: 1000px) { 
+    .super-container{
+        margin: 0;
+        margin-top:18rem
+    }
+
+    .successful-booking-container {
+        margin-left: 13rem;
+        margin-top: 5rem;
+        width: 100%;
+        margin-right: -5rem;
+    }
+
+    .message-container{
+        width: 70%;
+    }
+
+}

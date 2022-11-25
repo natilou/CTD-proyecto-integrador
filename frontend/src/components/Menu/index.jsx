@@ -32,22 +32,22 @@ function Menu({ close, showLogin, showLogout, showLine, user }) {
       }
 
     return (
-        <div id="menu_container">
-            <section className="close_button_container">
-                <button className="close_button" onClick={() => close()}>
-                    <p className="close_text">x</p>
+        <div id="menu_container" data-testid="menu-container">
+            <section className="close_button_container" data-testid="menu-section">
+                <button className="close_button" onClick={() => close()} data-testid="menu-btn">
+                    <p className="close_text" data-testid="menu-btn-content">x</p>
                 </button>
-                <div className="title_container">
+                <div className="title_container" data-testid="menu-title">
                     {
                         user ? (
-                        <AvatarView userName={user.username}/>
+                        <AvatarView userName={user.name}/>
                         ) : (
                             <p className="close_text">MENÚ</p>
                         )
                     }
                 </div>
             </section>
-            <section className="login_and_register_buttons_container">
+            <section className="login_and_register_buttons_container" data-testid="menu-login-register">
                 {
                     user ? (
                     <>
@@ -88,28 +88,28 @@ function Menu({ close, showLogin, showLogout, showLine, user }) {
             }
             
 
-            <section className="footer_icons_container">
-                <ul className="icons_list">
+            <section className="footer_icons_container" data-testid="menu-footer">
+                <ul className="icons_list" data-testid="menu-icon-list">
                     <li>
-                        <a href="https://www.instagram.com/" target='_blank' rel="noreferrer">
-                            <img src={instagramIcon} alt="facebook-logo" />
+                        <a href="https://www.instagram.com/" target='_blank' rel="noreferrer" data-testid="menu-instagram-link">
+                            <img src={instagramIcon} alt="facebook-logo" data-testid="menu-instagram-logo"/>
                         </a>
                     </li>
                     <li>
-                        <a href="https://www.twitter.com/" target='_blank' rel="noreferrer">
-                            <img src={twitterIcon} alt="facebook-logo" />
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="https://www.linkedin.com/" target='_blank' rel="noreferrer">
-                            <img src={linkedinIcon} alt="facebook-logo" />
+                        <a href="https://www.twitter.com/" target='_blank' rel="noreferrer" data-testid="menu-twitter-link">
+                            <img src={twitterIcon} alt="facebook-logo" data-testid="menu-twitter-logo"/>
                         </a>
                     </li>
 
                     <li>
-                        <a href="https://www.facebook.com/" target='_blank' rel="noreferrer">
-                            <img src={facebookIcon} alt="facebook-logo" />
+                        <a href="https://www.linkedin.com/" target='_blank' rel="noreferrer" data-testid="menu-linkedin-link">
+                            <img src={linkedinIcon} alt="facebook-logo" data-testid="menu-linkedin-logo"/>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="https://www.facebook.com/" target='_blank' rel="noreferrer" data-testid="menu-facebook-link">
+                            <img src={facebookIcon} alt="facebook-logo" data-testid="menu-facebook-logo"/>
                         </a></li>
                 </ul>
             </section>

@@ -5,7 +5,8 @@
 .main_container{
     display: flex;
     flex-direction: row;
-    margin-right: 50px;
+    margin-right: 40px;
+    margin-top: 0.3rem;
 }
 .avatar_container{
     display: flex;
@@ -13,42 +14,50 @@
     align-content: center;
     align-items: center;
     background-color: var(--dark-blue-color);
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
 }
 .avatar{
     color: white;
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     font-weight: bold;
 }
+
 .greeting_name_container{
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: flex-start;
-    margin-top: 0.3rem;
+    margin-top: 1.2rem;
     margin-bottom: 0.4rem;
+    margin-right: 0.5rem;
+    font-size: 1.5rem;
 
 }
+
 .greeting{
     color: var(----dark-blue-color);
     font-weight: bolder;
 }
+
 .user_name{
     font-weight: bolder;
     padding-left: 0.3rem;
-    color: #f0572d
+    color: #f0572d;
+ 
 }
+
 .button-avatar{
     border: 0ch;
     height: fit-content;
-    width: 20px;
+    width: 10px;
     background-color: white;
 }
+
 .button_text_avatar{
     color: var(----dark-blue-color);
-    font-size: 1.3em;
+    font-size: 1.5rem;
     font-weight: bolder;
 }
 
@@ -59,6 +68,9 @@
 
 .row-avatar{
     width: 100%;
+    display:flex;
+    flex-direction: row-reverse;
+    padding-right: 5px;
 }
 
 
@@ -77,20 +89,16 @@
         margin-bottom: 0.5rem;
     }
     .greeting_name_container{
-        align-items: flex-end;
-        align-items: center;
-        justify-content: center;
         margin-left: 15rem;
     }
     .row-avatar{
-        display: flex;
         flex-direction: column;
         align-content: flex-end;
         justify-content: flex-end;
         width: 100%;
     }
     .user_name{
-        color: #31363f;
+        color:white;
     }
     .greeting{
         color: #ffffff;
@@ -102,13 +110,16 @@
         text-align: end;
         align-items: center;
         justify-content: center;
-        margin-left: 17rem;
+        margin-left: 14rem;
         margin-top: 1rem;
         margin-bottom: 0.5rem;
     }
 
     .greeting_name_container{
         align-items: flex-end;
-        margin-left: 15rem;
+        margin-left: 14rem;
+    }
+    .user_name{
+        color: white;
     }
 }

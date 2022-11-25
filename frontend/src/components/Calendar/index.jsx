@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import DatePicker, { registerLocale, setDefaultLocale } from "react-datepicker";
+import { useMediaQuery } from 'react-responsive';
 import es from "date-fns/locale/es";
 import "react-datepicker/dist/react-datepicker.css";
 import "./Calendar.css";
 
-const Calendar = () => {
+const Calendar = ({ setRangeSelected }) => {
   const [dateRange, setDateRange] = useState([null, null]);
   const [startDate, endDate] = dateRange;
-  console.log({ dateRange })
-
+  const isMobile = useMediaQuery({ query: '(max-width: 761px)' });
   registerLocale("es", es);
   setDefaultLocale("es");
 
@@ -21,10 +21,11 @@ const Calendar = () => {
         endDate={endDate}
         onChange={(update) => {
           setDateRange(update);
+          setRangeSelected(update);
         }}
         minDate={new Date()}
         locale="es"
-        monthsShown={2}
+        monthsShown={isMobile ? 1 : 2}
         dateFormat="yyyy/M/d"
         changeMonth
       />

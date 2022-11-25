@@ -20,13 +20,11 @@ public class Category {
     @NotEmpty
     private String description;
     private String urlImage;
-    private int amount;
 
     //Constructor sin id
-    public Category(String title, String description, String urlImage, Integer amount) {
+    public Category(String title, String description, String urlImage) {
         this.title = title;
         this.description = description;
         this.urlImage = urlImage;
-        this.amount = amount;
     }
 }

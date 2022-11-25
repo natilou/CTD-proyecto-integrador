@@ -1,0 +1,10 @@
+insert into `products_features` (`feature_id`, `id`, `product_id`) values (1, 10, 1);
+insert into `products_features` (`feature_id`, `id`, `product_id`) values (3, 11, 1);
+insert into `products_features` (`feature_id`, `id`, `product_id`) values (3, 12, 2);
+insert into `products_features` (`feature_id`, `id`, `product_id`) values (13, 14, 12);
+insert into `products_features` (`feature_id`, `id`, `product_id`) values (14, 15, 12);
+insert into `products_features` (`feature_id`, `id`, `product_id`) values (15, 16, 10);
+insert into `products_features` (`feature_id`, `id`, `product_id`) values (1, 17, 10);
+insert into `products_features` (`feature_id`, `id`, `product_id`) values (2, 18, 10);
+insert into `products_features` (`feature_id`, `id`, `product_id`) values (2, 19, 6);
+insert into `products_features` (`feature_id`, `id`, `product_id`) values (1, 20, 6);

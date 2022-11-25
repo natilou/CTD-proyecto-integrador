@@ -52,23 +52,6 @@ function Register() {
         text: 'Todos los campos son obligatorios',
       })
     }
-    else if(!validateEmailAndPassword(email) && validatePasswordConfirmation(password, confirmedPassword) && validatePasswordLength(password)){
-      usersRegistered.push(
-        {
-          email: email,
-          username: email.split("@")[0],
-          password: confirmedPassword
-        }
-      )
-      Swal.fire({
-        icon: 'success',
-        text: 'Usuario registrado con éxito',
-      })
-      setTimeout(()=>{
-        return navigate("/login")
-      },2300)
-
-    } 
     else if(validateEmailAndPassword(email)){
       Swal.fire({
         icon: 'error',
@@ -93,47 +76,63 @@ function Register() {
         text: 'La contraseña debe tener más de 6 caracteres',
       })
     }
+    else {
+        usersRegistered.push(
+          {
+            email: email,
+            username: email.split("@")[0],
+            password: confirmedPassword
+          }
+        )
+        Swal.fire({
+          icon: 'success',
+          text: 'Usuario registrado con éxito',
+        })
+        setTimeout(()=>{
+          return navigate("/login")
+        },2300)
+    }
   }
 
   return (
     <div>
       <Header showLogin={showlogin} />
-        <section className="container-register">
-            <h2 className="title-register">Crear una cuenta</h2>
-            <div className="row-register-with-col">
-                <div className="col-register">
-                  <div className="row-register-with-col">
-                    <label className="label-register">Nombre</label>
+        <section className="container-register" data-testid="register-container">
+            <h2 className="title-register" data-testid="register-title">Crear una cuenta</h2>
+            <div className="row-register-with-col" data-testid="register-row-container-1">
+                <div className="col-register" data-testid="register-col-container-1">
+                  <div className="row-register-with-col" data-testid="register-row-container-2">
+                    <label className="label-register" data-testid="register-name-label">Nombre</label>
                   </div>
-                  <div className="row-register-with-col">
-                    <input className="input-register" type="text" required onChange={handleOnChangeNombre}/>
-                  </div>
-                </div>
-                <div className="col-register">
-                  <div className="row-register-with-col">
-                    <label className="label-register">Apellido</label>
-                  </div>
-                  <div className="row-register-with-col">
-                  <input className="input-register" type="text" required onChange={handleOnChangeApellido}/>
+                  <div className="row-register-with-col" data-testid="register-col-container-2">
+                    <input className="input-register" type="text" required onChange={handleOnChangeNombre} data-testid="register-name-input"/>
                   </div>
                 </div>
+                <div className="col-register" data-testid="register-col-1">
+                  <div className="row-register-with-col" data-testid="register-row-container-3">
+                    <label className="label-register" data-testid="register-lastname-label">Apellido</label>
+                  </div>
+                  <div className="row-register-with-col" data-testid="register-row-container-4">
+                  <input className="input-register" type="text" required onChange={handleOnChangeApellido} data-testid="register-lastname-input"/>
+                  </div>
+                </div>
             </div>
-            <div className="row-register">
-              <label className="label-register">Correo electrónico</label>
-              <input className="input-register" type="email" required onChange={handleOnChangeEmail}/>
+            <div className="row-register" data-testid="register-row-1">
+              <label className="label-register" data-testid="register-email-label">Correo electrónico</label>
+              <input className="input-register" type="email" required onChange={handleOnChangeEmail} data-testid="register-email-input"/>
             </div>
-            <div className="row-register">
-              <label className="label-register">Contraseña</label>
-              <input className="input-register" type="password" required onChange={handleOnChangePassword}/>
+            <div className="row-register" data-testid="register-row-2">
+              <label className="label-register" data-testid="register-password-label">Contraseña</label>
+              <input className="input-register" type="password" required onChange={handleOnChangePassword} data-testid="register-password-input"/>
             </div>
-            <div className="row-register">
-              <label className="label-register">Confirmar contraseña</label>
-              <input className="input-register" type="password" required onChange={handleOnChangePasswordConfirmed}/>
+            <div className="row-register" data-testid="register-row-3">
+              <label className="label-register" data-testid="register-passconfirmation-label">Confirmar contraseña</label>
+              <input className="input-register" type="password" required onChange={handleOnChangePasswordConfirmed} data-testid="register-passconfirmation-input"/>
             </div>
-            <button className="btn-register" onClick={handleSubmit}>Crear una cuenta</button>
-            <div className="alternative-register">
-              <span className="span-register">¿Ya tienes cuenta?</span>
-              <Link to="/login">Iniciar Sesión</Link>
+            <button className="btn-register" onClick={handleSubmit} data-testid="register-btn">Crear una cuenta</button>
+            <div className="alternative-register" data-testid="register-alternative">
+              <span className="span-register" data-testid="alternative-span">¿Ya tienes cuenta?</span>
+              <Link to="/login" data-testid="login-link">Iniciar Sesión</Link>
             </div>
         </section>
       <Footer/>

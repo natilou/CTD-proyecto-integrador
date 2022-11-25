@@ -6,6 +6,10 @@
     border-radius: 5px;
     max-width: 400px;
 }
+.container_article:hover{
+    cursor: pointer;
+}
+
 .category_image {
     display: block;
     width: 100%;
@@ -35,5 +39,17 @@
 @media (min-width:1080px) {
     .container_article {
         max-width: 310px;
+        transform: translateY(-0.5em);
+        transition: transform 0.1s ease;
+        margin-bottom: 30px;
     }
+    .container_article:hover {
+        transform: translateY(-0.33em);
+       }
 }
+
+
+
+    
+   
+    
