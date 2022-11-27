@@ -3,9 +3,9 @@ import DatePicker, { registerLocale, setDefaultLocale } from "react-datepicker";
 import es from "date-fns/locale/es";
 import { addDays } from 'date-fns';
 import { useMediaQuery } from 'react-responsive';
-import "./CalendarProduct.css"
+import "./CalendarBooking.css"
 
-function CalendarProduct() {
+function CalendarProduct({ handleStartDateChange, handleEndDateChange }) {
 
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
@@ -14,9 +14,17 @@ function CalendarProduct() {
         const [start, end] = dates;
         setStartDate(start);
         setEndDate(end);
-    }
+        const startDay = start.getDate();
+        const startMonth = start.getMonth() + 1;
+        const startYear = start.getFullYear();
+        handleStartDateChange(`${startYear}-${startMonth}-${startDay}`);
+        const endDay = end.getDate();
+        const endMonth = end.getMonth() + 1;
+        const endYear = end.getFullYear();
+        handleEndDateChange(`${endYear}-${endMonth}-${endDay}`);
 
-    const isMobile = useMediaQuery({ query: '(max-width: 761px)' });
+    }
+    const isMobile = useMediaQuery({ query: '(max-width: 1500px)' });
     registerLocale("es", es);
     setDefaultLocale("es");
 

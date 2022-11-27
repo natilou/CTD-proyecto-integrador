@@ -4,7 +4,6 @@ import "./BookingForm.css";
 const BookingForm = ({ user }) => {
 
 
-
     return (
         <div className="booking-form-container">
             <h2 style={{ textAlign: 'left', width:'100%', marginTop: '20px' }}>Tus datos</h2>
@@ -13,7 +12,7 @@ const BookingForm = ({ user }) => {
                     <label className="label-booking-form">Nombre</label>
                     <input type="Nombre" className="input-booking-form" value={user.name} disabled/>
                     <label className="label-booking-form">Correo</label>
-                    <input type="Correo" className="input-booking-form" value={user.email} disabled/>
+                    <input type="Correo" className="input-booking-form" id="correo-booking-form" value={user.email} disabled/>
                 </div>
                 <div className="form-sub-container">
                     <label className="label-booking-form">Apellido</label>

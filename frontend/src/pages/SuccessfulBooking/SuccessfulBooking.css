@@ -3,15 +3,19 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
 }
 
 .successful-booking-container{
-    width: 40%;
-    margin-left: 3rem;    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+ 
 }
 
 .message-container{
-    width: 70%;
+    width: 40%;
     text-align: center;
     background-color: #ffffff;
     border-radius: 5px;
@@ -53,50 +57,8 @@
 }
 
 
-
-@media (max-width: 500px) { 
-    .super-container{
-        margin: 0;
-    }
-
-    .successful-booking-container {
-        margin-top: 5rem;
-        width: 100%;
-        margin-right: -5rem;
-    }
-
-    .check-icon{
-        width: 15%;
-    }
-
-}
-
 @media (max-width: 700px) { 
-
-    .successful-booking-container {
-        margin-left: 5rem;
-        margin-top: 5rem;
-        width: 100%;
-        margin-right: -5rem;
-    }
-
-}
-
-@media (max-width: 1000px) { 
-    .super-container{
-        margin: 0;
-        margin-top:18rem
-    }
-
-    .successful-booking-container {
-        margin-left: 13rem;
-        margin-top: 5rem;
-        width: 100%;
-        margin-right: -5rem;
-    }
-
     .message-container{
         width: 70%;
     }
-
 }
