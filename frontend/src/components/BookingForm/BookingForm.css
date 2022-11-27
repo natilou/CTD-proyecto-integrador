@@ -43,6 +43,7 @@
     font-weight: 700;
 }
 
+
 @media (max-width: 800px) { 
     .form-main-container {
         display: flex;
@@ -63,6 +64,13 @@
         width: 90%;
         align-self: center;
     
+    }
+}
+
+@media (max-width: 1500px) { 
+
+    #correo-booking-form{
+        width: 200%;
     }
 
 }

@@ -74,7 +74,7 @@
 }
 
 
-@media (max-width: 700px) { 
+@media (max-width: 800px) { 
     .main_container{
         flex-direction: column;
         justify-content: flex-end;
@@ -84,12 +84,12 @@
         text-align: end;
         align-items: center;
         justify-content: center;
-        margin-left: 19rem;
+        margin-left: 25rem;
         margin-top: 1rem;
         margin-bottom: 0.5rem;
     }
     .greeting_name_container{
-        margin-left: 15rem;
+        margin-left: 20rem;
     }
     .row-avatar{
         flex-direction: column;
@@ -105,12 +105,12 @@
     }
 }
 
-@media (max-width: 500px) { 
+@media (max-width: 530px) { 
     .avatar_container{
         text-align: end;
         align-items: center;
         justify-content: center;
-        margin-left: 14rem;
+        margin-left: 20rem;
         margin-top: 1rem;
         margin-bottom: 0.5rem;
     }
@@ -118,6 +118,25 @@
     .greeting_name_container{
         align-items: flex-end;
         margin-left: 14rem;
+    }
+    .user_name{
+        color: white;
+    }
+}
+
+@media (max-width: 450px) { 
+    .avatar_container{
+        text-align: end;
+        align-items: center;
+        justify-content: center;
+        margin-left: 13rem;
+        margin-top: 1rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .greeting_name_container{
+        align-items: flex-end;
+        margin-left: 7rem;
     }
     .user_name{
         color: white;
