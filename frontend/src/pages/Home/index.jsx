@@ -73,13 +73,15 @@ function Home() {
   }
 
   async function getFilterCities(id) {
-    setIdCity(id-1);
+    setIdCity(id);
     setIsLoadingDataCities(true);
     try {
       setIsLoadingDataCities(true);
       await fetch(`http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/products/cities/${Number(id)}`)
         .then((response) => response.json())
-        .then((data) => setDataCities(data));
+        .then((data) => {
+          setDataCities(data)
+        });
 
       setIsLoadingDataCities(false);
       
@@ -147,7 +149,7 @@ function Home() {
               {
                 !isLoadingDataCities &&(
                     <div id="FilterCity">
-                      <h2 className="main_title_recommedation" data-testid="home-title-2">Ciudad de {cities[idCity].name}</h2>
+                      <h2 className="main_title_recommedation" data-testid="home-title-2">Ciudad de {cities.find(city => city.id === idCity).name}</h2>
                       <Recommendation dataLodging={dataCities} />
                     </div>)
               }

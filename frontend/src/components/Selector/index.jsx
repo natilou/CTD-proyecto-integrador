@@ -5,12 +5,6 @@ import "./Selector.css"
 function Selector({cities, setGetIdCity}) {
    const [isOpen, setIsOpen] = useState(false)
    const [selectedOption, setSelectedOption] = useState(null)
-  // const cities = [
-   // { id: 1, name: 'San Carlos de Bariloche', country: 'Argentina'},
-   // { id: 2, name: 'Buenos Aires', country: 'Argentina'},
-   // { id: 3, name: 'Mendoza', country: 'Argentina' },
-   // { id: 4, name: 'Córdoba', country: 'Argentina'},
-  //]
  
   const toggling = () => setIsOpen(!isOpen)
 
