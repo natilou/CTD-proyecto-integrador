@@ -37,7 +37,7 @@
 .btn_header{
     height: 40px;
     font-size: var(--font-size-medium);
-    padding: 11px 20px 10px 22px;
+    padding: 9px 10px 10px 10px;
     border: 1px solid var(--main-color);
     position: relative;
     overflow: hidden;
@@ -69,6 +69,7 @@
    
 .btn_header:hover {
     color: white;
+    cursor: pointer;
    }
 
 .menu_icon_container {
