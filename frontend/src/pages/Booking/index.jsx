@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import "./Booking.css"
-import CalendarProduct from "../../components/CalendarProduct";
+import CalendarBooking from "../../components/CalendarBooking";
 import ProductPolices from "../../components/ProductPolices";
 import BookingForm from "../../components/BookingForm";
 import BookingDetail from "../../components/BookingDetail";
@@ -86,7 +86,7 @@ function Booking() {
                                         <BookingForm user={user} />
                                         <div className="booking-calendar-container">
                                             <h2 style={{ marginBottom: '20px' }}>Seleccioná tu fecha de reserva</h2>
-                                            <CalendarProduct handleStartDateChange={handleStartDateChange} handleEndDateChange={handleEndDateChange} />
+                                            <CalendarBooking handleStartDateChange={handleStartDateChange} handleEndDateChange={handleEndDateChange} />
                                         </div>
                                     </div>
                                     <div className="booking-detail-container">

@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./BookingAction.css";
 import Swal from 'sweetalert2';
 
@@ -14,9 +14,12 @@ function BookingAction({ id }){
          Swal.fire({
             icon: 'error',
             text: 'Debes iniciar sesión para realizar una reserva',
-        }) && setTimeout(()=>{
-            return navigate("/login")
-        },2300) 
+         }).then((result) => {
+            if (result.isConfirmed) {
+              setTimeout(()=>{
+                return navigate("/login")
+                },500) 
+            }}) 
     }
 
     return(
