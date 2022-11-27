@@ -12,11 +12,15 @@ function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const [isLoadingData, setIsLoadingData] = useState(true);
   const [isLoadingDataCities, setIsLoadingDataCities] = useState(true);
+  const [isLoadingDataDates, setIsLoadingDataDates] = useState(true);
   const [products, setProducts] = useState([]);
   const [cities, setCities] = useState([]);
   const [dataFilterCategory, setDataFilterCategory] = useState([]);
   const [dataCities, setDataCities] = useState([]);
   const [idCity, setIdCity] = useState();
+  const [dataDates, setDataDates] = useState([]);
+  const [selectedStartDate, setSelectedStartDate] = useState();
+  const [selectedEndDate, setSelectedEndDate] = useState();
   const showLogin = true;
   const showLogout = true;
   const showLine = true;
@@ -85,6 +89,38 @@ function Home() {
     }
   }
 
+  async function searchByDates (rangeSelected) {
+    let startDay = rangeSelected[0].getDate();
+    let startMonth= rangeSelected[0].getMonth()+1;
+    let startYear = rangeSelected[0].getFullYear();
+    let endDay = rangeSelected[1].getDate();
+    let endMonth= rangeSelected[1].getMonth();
+    let endYear = rangeSelected[1].getFullYear();
+    let startDate = `${startYear}-${startMonth}-${startDay}`;
+    let endDate = `${endYear}-${endMonth}-${endDay}`;
+
+    try {
+      await fetch("http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/products/dates?" + new URLSearchParams({
+        initialDate: startDate,
+        endDate: endDate
+      }), 
+      {
+        method: "GET", 
+        headers: {
+          "content-type": "application/json",
+          "accept": "application/json"
+      }})
+        .then((response) => response.json())
+        .then((data) =>setDataDates(data))
+        setIsLoadingDataDates(false)
+        setSelectedStartDate(startDate)
+        setSelectedEndDate(endDate)
+    } catch (error) {
+      console.log({ error });
+      setIsLoadingDataDates(false)
+    }
+  }
+
   return (
     <>
       {
@@ -96,7 +132,7 @@ function Home() {
           : (
             <div data-testid="home-container">
               <Header showLogin={showLogin} showLogout={showLogout} showLine={showLine} />
-              <FormFilter cities={cities} setProducts={setProducts}  getFilterCities={getFilterCities} />
+              <FormFilter cities={cities} searchByDates={searchByDates}  getFilterCities={getFilterCities} />
               <h2 className="title_categories" data-testid="home-title">Buscar por tipo de alojamiento</h2>
 
               <Categories data={sectionCategory} onclick={getCategory} />
@@ -113,6 +149,13 @@ function Home() {
                     <div id="FilterCity">
                       <h2 className="main_title_recommedation" data-testid="home-title-2">Ciudad de {cities[idCity].name}</h2>
                       <Recommendation dataLodging={dataCities} />
+                    </div>)
+              }
+              {
+                !isLoadingDataDates &&(
+                    <div id="FilterCity">
+                      <h2 className="main_title_recommedation" data-testid="home-title-2">Alojamientos disponibles desde {selectedStartDate} hasta {selectedEndDate}</h2>
+                      <Recommendation dataLodging={dataDates} />
                     </div>)
               }
               <h2 className="main_title_recommedation" data-testid="home-title-2">Recomendaciones</h2>

@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import iconStar from "../../assets/images/icons/iconStar1.png";
 import locationIcon from "../../assets/images/Vector.png";
 import "./BookingDetail.css";
