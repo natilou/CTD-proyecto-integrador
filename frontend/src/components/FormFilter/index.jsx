@@ -59,9 +59,9 @@ function FormFilter({ cities, setProducts, getFilterCities }){
             <Calendar setRangeSelected={setRangeSelected} />
           </div>
         </div>
-        <a href='#City' className="sub-container" data-testid="formfilter-btn-container">
-          <button onClick={getIdCity ? handleClickCity(getIdCity) : lookForDate} className='btn_filter' data-testid="formfilter-btn">Buscar</button>
-        </a>
+        <div className="sub-container" data-testid="formfilter-btn-container">
+        <button onClick={getIdCity ? handleClickCity(getIdCity) : lookForDate} className='btn_filter' data-testid="formfilter-btn">Buscar</button>
+        </div>
 
       </div>
    </section>

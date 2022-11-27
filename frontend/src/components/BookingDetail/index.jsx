@@ -12,7 +12,7 @@ const BookingDetail = ({ product, productImages, start, end }) => {
     const user =  JSON.parse(localStorage.getItem("user"));
     const urlBooking = `http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/bookings`
     const header = {
-        "Authorization": `Bearer ${jwt.token}`,
+        "Authorization": `${jwt.token}`,
         "content-type": "application/json",
         "accept": "application/json"
     }

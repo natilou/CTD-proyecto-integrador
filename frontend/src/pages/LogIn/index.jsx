@@ -80,7 +80,7 @@ function LogIn() {
       .then(response => {
         if (response){
           localStorage.setItem("user", JSON.stringify({id: user.id, email: user.email, name: user.name, lastName: user.lastName})); 
-          localStorage.setItem("jwt", JSON.stringify({jwt: response.token})); 
+          localStorage.setItem("jwt", JSON.stringify({token: response.token})); 
           navigate("/")
         } else {
           Swal.fire({
