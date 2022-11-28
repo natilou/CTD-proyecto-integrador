@@ -23,12 +23,7 @@ function Booking() {
     const urlProductID = ` http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/products/${id}`;
 
     const user = JSON.parse(localStorage.getItem("user"));
-    const bookingInformationForBd = {
-        userId: user.id,
-        productId: id,
-        startDate: start,
-        endDate: end,
-    }
+  
     useEffect(() => {
         getData();
     }, []);
