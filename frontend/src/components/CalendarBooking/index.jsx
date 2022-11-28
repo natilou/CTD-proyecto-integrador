@@ -14,15 +14,14 @@ function CalendarProduct({ handleStartDateChange, handleEndDateChange }) {
         const [start, end] = dates;
         setStartDate(start);
         setEndDate(end);
-        const startDay = start.getDate();
-        const startMonth = start.getMonth() + 1;
+        const startDay = ("0" + start.getDate()).slice(-2);
+        const startMonth = ("0" + start.getMonth() + 1).slice(-2);
         const startYear = start.getFullYear();
         handleStartDateChange(`${startYear}-${startMonth}-${startDay}`);
-        const endDay = end.getDate();
-        const endMonth = end.getMonth() + 1;
+        const endDay = ("0" + end.getDate()).slice(-2);
+        const endMonth = ("0" + start.getMonth() + 1).slice(-2);
         const endYear = end.getFullYear();
-        handleEndDateChange(`${endYear}-${endMonth}-${endDay}`);
-
+        handleEndDateChange(`${endYear}-${endMonth}-${endDay}`)
     }
     const isMobile = useMediaQuery({ query: '(max-width: 1500px)' });
     registerLocale("es", es);
