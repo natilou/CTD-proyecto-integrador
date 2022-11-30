@@ -9,7 +9,7 @@ function BookingAction({ id }){
 
     const handleClick = () => {
         user ? 
-        navigate(`/reserva/${id}`)
+        navigate(`/booking/${id}`)
         : 
          Swal.fire({
             icon: 'error',
