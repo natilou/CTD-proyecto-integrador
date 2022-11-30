@@ -5,7 +5,7 @@ import '@testing-library/jest-dom';
 import SuccessfulBooking from '.';
 
 
-describe("Test Successful Booking", () => {
+describe("Test Successful Page", () => {
     it("should render container", () => {
         render(
             <BrowserRouter>

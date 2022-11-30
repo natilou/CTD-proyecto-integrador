@@ -3,15 +3,15 @@ import Header from "../../components/Header";
 import SuccessfulPage from "../../components/SuccessfulPage";
 
 
-function SuccessfulBooking(){
+function SuccessfulProductionCreation(){
 
     return(
         <>
             <Header />
-                <SuccessfulPage exclamationMessage={"¡Muchas gracias!"} message={"Tu reserva se ha realizado con éxito."} />
+                <SuccessfulPage exclamationMessage={"¡Felicitaciones!"} message={"Producto agregado con éxito."} />
             <Footer />
         </>
     )
 }
 
-export default SuccessfulBooking;
+export default SuccessfulProductionCreation;
