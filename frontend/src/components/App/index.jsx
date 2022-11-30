@@ -5,6 +5,7 @@ import Register from "../../pages/Register";
 import LogIn from "../../pages/LogIn";
 import Product from "../../pages/Product";
 import SuccessfulBooking from "../../pages/SuccessfulBooking";
+import SuccessfulProductionCreation from "../../pages/SuccessfulProductionCreation";
 import Booking from "../../pages/Booking";
 
 function App() {
@@ -16,7 +17,8 @@ function App() {
             <Route path='/login' element={<LogIn/>} />
             <Route path="/product/:category/:id" element={<Product/>}/>
             <Route path="/successful-booking" element={<SuccessfulBooking/>}/>
-            <Route path="/reserva/:id" element={<Booking/>}/>
+            <Route path="/successful-product-creation" element={<SuccessfulProductionCreation/>}/>
+            <Route path="/booking/:id" element={<Booking/>}/>
         </Routes>
   </BrowserRouter>
   );
