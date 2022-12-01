@@ -36,7 +36,10 @@ function Header({ showLogout, showLogin, showLine }) {
                     <div className="header_buttons" data-testid="header-buttons">
                         {
                             user ? (
-                                <AvatarView userName={user.name} />
+                                <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'space-evenly', alignItems: 'center'}}>
+                                    <Link to="/admin" style={{ marginRight: 30 }}><button className="btn_header">Administración</button></Link>
+                                    <AvatarView userName={user.name} />
+                                </div>
                             ) : (
                                 <>
                                     {
