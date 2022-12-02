@@ -53,6 +53,11 @@ public class ProductService {
         return productRepository.save(p);
     }
 
+    public Product actualizar(Product p) {
+        logger.info("Se actualiza el product con el id: " + p.getId());
+        return productRepository.save(p);
+    }
+
     public List<Product> buscarPorCityId(Integer cityId) throws ResourceNotFoundException {
         if (!cityRepository.existsById(cityId)) {
             throw new ResourceNotFoundException("Not found City with id = " + cityId);
