@@ -1,5 +1,6 @@
 package com.example.PI_grupo_10.controller;
 
+import com.example.PI_grupo_10.exceptions.ResourceNotFoundException;
 import com.example.PI_grupo_10.model.Booking;
 import com.example.PI_grupo_10.model.Product;
 import com.example.PI_grupo_10.model.dto.BookingDto;
@@ -33,6 +34,17 @@ public class BookingController
     @GetMapping("/{id}")
     public ResponseEntity ObtenerReserva(@PathVariable int id){
         var booking = this.bookingService.obtenerReserva(id);
+
+        if (booking == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Reserva no encontrada");
+        }
+
+        return ResponseEntity.ok(booking);
+    }
+
+    @GetMapping("/users/{id}")
+    public ResponseEntity findByUserId(@PathVariable int id) throws ResourceNotFoundException {
+        var booking = this.bookingService.findByUserId(id);
 
         if (booking == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Reserva no encontrada");
