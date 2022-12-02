@@ -6,6 +6,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 
@@ -46,16 +47,12 @@ public class Product {
             joinColumns = { @JoinColumn(name = "product_id") },
             inverseJoinColumns = { @JoinColumn(name = "feature_id") })
     @JsonIgnore
-    private Set<Feature> features = new HashSet<>();
-
+    private Set<Feature> features = new HashSet<>();//era sin Optional antes
 
     @JoinColumn(name = "cover_image_url", nullable = false)
     private String coverImageUrl;
 
     public Product(String title, Category category, String address, City city, String description, String coverImageUrl) {
-
-    //private String mainImage;  implementar en base de datos y borrarla de la tabla de IMAGES
-
         this.title = title;
         this.category = category;
         this.address = address;
@@ -63,4 +60,10 @@ public class Product {
         this.description = description;
         this.coverImageUrl = coverImageUrl;
     }
+
+    /*
+    public void setFeatures(Set<Feature> features) {
+        this.features = features;
+    }
+     */
 }
