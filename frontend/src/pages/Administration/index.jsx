@@ -20,7 +20,39 @@ function Administration() {
     console.log({ productSecurity });
     const [productPolicy, setProductPolicy] = useState("");
     console.log({ productPolicy });
-
+    const [productFeatures, setProductFeatures] = useState([]);
+    console.log({ productFeatures });
+    
+    const features = [
+        {
+            id: 1,
+            name: 'wifi',
+        },
+        {
+            id: 2,
+            name: 'aire',
+        },
+        {
+            id: 3,
+            name: 'free-parking',
+        },
+        {
+            id: 4,
+            name: 'gym',
+        },
+        {
+            id: 5,
+            name: 'spa',
+        },
+        {
+            id: 6,
+            name: 'kitchen',
+        },
+        {
+            id: 7,
+            name: 'microware',
+        },
+    ]
     
     const showLogin = true;
     const showLogout = true;
@@ -65,7 +97,28 @@ function Administration() {
     function handlePolicyChange(e){
         let policy = e.target.value;
         setProductPolicy(policy)
-    }   
+    }
+    console.log({ productFeatures });
+    
+    function handleChange(e) {  
+        var isChecked = e.target.checked;  
+        var item = e.target.value;  
+        
+        console.log({isChecked});
+        console.log({item});
+
+        if(isChecked) {
+            let productFeaturesClone = [...productFeatures]
+            productFeaturesClone.push(item);
+            setProductFeatures(productFeaturesClone);
+        }
+        if(!isChecked) {
+            let productFeaturesClone = [...productFeatures]
+            let newFeatures = productFeaturesClone.filter(feature => feature !== item);
+            console.log({ newFeatures });
+            setProductFeatures(newFeatures);
+        }
+  }  
 
     return (
         <div>
@@ -123,8 +176,28 @@ function Administration() {
                         </div>
                     </div>
                     <h3 className="product-form-sub-title">
-                        Agegar atributos
+                        Agregar atributos
                     </h3>
+                    <ul className="toppings-list">
+                        {features.map(({ name, id }, index) => {
+                            return (
+                                <li key={id}>
+                                    <div className="toppings-list-item">
+                                        <div className="left-section">
+                                            <input
+                                                onChange={(e) => handleChange(e)}
+                                                type="checkbox"
+                                                id={`custom-checkbox-${index}`}
+                                                name={name}
+                                                value={name}
+                                            />
+                                            <label htmlFor={`custom-checkbox-${index}`}>{name}</label>
+                                        </div>
+                                    </div>
+                                </li>
+                            );
+                        })}
+                    </ul>
 
                     <h3 className="product-form-sub-title">
                         Políticas del producto
