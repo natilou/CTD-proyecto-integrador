@@ -178,22 +178,19 @@ function Administration() {
                     <h3 className="product-form-sub-title">
                         Agregar atributos
                     </h3>
-                    <ul className="toppings-list">
+                    <ul className="product-form-checkbox-container">
                         {features.map(({ name, id }, index) => {
                             return (
-                                <li key={id}>
-                                    <div className="toppings-list-item">
-                                        <div className="left-section">
-                                            <input
-                                                onChange={(e) => handleChange(e)}
-                                                type="checkbox"
-                                                id={`custom-checkbox-${index}`}
-                                                name={name}
-                                                value={name}
-                                            />
-                                            <label htmlFor={`custom-checkbox-${index}`}>{name}</label>
-                                        </div>
-                                    </div>
+                                <li key={id} className="product-form-checkbox-sub-container">
+                                    <input
+                                        onChange={(e) => handleChange(e)}
+                                        type="checkbox"
+                                        id={`custom-checkbox-${index}`}
+                                        name={name}
+                                        value={name}
+                                        className="product-form-checkbox"
+                                    />
+                                    <label htmlFor={`custom-checkbox-${index}`} className="product-form-checkbox-label">{name}</label>
                                 </li>
                             );
                         })}
