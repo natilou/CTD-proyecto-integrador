@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import { Link } from "react-router-dom";
-import "./Administration.css"
+import "./Administration.css";
+import PictureInput from "../../components/PictureInput";
 
 
 function Administration() {
@@ -234,8 +235,9 @@ function Administration() {
                     <h3 className="product-form-sub-title">
                         Cargar imágenes
                     </h3>
-                    <div>
-                        
+                    <div style={{ marginBottom: 300, display: 'flex', justifyContent: 'center' }}>
+                        <PictureInput />
+
                     </div>
 
                 </div>
