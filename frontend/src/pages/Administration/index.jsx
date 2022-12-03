@@ -8,28 +8,16 @@ import PictureInput from "../../components/PictureInput";
 
 function Administration() {
     const [productName, setProductName] = useState("");
-    console.log({ productName });
     const [productCategory, setProductCategory] = useState("");
-    console.log({ productCategory });
     const [productAddress, setProductAddress] = useState("");
-    console.log({ productAddress });
     const [productCity, setProductCity] = useState("");
-    console.log({ productCity });
     const [productRules, setProductRules] = useState("");
-    console.log({ productRules });
     const [productSecurity, setProductSecurity] = useState("");
-    console.log({ productSecurity });
     const [productPolicy, setProductPolicy] = useState("");
-    console.log({ productPolicy });
     const [productFeatures, setProductFeatures] = useState([]);
-    console.log({ productFeatures });
     const [isLoading, setIsLoading] = useState(true);
     const [features, setFeatures] = useState([]);
-
-    console.log({ features });
-
-
-    
+    const [productImages, setProductImages] = useState([]);    
     const showLogin = true;
     const showLogout = true;
     const showLine = true;
@@ -114,6 +102,26 @@ function Administration() {
             console.log({ newFeatures });
             setProductFeatures(newFeatures);
         }
+  }
+
+  function getProductImages(images) {
+    console.log({ images })
+    setProductImages(images);
+  }
+
+  function handleButtonCreationClick() {
+    const productBody = {
+        name: productName,
+        category: productCategory,
+        address: productAddress,
+        city: productCity,
+        rules: productRules,
+        security: productSecurity,
+        cancelationPolice: productPolicy,
+        features: productFeatures,
+        images: productImages,
+    }
+    console.log({productBody });
   }
 
     return (
@@ -235,11 +243,16 @@ function Administration() {
                     <h3 className="product-form-sub-title">
                         Cargar imágenes
                     </h3>
-                    <div style={{ marginBottom: 300, display: 'flex', justifyContent: 'center' }}>
-                        <PictureInput />
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                        <PictureInput getProductImages={getProductImages}/>
 
                     </div>
 
+                </div>
+                <div className="product-form-submit-button-container">
+                    <button className="product-form-submit-button" onClick={handleButtonCreationClick}>
+                        Crear
+                    </button>
                 </div>
 
 
