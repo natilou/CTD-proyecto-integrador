@@ -118,6 +118,17 @@
     margin-top: 20px;
 }
 
+.product-form-submit-button-container {
+    padding-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    align-self: center;
+    margin-bottom: 100px;
+    background-color: white;
+}
+
 .product-form-checkbox {
     width: 30px;
     height: 30px;
@@ -132,4 +143,19 @@
 .product-form-checkbox-label {
     margin-left: 5px;
     font-size: 1rem;
+}
+
+.product-form-submit-button:hover{
+    cursor: pointer;
+}
+
+.product-form-submit-button {
+    background-color: var(--main-color);
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border: none;
+    width: 30%;
+    height: 50px;
+    border-radius: 5px;
 }

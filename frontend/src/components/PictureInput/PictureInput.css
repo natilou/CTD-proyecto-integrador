@@ -13,13 +13,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 200px;
+  width: 210px;
   height: 50px;
   border: 1px;
   border-color: var(--main-color);
   border-radius: 5px;
   margin-bottom: 30px;
-  font-size: 1rem;
+  font-size: 1.2rem;
   font-weight: bold;
   color: white;
   background-color: var(--main-color);
