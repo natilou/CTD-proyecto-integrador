@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import { Link } from "react-router-dom";
@@ -22,41 +22,36 @@ function Administration() {
     console.log({ productPolicy });
     const [productFeatures, setProductFeatures] = useState([]);
     console.log({ productFeatures });
-    
-    const features = [
-        {
-            id: 1,
-            name: 'wifi',
-        },
-        {
-            id: 2,
-            name: 'aire',
-        },
-        {
-            id: 3,
-            name: 'free-parking',
-        },
-        {
-            id: 4,
-            name: 'gym',
-        },
-        {
-            id: 5,
-            name: 'spa',
-        },
-        {
-            id: 6,
-            name: 'kitchen',
-        },
-        {
-            id: 7,
-            name: 'microware',
-        },
-    ]
+    const [isLoading, setIsLoading] = useState(true);
+    const [features, setFeatures] = useState([]);
+
+    console.log({ features });
+
+
     
     const showLogin = true;
     const showLogout = true;
     const showLine = true;
+
+    useEffect(() => {
+        getFeatures();
+    }, []);
+
+
+    async function getFeatures() {
+        setIsLoading(true);
+        try {
+            setIsLoading(true);
+            await fetch('http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/features')
+                .then((response) => response.json())
+                .then((data) =>
+                setFeatures(data));
+                setIsLoading(false);
+        } catch (error) {
+            console.log({ error });
+            setIsLoading(false);
+        }
+    }
 
     function handleNameChange(e){
         let productName = e.target.value;
@@ -118,26 +113,29 @@ function Administration() {
             console.log({ newFeatures });
             setProductFeatures(newFeatures);
         }
-  }  
+  }
 
     return (
-        <div>
-            <Header showLogin={showLogin} showLogout={showLogout} showLine={showLine} />
-                <div className="admin-block-header">
-                    <div className="admin-block-header-titles">
-                        <h3 className="title" data-testid="product-title">Administración</h3>
+        <>
+        {
+            !isLoading ? (
+                <div>
+                    <Header showLogin={showLogin} showLogout={showLogout} showLine={showLine} />
+                    <div className="admin-block-header">
+                        <div className="admin-block-header-titles">
+                            <h3 className="title">Administración</h3>
+                        </div>
+                        <div className="icon_back">
+                            <Link to="/" className="back_image">
+                                <img className="back" src="https://res.cloudinary.com/dbdrkxooj/image/upload/v1667606967/DH-PI/arrows-icon-left-removebg-preview_idlpxq.png" alt="Logo" data-testid="product-img" />
+                            </Link>
+                        </div>
                     </div>
-                    <div className="icon_back" data-testid="product-icon-back">
-                        <Link to="/" className="back_image">
-                            <img className="back" src="https://res.cloudinary.com/dbdrkxooj/image/upload/v1667606967/DH-PI/arrows-icon-left-removebg-preview_idlpxq.png" alt="Logo" data-testid="product-img" />
-                        </Link>
+                    <div className="product-form-section">
+                        <p className="product-form-title">
+                            Crear propiedad
+                        </p>
                     </div>
-                </div>
-                <div className="product-form-section">
-                    <p className="product-form-title">
-                        Crear propiedad
-                    </p>
-                </div>
                 <div className="product-form-container">
                     <div className="product-form-inputs-container">
                         <div className="product-form-inputs-sub-container">
@@ -178,6 +176,7 @@ function Administration() {
                     <h3 className="product-form-sub-title">
                         Agregar atributos
                     </h3>
+                    <div style={{ display : "flex", justifyContent: "center" }}>
                     <ul className="product-form-checkbox-container">
                         {features.map(({ name, id }, index) => {
                             return (
@@ -195,6 +194,8 @@ function Administration() {
                             );
                         })}
                     </ul>
+
+                    </div>
 
                     <h3 className="product-form-sub-title">
                         Políticas del producto
@@ -233,12 +234,22 @@ function Administration() {
                     <h3 className="product-form-sub-title">
                         Cargar imágenes
                     </h3>
+                    <div>
+                        
+                    </div>
 
                 </div>
 
 
             <Footer />
         </div>
+            ) : (
+            <div style={{ width: '90%',  height: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                <span className="loading-spa">Loading...</span>
+            </div>
+            )
+        }
+        </>
     );
 }
 
