@@ -43,8 +43,9 @@
 }
 
 .product-form-section {
-    margin-top: 20px;
+    padding-top: 20px;
     padding: 15px;
+    background-color: white;
 }
 
 .product-form-container {
@@ -75,6 +76,7 @@
     height: 40px;
     border-radius: 5px;
     font-size: var(--font-size-medium);
+    border-width: 1px;
 }
 
 .product-text-area {
@@ -125,7 +127,7 @@
     align-items: center;
     width: 100%;
     align-self: center;
-    margin-bottom: 100px;
+    padding-bottom: 80px;
     background-color: white;
 }
 
