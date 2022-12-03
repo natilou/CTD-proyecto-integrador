@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import "./PictureInput.css";
 
-function PictureInput() {
+function PictureInput({ getProductImages }) {
   const [images, setImages] = useState([]);
+
+  useEffect(() => {
+    getProductImages(images);
+}, [images]);
 
   const onInputChange = (e) => {
     let indexImg;
@@ -47,7 +51,6 @@ function PictureInput() {
     const newImages = images.filter(function (element) {
       return element.index !== index;
     });
-    console.log(newImages);
     setImages(newImages);
   }
 
