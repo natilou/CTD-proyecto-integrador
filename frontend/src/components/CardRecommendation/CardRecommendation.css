@@ -146,6 +146,9 @@
 
 .container_logding_icons{
     padding-left: 15px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
 }
 
 @media (min-width: 714px) {
