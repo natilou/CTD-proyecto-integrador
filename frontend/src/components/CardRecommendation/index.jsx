@@ -12,8 +12,6 @@ function CardRecommendation({ dataLodging }) {
 
     const { id, title, category, address, description, city, coverImageUrl } = dataLodging
 
-    //, score, label_score,
-    //    ,city,distance
 
     return (
         <article className="card_recommendation" data-testid="cardrecommendation-container">

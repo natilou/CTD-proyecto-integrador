@@ -52,3 +52,7 @@ white-space: pre-wrap !important;
 .city{
     font-size: var(--font-size-medium)
 }
+
+.select__value-container{
+    font-weight: bold;
+}
