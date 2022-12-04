@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface ProductRepository extends JpaRepository <Product, Integer> {
     List<Product> findByCityId (int cityId);
+
     List<Product> findByCategoryId (int categoryId);
 
     @Query(value="SELECT * FROM products ORDER BY rand() LIMIT 8", nativeQuery=true)

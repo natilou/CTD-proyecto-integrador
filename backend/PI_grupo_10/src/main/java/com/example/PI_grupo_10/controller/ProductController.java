@@ -3,12 +3,14 @@ package com.example.PI_grupo_10.controller;
 import com.example.PI_grupo_10.exceptions.ResourceNotFoundException;
 import com.example.PI_grupo_10.model.*;
 import com.example.PI_grupo_10.repository.FeatureRepository;
+import com.example.PI_grupo_10.repository.ProductFeatureRepository;
 import com.example.PI_grupo_10.service.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -22,6 +24,7 @@ import static java.lang.Integer.valueOf;
 @CrossOrigin
 @RequestMapping("/products")
 public class ProductController {
+
 
     @Autowired
     private ProductService productService;
@@ -41,15 +44,24 @@ public class ProductController {
     @Autowired
     private FeatureRepository featureRepository;
 
+    @Autowired
+    private ProductFeatureService productFeatureService;
+
     @GetMapping("/{productId}/images")
     public ResponseEntity<List<Image>> buscarPorProductId(@PathVariable Integer productId) throws ResourceNotFoundException {
         return ResponseEntity.ok(imageService.buscarPorProductId(productId));
     }
-
+//LO COMENTE HASTA ENCONTRAR LA SOLUCION**********************************
     @GetMapping("/{productId}/features")
-    public ResponseEntity<List<Feature>> getAllFeaturesByProductId(@PathVariable(value = "productId") Integer productId) throws ResourceNotFoundException {
+    public ResponseEntity<List> getAllFeaturesByProductId(@PathVariable(value = "productId") Integer productId) throws ResourceNotFoundException {
         return ResponseEntity.ok(featureService.findByProductId(productId));
     }
+//REVISAR SI CONVIENE CON EL FE
+    @GetMapping("/{productId}/featuresb")
+    public ResponseEntity<List> getAllFeaturesByProductIdB(@PathVariable(value = "productId") Integer productId) throws ResourceNotFoundException {
+        return ResponseEntity.ok(productFeatureService.findByProductId(productId));
+    }
+////////////////////////////////////////////////************************************
 
     @GetMapping("/all")
     public ResponseEntity<List<Product>> listarTodos(){
@@ -65,6 +77,19 @@ public class ProductController {
     public ResponseEntity<Product> buscar(@PathVariable Integer id) throws ResourceNotFoundException {
         return ResponseEntity.ok(productService.buscar(id));
     }
+
+    @GetMapping("/prueba/{id}")
+    public ResponseEntity ObtenerProducto(@PathVariable int id){
+        var product = this.productService.obtenerProduct(id);
+
+        if (product == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Product no encontrado");
+        }
+
+        return ResponseEntity.ok(product);
+    }
+
+
 //----------------------------------------------**********************--------------------------------
     //Agregar validación para que sólo puedan hacerlo usuarios ADMIN
     //
@@ -99,51 +124,7 @@ public class ProductController {
     }
 
  */
-    //----------------------------------------------**********************--------------------------------
-    /*
-    @Component
-    public class DataSeeder implements ApplicationListener<ContextRefreshedEvent> {
-        private final UserRepository userRepository;
 
-        private final MovieRepository movieRepository;
-
-        public DataSeeder(UserRepository userRepository, MovieRepository movieRepository) {
-            this.userRepository = userRepository;
-            this.movieRepository = movieRepository;
-        }
-
-        @Override
-        public void onApplicationEvent(ContextRefreshedEvent event) {
-            Movie movie1 = new Movie("Movie 1", "Movie 1 description", 2020);
-            Movie movie2 = new Movie("Movie 2", "Movie 2 description", 2021);
-
-            Movie createdMovie1 = movieRepository.save(movie1);
-            Movie createdMovie2 = movieRepository.save(movie2);
-
-            User user = new User("user@email.com", "John Doe");
-
-            Set<Movie> movies = new HashSet<>();
-            movies.add(createdMovie1);
-            movies.add(createdMovie2);
-
-            user.setMovies(movies);
-
-            User createdUser = userRepository.save(user);
-
-            createdUser.getMovies().forEach(System.out::println);
-        }
-    }
-    */
-/*------------------------------------------------------------------------------------------
-    @PostMapping("/addFeature")
-    public void agregar(@RequestParam ("productsFeatures") List<String> productsFeatures){
-        log.info("Se reciben los datos de un nuevo producto:" + productsFeatures);
-
-
-        //featureService.addProductFeature((Integer) productId, (Integer) featureId);
-        //return (ResponseEntity) ResponseEntity.ok();
-    }
-------------------------------------------------------------------------------------------*/
     //Agregar validación para que sólo puedan hacerlo usuarios ADMIN
     //METODO PARA ACTUALIZAR PRODUCTO
 /*    @PutMapping
