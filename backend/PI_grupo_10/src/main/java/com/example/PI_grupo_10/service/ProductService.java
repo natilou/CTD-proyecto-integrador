@@ -2,31 +2,51 @@ package com.example.PI_grupo_10.service;
 
 import com.example.PI_grupo_10.exceptions.ResourceNotFoundException;
 import com.example.PI_grupo_10.model.Product;
-import com.example.PI_grupo_10.repository.CategoryRepository;
-import com.example.PI_grupo_10.repository.CityRepository;
-import com.example.PI_grupo_10.repository.FeatureRepository;
-import com.example.PI_grupo_10.repository.ProductRepository;
+import com.example.PI_grupo_10.model.dto.BookingDto;
+import com.example.PI_grupo_10.model.dto.ProductDto;
+import com.example.PI_grupo_10.repository.*;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.*;
 
 @Service
 public class ProductService {
 
+
     private ProductRepository productRepository;
     private CityRepository cityRepository;
     private CategoryRepository categoryRepository;
     private FeatureRepository featureRepository;
+    private ProductFeatureRepository productFeatureRepository;
     private static final Logger logger = Logger.getLogger(ProductService.class);
 
     //Inyectar la dependencia
-    public ProductService(ProductRepository productRepository, CityRepository cityRepository, CategoryRepository categoryRepository, FeatureRepository featureRepository) {
+    public ProductService(ProductRepository productRepository, CityRepository cityRepository, CategoryRepository categoryRepository, FeatureRepository featureRepository, ProductFeatureRepository productFeatureRepository) {
         this.productRepository = productRepository;
         this.cityRepository = cityRepository;
         this.categoryRepository = categoryRepository;
         this.featureRepository = featureRepository;
+        this.productFeatureRepository = productFeatureRepository;
     }
+
+    //------------------------------------------------------------------
+
+    public ProductDto obtenerProduct(int id) {
+        var product = this.productRepository.findById(id);
+
+        if (!product.isPresent())
+            return null;
+
+        return new ProductDto(product.get());
+    }
+
+
+    //------------------------------------------------------------------
+
+
 
     public Product buscar(Integer id) {
         Product product = null;
@@ -40,6 +60,7 @@ public class ProductService {
 
     public List<Product> listarTodos() {
         logger.info("Se buscan todos los productos");
+        //return productRepository.findTodosLosProductos();
         return productRepository.findAll();
     }
 

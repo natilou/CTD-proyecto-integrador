@@ -2,6 +2,9 @@ package com.example.PI_grupo_10.service;
 
 import com.example.PI_grupo_10.exceptions.ResourceNotFoundException;
 import com.example.PI_grupo_10.model.Feature;
+import com.example.PI_grupo_10.model.Product;
+import com.example.PI_grupo_10.model.ProductFeature;
+import com.example.PI_grupo_10.model.ProductFeatureKey;
 import com.example.PI_grupo_10.repository.FeatureRepository;
 import com.example.PI_grupo_10.repository.ProductFeatureRepository;
 import com.example.PI_grupo_10.repository.ProductRepository;
@@ -16,11 +19,12 @@ import java.util.Optional;
 @Slf4j
 @AllArgsConstructor
 @Service
-public class FeatureService {
+public class ProductFeatureService {
+
+    private ProductFeatureRepository productFeatureRepository;
     private FeatureRepository featureRepository;
     private ProductRepository productRepository;
-    private ProductFeatureRepository productFeatureRepository;
-// LO COMENTÉ HASTA ENCONTRAR LA SOLUCION*****************************************************
+
     public List findByProductId(Integer productId) throws ResourceNotFoundException {
         if (!productRepository.existsById(productId)) {
             throw new ResourceNotFoundException("Not found Product with id = " + productId);
@@ -37,19 +41,31 @@ public class FeatureService {
         return productFeatures;
     }
 
-    public Feature buscar(Integer id) {
-        Feature feature = null;
-        Optional<Feature> optionalFeature = featureRepository.findById(id);
-        if (optionalFeature.isPresent()) {
-            feature = optionalFeature.get();
-            log.info("Se encontró la feature con el id: " + id);
+//para agregar varias Features modificar atributo a List
+    //recorrer la lista de Features para agregarlas a la tabla intermedia ProductFeatures
+
+    public void agregarFeaturesAProduct(Integer productId, List<String> featuresId){
+        ProductFeatureKey productFeatureKey = new ProductFeatureKey();
+        productFeatureKey.setProductId(productId);
+
+        ProductFeature productFeature = new ProductFeature();
+        Optional<Product> p = productRepository.findById(productId);
+        productFeature.setProduct(p.get());
+
+        for (int i = 0; i < featuresId.size(); i++) {
+
+            productFeatureKey.setFeatureId(Integer.parseInt(featuresId.get(i)));
+
+            Optional<Feature> f = featureRepository.findById(Integer.parseInt(featuresId.get(i)));
+
+            productFeature.setId(productFeatureKey);
+
+            productFeature.setFeature(f.get());
+
+            productFeatureRepository.save(productFeature);
         }
-        return feature;
+
     }
 
-    public List<Feature> listarTodos() {
-        log.info("Se buscan todas las features");
-        return featureRepository.findAll();
-    }
 
 }
