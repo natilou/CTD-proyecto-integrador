@@ -23,6 +23,7 @@
     "react-responsive": "^9.0.0",
     "react-router-dom": "^6.4.2",
     "react-scripts": "5.0.1",
+    "react-select": "^5.7.0",
     "react-spring-lightbox": "^1.7.1",
     "sweetalert2": "^11.6.2",
     "web-vitals": "^2.1.4"

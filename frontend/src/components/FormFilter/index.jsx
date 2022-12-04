@@ -28,7 +28,7 @@ function FormFilter({ cities, searchByDates, getFilterCities }){
 
     <section className='form_search' data-testid="formfilter-container">
       <h1 className='form_title' data-testid="formfilter-title">
-        Busca ofertas en hoteles, casas y mucho más
+        Busca ofertas en hoteles, casas y mucho más 
       </h1>
       <div className="container_form" data-testid="formfilter-container-form">
         <div className="sub-container" data-testid="formfilter-selector">
