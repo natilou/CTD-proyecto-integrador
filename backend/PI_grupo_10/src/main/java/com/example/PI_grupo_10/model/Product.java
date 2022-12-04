@@ -1,12 +1,14 @@
 package com.example.PI_grupo_10.model;
 
+import com.example.PI_grupo_10.model.dto.BookingDto;
+import com.example.PI_grupo_10.model.dto.ProductDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 
@@ -18,6 +20,14 @@ import java.util.Set;
 @Entity
 @Table(name= "products")
 public class Product {
+
+    //-------------------------------------------------
+    /*
+    @PersistenceContext
+    EntityManager em = null;
+
+     */
+//-------------------------------------------------
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_sequence")
@@ -38,7 +48,19 @@ public class Product {
 
     private String description;
 
+    @JoinColumn(name = "cover_image_url", nullable = false)
+    private String coverImageUrl;
+
+    /*
+    @OneToMany(mappedBy = "product")
+    @JsonManagedReference
+    @JsonIgnore
+    private Set<ProductFeature> productFeatures;
+*/
+    //-------------------------------------
+/*
     @ManyToMany(fetch = FetchType.LAZY,
+
             cascade = {
                     CascadeType.PERSIST,
                     CascadeType.MERGE
@@ -47,10 +69,10 @@ public class Product {
             joinColumns = { @JoinColumn(name = "product_id") },
             inverseJoinColumns = { @JoinColumn(name = "feature_id") })
     @JsonIgnore
-    private Set<Feature> features = new HashSet<>();//era sin Optional antes
+    private Set<Feature> features = new HashSet<>();
+*/
 
-    @JoinColumn(name = "cover_image_url", nullable = false)
-    private String coverImageUrl;
+    //-------------------------------------
 
     public Product(String title, Category category, String address, City city, String description, String coverImageUrl) {
         this.title = title;
@@ -61,9 +83,14 @@ public class Product {
         this.coverImageUrl = coverImageUrl;
     }
 
-    /*
-    public void setFeatures(Set<Feature> features) {
-        this.features = features;
+    public Product(ProductDto productDto) {
+        this.id = productDto.id;
+        this.title = productDto.title;
+        this.category = productDto.category;
+        this.address = productDto.address;
+        this.city = productDto.city;
+        this.description = productDto.description;
+        this.coverImageUrl = productDto.coverImageUrl;
     }
-     */
+
 }
