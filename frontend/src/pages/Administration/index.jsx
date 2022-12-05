@@ -17,17 +17,17 @@ function Administration() {
     const [productFeatures, setProductFeatures] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [features, setFeatures] = useState([]);
+    const [categories, setCategories] = useState([]);
     const [productImages, setProductImages] = useState([]);    
     const showLogin = true;
     const showLogout = true;
     const showLine = true;
 
     useEffect(() => {
-        getFeatures();
+        getNecessaryData();
     }, []);
 
-
-    async function getFeatures() {
+    async function getNecessaryData() {
         setIsLoading(true);
         try {
             setIsLoading(true);
@@ -35,6 +35,10 @@ function Administration() {
                 .then((response) => response.json())
                 .then((data) =>
                 setFeatures(data));
+            await fetch('http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/categories')
+                .then((response) => response.json())
+                .then((data) =>
+                setCategories(data));
                 setIsLoading(false);
         } catch (error) {
             console.log({ error });
@@ -49,6 +53,7 @@ function Administration() {
 
     function handleCategoryChange(e){
         let category = e.target.value;
+        console.log({category})
         setProductCategory(category)
     }
 
@@ -157,7 +162,22 @@ function Administration() {
                             <label className="product-form-label">
                                 Categoría
                             </label>
-                            <input type="text" className="product-input" onChange={handleCategoryChange}/>
+                            <select
+                                className="product-input"
+                                placeholder="Selecciona"
+                                onChange={(event) => handleCategoryChange(event)}
+                            >
+                                    {
+                                        categories.map((category) => {
+                                            return (
+                                                <option value={category.id} key={category.id}>
+                                                {category.title}
+                                                </option>
+                                            );
+                                        })
+                                    }
+                            </select>
+
                         </div>
                     </div>
                     <div className="product-form-inputs-container">
