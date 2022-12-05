@@ -7,7 +7,6 @@ function PictureInput({ getProductImages }) {
 
   useEffect(() => {
     getProductImages(images);
-    // handleButtonCreationClick();
 }, [images]);
 
   const onInputChange = (e) => {
