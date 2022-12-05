@@ -8,6 +8,7 @@ import SuccessfulBooking from "../../pages/SuccessfulBooking";
 import SuccessfulProductionCreation from "../../pages/SuccessfulProductionCreation";
 import Booking from "../../pages/Booking";
 import Administration from "../../pages/Administration"
+import UserReservation  from "../../pages/UserReservation";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             <Route path="/successful-product-creation" element={<SuccessfulProductionCreation/>}/>
             <Route path="/booking/:id" element={<Booking/>}/>
             <Route path='/admin' element={<Administration/>} />
+            <Route path="/reservation/booking" element={<UserReservation/>}/>
         </Routes>
   </BrowserRouter>
   );
