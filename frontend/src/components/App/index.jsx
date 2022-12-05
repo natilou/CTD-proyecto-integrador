@@ -22,7 +22,7 @@ function App() {
             <Route path="/successful-product-creation" element={<SuccessfulProductionCreation/>}/>
             <Route path="/booking/:id" element={<Booking/>}/>
             <Route path='/admin' element={<Administration/>} />
-            <Route path="/reservation/booking" element={<UserReservation/>}/>
+            <Route path="/reserva/booking" element={<UserReservation/>}/>
         </Routes>
   </BrowserRouter>
   );
