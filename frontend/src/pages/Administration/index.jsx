@@ -8,7 +8,7 @@ import Select from 'react-select';
 
 function Administration() {
     const [productName, setProductName] = useState("");
-    const [productCategory, setProductCategory] = useState("Selecciona");
+    const [productCategory, setProductCategory] = useState("");
     const [productAddress, setProductAddress] = useState("");
     const [productCity, setProductCity] = useState("");
     const [productRules, setProductRules] = useState("");
@@ -205,7 +205,7 @@ function Administration() {
                             </label>
                             <Select
                                 className="product-input"
-                                placeholder={"Selecciona una categoría"}
+                                placeholder={"Categoría"}
                                 isClearable={true}
                                 isSearchable={true}
                                 onChange={(category) => {setProductCategory(category.value)}}
@@ -227,7 +227,7 @@ function Administration() {
                             </label>
                             <Select
                                 className="product-input"
-                                placeholder={"Selecciona una ciudad"}
+                                placeholder={"Ciudad"}
                                 isClearable={true}
                                 isSearchable={true}
                                 onChange={(city) => {setProductCity(city.value)}}

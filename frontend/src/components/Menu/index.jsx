@@ -51,12 +51,14 @@ function Menu({ close, showLogin, showLogout, showLine, user }) {
                 {
                     user ? (
                     <>
+                        <Link onClick={() => close()} to="/admin" className="button"  style={{ marginRight: 30 }}>Administración</Link>
+                        <img src={line} alt="line" className="line" />
                     </>
                     ) : (
                         <>
                             {
                                 showLogout && (
-                                    <Link to="/register" className="button">Crear cuenta</Link>
+                                    <Link onClick={() => close()} to="/register" className="button">Crear cuenta</Link>
                                 )
                             }
                             {
@@ -67,7 +69,7 @@ function Menu({ close, showLogin, showLogout, showLine, user }) {
 
                             {
                                 showLogin && (
-                                    <Link to="/login" className="button">Inciar sesion</Link>
+                                    <Link onClick={() => close()} to="/login" className="button">Inciar sesion</Link>
                                 )
 
                             }
