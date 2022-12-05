@@ -97,14 +97,10 @@ function Administration() {
         let policy = e.target.value;
         setProductCancelationPolicy(policy)
     }
-    console.log({ productFeatures });
     
     function handleChange(e) {  
         var isChecked = e.target.checked;  
-        var item = e.target.value;  
-        
-        console.log({isChecked});
-        console.log({item});
+        var item = e.target.value;
 
         if(isChecked) {
             let productFeaturesClone = [...productFeatures]
@@ -114,13 +110,11 @@ function Administration() {
         if(!isChecked) {
             let productFeaturesClone = [...productFeatures]
             let newFeatures = productFeaturesClone.filter(feature => feature !== item);
-            console.log({ newFeatures });
             setProductFeatures(newFeatures);
         }
   }
 
   function getProductImages(images) {
-    console.log({ images })
     setProductImages(images);
   }
 
@@ -138,11 +132,9 @@ function Administration() {
 
     const base64Images = productImages.map(async img => {
         return {
-          base: await blobToBase64(img.file)
+            base: await blobToBase64(img.file)
         }
-      });
-
-    console.log(base64Images)
+    });
 
     const productBody = {
         title: productName,
@@ -205,7 +197,7 @@ function Administration() {
                             </label>
                             <Select
                                 className="product-input"
-                                placeholder={"Categoría"}
+                                placeholder={"Seleccionar"}
                                 isClearable={true}
                                 isSearchable={true}
                                 onChange={(category) => {setProductCategory(category.value)}}
@@ -227,7 +219,7 @@ function Administration() {
                             </label>
                             <Select
                                 className="product-input"
-                                placeholder={"Ciudad"}
+                                placeholder={"Seleccionar"}
                                 isClearable={true}
                                 isSearchable={true}
                                 onChange={(city) => {setProductCity(city.value)}}
@@ -310,11 +302,11 @@ function Administration() {
                     </div>
 
                 </div>
-                <div className="product-form-submit-button-container">
-                    <button className="product-form-submit-button" onClick={handleButtonCreationClick}>
-                        Crear
-                    </button>
-                </div>
+                    <Link to="/" className="product-form-submit-button-container">
+                        <button className="product-form-submit-button" onClick={handleButtonCreationClick}>
+                            Crear
+                        </button>
+                    </Link>
 
 
             <Footer />
