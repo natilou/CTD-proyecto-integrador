@@ -2,11 +2,11 @@ import React from 'react';
 import { useMediaQuery } from 'react-responsive';
 import "./AvatarView.css";
 import Swal from 'sweetalert2';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function AvatarView({userName}){
   const letterToShowInDefaultPicture = userName?.charAt(0).toUpperCase();
-  const isMobile = useMediaQuery({ query: '(max-width: 761px)' });
+  const isMobile = useMediaQuery({ query: '(max-width: 700px)' });
   let navigate = useNavigate();
   
   function closeSession(){
@@ -28,9 +28,14 @@ function AvatarView({userName}){
       }
     })
   }
-
   return(
     <div className="main_container" data-testid="avatar-container">
+      
+        <div className='link_user_reservation '>
+        <Link to="/reserva/booking"><p className='p_reservation'>Reservas</p></Link>
+        </div>
+      
+      
       <div className='row-avatar' data-testid="avatar-row">
         <div className="avatar_container" data-testid="avatar-container-2">
           <p className="avatar" data-testid="initials">

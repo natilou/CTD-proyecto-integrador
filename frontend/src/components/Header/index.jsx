@@ -7,15 +7,15 @@ import menuIcon from '../../assets/svgs/menuIcon.svg';
 import Menu from '../Menu'
 import AvatarView from '../AvatarView'
 
-function Header({ showLogout, showLogin, showLine }) {
+function Header({ showLogout, showLogin, showLine,showBtnReservation}) {
     const [showMenu, setShowMenu] = useState(false);
     const isMobile = useMediaQuery({ query: '(max-width: 761px)' });
     const user = JSON.parse(localStorage.getItem("user"));
-
+   
     function toggleShowMenu() {
         setShowMenu(!showMenu);
     }
-
+    console.log(showBtnReservation)
     return (
         <header className="header" data-testid="header-container">
             <div className="container_logo" data-testid="header-container-logo">

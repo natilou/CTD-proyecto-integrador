@@ -13,7 +13,7 @@ function CardCategory({ data, onclick }) {
                 <img className="category_image" src={urlImage} alt={title} data-testid="cardcategory-img"/>
             </figure>
             <h3 className="card_text title_description" data-testid="cardcategory-title">{title}</h3>
-            <p className="card_text amount" data-testid="cardcategory-amount">807.542 hoteles</p>
+            <p className="card_text amount" data-testid="cardcategory-amount">807.542 {title}</p>
         </article>
     );
 }
