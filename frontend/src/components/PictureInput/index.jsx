@@ -7,6 +7,7 @@ function PictureInput({ getProductImages }) {
 
   useEffect(() => {
     getProductImages(images);
+    // handleButtonCreationClick();
 }, [images]);
 
   const onInputChange = (e) => {
@@ -21,8 +22,6 @@ function PictureInput({ getProductImages }) {
     let newImagesToState = filesReader(e, indexImg);
     let newImagesState = [...images, ...newImagesToState];
     setImages(newImagesState);
-
-    console.log(newImagesState);
   };
 
   function filesReader(e, initialIndex) {
@@ -47,7 +46,6 @@ function PictureInput({ getProductImages }) {
   }
 
   function deleteImg(index) {
-
     const newImages = images.filter(function (element) {
       return element.index !== index;
     });
