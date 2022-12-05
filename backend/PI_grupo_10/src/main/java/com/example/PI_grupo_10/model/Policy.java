@@ -18,6 +18,7 @@ public class Policy {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "policy_sequence")
     private int id;
+
     private String name;
     private String description;
 

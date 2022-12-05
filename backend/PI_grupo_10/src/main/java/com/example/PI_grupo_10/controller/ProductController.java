@@ -47,6 +47,12 @@ public class ProductController {
     @Autowired
     private ProductFeatureService productFeatureService;
 
+    @Autowired
+    private PolicyService policyService;
+
+    @Autowired
+    private TypeService typeService;
+
     @GetMapping("/{productId}/images")
     public ResponseEntity<List<Image>> buscarPorProductId(@PathVariable Integer productId) throws ResourceNotFoundException {
         return ResponseEntity.ok(imageService.buscarPorProductId(productId));
@@ -89,6 +95,48 @@ public class ProductController {
         return ResponseEntity.ok(product);
     }
 
+//-------------------------------FALTA LISTADO DE IMAGES-------------------
+    @PostMapping
+    public ResponseEntity<Product> agregar(@RequestBody NewProduct newProduct){
+
+        Product productNew = new Product();
+
+        productNew.setTitle(newProduct.getTitle());
+
+        Category category = categoryService.buscar(newProduct.getCategoryId());
+        productNew.setCategory(category);
+
+        productNew.setAddress(newProduct.getAddress());
+
+        City city = cityService.buscar(newProduct.getCityId());
+        productNew.setCity(city);
+
+        productNew.setDescription(newProduct.getDescription());
+
+        productNew.setCoverImageUrl(newProduct.getCoverImageUrl());
+
+        productNew = productService.agregar(productNew);
+
+        productFeatureService.agregarFeaturesAProduct(productNew.getId(), newProduct.getFeaturesId());
+
+        for (int i = 0; i < newProduct.getPolicies().size(); i++) {
+            Policy policy = new Policy();
+
+            policy.setProduct(productNew);
+
+            policy.setDescription(newProduct.getPolicies().get(i).getDescription());
+
+            policy.setName(newProduct.getPolicies().get(i).getName());
+
+            Type type = typeService.buscar(newProduct.getPolicies().get(i).getTypeId());
+
+            policy.setType(type);
+
+            policyService.agregar(policy);
+        }
+
+        return ResponseEntity.ok(productNew);
+    }
 
 //----------------------------------------------**********************--------------------------------
     //Agregar validación para que sólo puedan hacerlo usuarios ADMIN
