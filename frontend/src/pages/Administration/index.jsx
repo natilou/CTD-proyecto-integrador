@@ -4,24 +4,42 @@ import Header from "../../components/Header";
 import { Link } from "react-router-dom";
 import "./Administration.css";
 import PictureInput from "../../components/PictureInput";
-
+import Select from 'react-select';
 
 function Administration() {
     const [productName, setProductName] = useState("");
-    const [productCategory, setProductCategory] = useState("");
+    const [productCategory, setProductCategory] = useState("Selecciona");
     const [productAddress, setProductAddress] = useState("");
     const [productCity, setProductCity] = useState("");
     const [productRules, setProductRules] = useState("");
     const [productSecurity, setProductSecurity] = useState("");
-    const [productPolicy, setProductPolicy] = useState("");
+    const [productCancelationPolicy, setProductCancelationPolicy] = useState("");
     const [productFeatures, setProductFeatures] = useState([]);
+    const [productDescription, setProductDescription] = useState("");
     const [isLoading, setIsLoading] = useState(true);
     const [features, setFeatures] = useState([]);
     const [categories, setCategories] = useState([]);
+    const [cities, setCities] = useState([]);
     const [productImages, setProductImages] = useState([]);    
     const showLogin = true;
     const showLogout = true;
     const showLine = true;
+
+    const listCategories = categories.map(category => (
+        {
+            value: category.id,
+            label: category.title,
+            obj: category,
+        }
+    ))
+
+    const listCities = cities.map(city => (
+        {
+            value: city.id,
+            label: city.name,
+            obj: city,
+        }
+    ))
 
     useEffect(() => {
         getNecessaryData();
@@ -39,6 +57,10 @@ function Administration() {
                 .then((response) => response.json())
                 .then((data) =>
                 setCategories(data));
+            await fetch('http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/cities')
+                .then((response) => response.json())
+                .then((data) =>
+                setCities(data));
                 setIsLoading(false);
         } catch (error) {
             console.log({ error });
@@ -51,26 +73,14 @@ function Administration() {
         setProductName(productName)
     }
 
-    function handleCategoryChange(e){
-        let category = e.target.value;
-        console.log({category})
-        setProductCategory(category)
-    }
-
     function handleAddressChange(e){
         let address = e.target.value;
         setProductAddress(address)
     }
 
-    
-    function handleCityChange(e){
-        let city = e.target.value;
-        setProductCity(city)
-    }
-
     function handleDescriptionChange(e){
         let description = e.target.value;
-        setProductCity(description)
+        setProductDescription(description)
     }
 
     function handleRulesChange(e){
@@ -85,7 +95,7 @@ function Administration() {
 
     function handlePolicyChange(e){
         let policy = e.target.value;
-        setProductPolicy(policy)
+        setProductCancelationPolicy(policy)
     }
     console.log({ productFeatures });
     
@@ -114,17 +124,48 @@ function Administration() {
     setProductImages(images);
   }
 
-  function handleButtonCreationClick() {
+  const blobToBase64 = (blob) => {
+    return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(blob);
+    reader.onloadend = () => {
+        resolve(reader.result.split(',')[1]);
+    };
+    });
+  };
+
+    async function handleButtonCreationClick() {
+
+    const base64Images = productImages.map(async img => {
+        return {
+          base: await blobToBase64(img.file)
+        }
+      });
+
+    console.log(base64Images)
+
     const productBody = {
-        name: productName,
-        category: productCategory,
+        title: productName,
+        categoryId: productCategory,
         address: productAddress,
-        city: productCity,
-        rules: productRules,
-        security: productSecurity,
-        cancelationPolice: productPolicy,
-        features: productFeatures,
-        images: productImages,
+        cityId: productCity,
+        description: productDescription,
+        images: base64Images,
+        featuresId: productFeatures,
+        polices: [
+            {
+                name: "Normas de la casa",
+                description: productRules,
+            },
+            {
+                name: "Salud y seguridad",
+                description: productSecurity,
+            },
+            {
+                name: "Política de cancelación",
+                description: productCancelationPolicy,
+            }
+        ],
     }
     console.log({productBody });
   }
@@ -162,21 +203,14 @@ function Administration() {
                             <label className="product-form-label">
                                 Categoría
                             </label>
-                            <select
+                            <Select
                                 className="product-input"
-                                placeholder="Selecciona"
-                                onChange={(event) => handleCategoryChange(event)}
-                            >
-                                    {
-                                        categories.map((category) => {
-                                            return (
-                                                <option value={category.id} key={category.id}>
-                                                {category.title}
-                                                </option>
-                                            );
-                                        })
-                                    }
-                            </select>
+                                placeholder={"Selecciona una categoría"}
+                                isClearable={true}
+                                isSearchable={true}
+                                onChange={(category) => {setProductCategory(category.value)}}
+                                options={listCategories}
+                            />
 
                         </div>
                     </div>
@@ -191,7 +225,14 @@ function Administration() {
                             <label className="product-form-label">
                                 Ciudad
                             </label>
-                            <input type="text" className="product-input" onChange={handleCityChange}/>
+                            <Select
+                                className="product-input"
+                                placeholder={"Selecciona una ciudad"}
+                                isClearable={true}
+                                isSearchable={true}
+                                onChange={(city) => {setProductCity(city.value)}}
+                                options={listCities}
+                            />
                         </div>
                     </div>
                     <div className="product-form-description-container">
@@ -215,7 +256,7 @@ function Administration() {
                                         type="checkbox"
                                         id={`custom-checkbox-${index}`}
                                         name={name}
-                                        value={name}
+                                        value={id}
                                         className="product-form-checkbox"
                                     />
                                     <label htmlFor={`custom-checkbox-${index}`} className="product-form-checkbox-label">{name}</label>
