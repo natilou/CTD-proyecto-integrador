@@ -9,7 +9,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.text.ParseException;
@@ -126,7 +128,7 @@ public class ProductController {
 
             policy.setDescription(newProduct.getPolicies().get(i).getDescription());
 
-            policy.setName(newProduct.getPolicies().get(i).getName());
+            //policy.setName(newProduct.getPolicies().get(i).getName());
 
             Type type = typeService.buscar(newProduct.getPolicies().get(i).getTypeId());
 
@@ -134,9 +136,34 @@ public class ProductController {
 
             policyService.agregar(policy);
         }
+//------------------------------------------------------------------------
+        MultipartFile multipart = newProduct.getImages().get(0);
+
+        String fileName = multipart.getOriginalFilename();
+
+        //System.out.println("Description: " + description);
+        log.info("filename: " + fileName);
+
+        //String message = "";
+
+        //uuId
+        //@Transactional para que se cancelen los inputs
+
+        try {
+            S3Util.uploadFile(fileName, multipart.getInputStream());
+            log.info("Your file has been uploaded successfully!");
+            //message = "Your file has been uploaded successfully!";
+        } catch (Exception ex) {
+            log.info("Error uploading file: " + ex.getMessage());
+            //message = "Error uploading file: " + ex.getMessage();
+        }
+//------------------------------------------------------------------------
+        //model.addAttribute("message", message);
 
         return ResponseEntity.ok(productNew);
     }
+//*********************************************************************************************
+
 
 //----------------------------------------------**********************--------------------------------
     //Agregar validación para que sólo puedan hacerlo usuarios ADMIN
@@ -207,6 +234,18 @@ public class ProductController {
         Date eDate = simpleDateFormat.parse(endDate);
         log.info("Se convierten los datos:" + iDate +" "+eDate);
         return productService.obtenerProductosPorFechasDisponibles(iDate, eDate);
+    }
+
+//AGREGAR QUE LOS PARAMS NO SON OBLIGATORIOS: puede recibir Ciudad o fechasLímite o ambas
+    @GetMapping("/datescity")
+    public List<Product> obtenerProductosPorFechasDisponiblesCiudad(@RequestParam String initialDate, @RequestParam String endDate, @RequestParam Integer cityId) throws ParseException {
+        log.info("Se reciben los datos:" + initialDate +" "+endDate+" "+cityId);
+        String pattern = "yyyy-MM-dd";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        Date iDate = simpleDateFormat.parse(initialDate);
+        Date eDate = simpleDateFormat.parse(endDate);
+        log.info("Se convierten los datos:" + iDate +" "+eDate);
+        return productService.obtenerProductosPorFechasDisponiblesCiudad(iDate, eDate, cityId);
     }
 
 }

@@ -10,7 +10,7 @@ import lombok.*;
 public class NewPolicy {
     private String description;
 
-    private String name;
+    //private String name;
 
     private int typeId;
 }
