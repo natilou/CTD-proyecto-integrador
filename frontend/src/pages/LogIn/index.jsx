@@ -79,6 +79,7 @@ function LogIn() {
       .then(response => response.json())
       .then(response => {
         if (response){
+          console.log(response)
           localStorage.setItem("user", JSON.stringify({id: user.id, email: user.email, name: user.name, lastName: user.lastName})); 
           localStorage.setItem("jwt", JSON.stringify({token: response.token})); 
           navigate("/")
