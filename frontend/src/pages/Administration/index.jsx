@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Administration.css";
 import PictureInput from "../../components/PictureInput";
+import Swal from 'sweetalert2';
 import Select from 'react-select';
 
 function Administration() {
@@ -20,10 +21,17 @@ function Administration() {
     const [features, setFeatures] = useState([]);
     const [categories, setCategories] = useState([]);
     const [cities, setCities] = useState([]);
-    const [productImages, setProductImages] = useState([]);    
+    const [productImages, setProductImages] = useState([]);
+    const urlProductCreation = "";
+    const header = {
+        // "Authorization": `${jwt.token}`,
+        "content-type": "application/json",
+        "accept": "application/json"
+    }
     const showLogin = true;
     const showLogout = true;
     const showLine = true;
+    let navigate = useNavigate();
 
     const listCategories = categories.map(category => (
         {
@@ -112,29 +120,42 @@ function Administration() {
             let newFeatures = productFeaturesClone.filter(feature => feature !== item);
             setProductFeatures(newFeatures);
         }
-  }
+    }
 
-  function getProductImages(images) {
-    setProductImages(images);
-  }
+    function getProductImages(images) {
+        setProductImages(images);
+    }
 
-  const blobToBase64 = (blob) => {
-    return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(blob);
-    reader.onloadend = () => {
-        resolve(reader.result.split(',')[1]);
+    const blobToBase64 = (blob) => {
+        return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(blob);
+        reader.onloadend = () => {
+            resolve(reader.result.split(',')[1]);
+        };
+        });
     };
-    });
-  };
+
+    const blobToMultipart = (blob) => {
+        const formData = new FormData();
+        formData.append('image', blob)
+        return formData;
+    };
 
     async function handleButtonCreationClick() {
 
     const base64Images = productImages.map(async img => {
-        return {
-            base: await blobToBase64(img.file)
-        }
+        return await blobToBase64(img.file)
     });
+
+    console.log(base64Images);
+
+    const multipartImages = productImages.map(async img => {
+        const multipart = blobToMultipart(img.file);
+        return multipart
+    });
+
+    console.log(multipartImages);
 
     const productBody = {
         title: productName,
@@ -142,24 +163,42 @@ function Administration() {
         address: productAddress,
         cityId: productCity,
         description: productDescription,
-        images: base64Images,
+        images: multipartImages,
         featuresId: productFeatures,
         polices: [
             {
-                name: "Normas de la casa",
                 description: productRules,
+                typeId: 8,
             },
             {
-                name: "Salud y seguridad",
                 description: productSecurity,
+                typeId: 9,
             },
             {
-                name: "Política de cancelación",
                 description: productCancelationPolicy,
+                typeId: 7,
             }
         ],
     }
-    console.log({productBody });
+    console.log({ productBody });
+
+    fetch(urlProductCreation,{
+        method: "POST",
+        headers: header,
+        body: JSON.stringify(productBody)
+    })
+    .then(response => response.json())
+    .then(response => {
+        !response
+        ?
+        Swal.fire({
+            icon: 'error',
+            text: 'Lamentablemente el producto no se creó. Por favor, intente más tarde',
+        })
+        :
+        navigate("/successful-booking")
+    })
+    .catch(error => console.log(error))
   }
 
     return (
