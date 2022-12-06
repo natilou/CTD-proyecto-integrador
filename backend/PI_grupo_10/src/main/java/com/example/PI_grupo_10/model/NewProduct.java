@@ -3,6 +3,8 @@ package com.example.PI_grupo_10.model;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.ui.Model;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -32,6 +34,8 @@ public class NewProduct {
     private List<String> featuresId;
 
     private List<NewPolicy> policies;
+
+    private List<MultipartFile> images;
 
     /*
     private List features;

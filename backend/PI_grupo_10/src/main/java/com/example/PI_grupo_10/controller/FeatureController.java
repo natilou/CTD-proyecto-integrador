@@ -40,30 +40,4 @@ public class FeatureController {
         return ResponseEntity.ok(featureService.listarTodos());
     }
 
-
-
-    /*
-    @PostMapping("/products/{featureId}/features")
-    public ResponseEntity<Feature> addTag(@PathVariable(value = "tutorialId") int productId, @RequestBody Feature featureRequest) {
-        Feature feature = productRepository.findById(productId).map(product -> {
-            int featureId = featureRequest.getId();
-
-            // tag is existed
-            if (featureId != 0L) {
-                Feature _feature = featureRepository.findById(featureId)
-                        .orElseThrow(() -> new ResourceNotFoundException("Not found Tag with id = " + featureId));
-                product.addFeature(_feature);
-                productRepository.save(product);
-                return _feature;
-            }
-
-            // add and create new Tag
-            product.addFeature(featureRequest);
-            return featureRepository.save(featureRequest);
-        }).orElseThrow(() -> new ResourceNotFoundException("Not found Tutorial with id = " + productId));
-
-        return new ResponseEntity<>(feature, HttpStatus.CREATED);
-    }
-
-     */
 }
