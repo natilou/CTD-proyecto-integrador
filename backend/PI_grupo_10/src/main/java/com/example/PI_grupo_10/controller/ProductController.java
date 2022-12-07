@@ -137,6 +137,7 @@ public class ProductController {
             policyService.agregar(policy);
         }
 //------------------------------------------------------------------------
+        /*
         MultipartFile multipart = newProduct.getImages().get(0);
 
         String fileName = multipart.getOriginalFilename();
@@ -157,6 +158,8 @@ public class ProductController {
             log.info("Error uploading file: " + ex.getMessage());
             //message = "Error uploading file: " + ex.getMessage();
         }
+        */
+
 //------------------------------------------------------------------------
         //model.addAttribute("message", message);
 
