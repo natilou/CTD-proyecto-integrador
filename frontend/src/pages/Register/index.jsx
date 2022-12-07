@@ -77,20 +77,38 @@ function Register() {
       })
     }
     else {
-        usersRegistered.push(
-          {
-            email: email,
-            username: email.split("@")[0],
-            password: confirmedPassword
-          }
-        )
-        Swal.fire({
-          icon: 'success',
-          text: 'Usuario registrado con éxito',
-        })
-        setTimeout(()=>{
-          return navigate("/login")
-        },2300)
+      let payload = {
+        name: name,
+        lastName: lastName,
+        email: email,
+        password: confirmedPassword,
+        role: 1,
+      }
+      fetch("http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/users",
+      {
+        method: "POST", 
+        headers: {
+          "content-type": "application/json",
+          "accept": "application/json"
+        
+        },
+        body: JSON.stringify(payload)
+      })
+      .then(response => response.json())
+      .then(response => {
+        if(response){
+          Swal.fire({
+            icon: 'success',
+            text: 'Usuario creado correctamente',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              setTimeout(()=>{
+                return navigate("/login")
+                },500) 
+            }}) 
+        }
+        
+      })
     }
   }
 
