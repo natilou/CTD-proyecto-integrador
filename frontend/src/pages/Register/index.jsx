@@ -18,7 +18,16 @@ function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmedPassword, setConfirmedPassword] = useState("")
+  const [isAdmin, setIsAdmin] = useState(false);
   let navigate = useNavigate();
+
+
+  const Checkbox = ({ children, ...props }) => (
+    <label style={{ marginRight: '1em' }}>
+      <input type="checkbox" {...props} />
+      {children}
+    </label>
+  );
 
 
   function handleOnChangeNombre(e){
@@ -82,7 +91,7 @@ function Register() {
         lastName: lastName,
         email: email,
         password: confirmedPassword,
-        role: 1,
+        role: isAdmin ? 1 : 0,
       }
       fetch("http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/users",
       {
@@ -146,6 +155,14 @@ function Register() {
             <div className="row-register" data-testid="register-row-3">
               <label className="label-register" data-testid="register-passconfirmation-label">Confirmar contraseña</label>
               <input className="input-register" type="password" required onChange={handleOnChangePasswordConfirmed} data-testid="register-passconfirmation-input"/>
+            </div>
+            <div className="checkbox">
+            <Checkbox
+              checked={isAdmin}
+              onChange={() => setIsAdmin((state) => !state)}
+            >
+              Quiero registrarme para publicar productos
+            </Checkbox>
             </div>
             <button className="btn-register" onClick={handleSubmit} data-testid="register-btn">Crear una cuenta</button>
             <div className="alternative-register" data-testid="register-alternative">

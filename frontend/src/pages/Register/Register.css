@@ -88,6 +88,23 @@ a:hover{
     width: 100%;
 }
 
+.checkbox{
+    font-size:large;
+    text-align: center;
+    font-weight: bold;
+}
+
+input[type="checkbox"]{
+     /* Double-sized Checkboxes */
+  -ms-transform: scale(1.5); /* IE */
+  -moz-transform: scale(1.5); /* FF */
+  -webkit-transform: scale(1.5); /* Safari and Chrome */
+  -o-transform: scale(1.5); /* Opera */
+  transform: scale(1.5);
+  padding: 0.5rem;
+  margin-right: 0.7rem;
+}
+
 @media (max-width: 700px) {
     .container-register{
         flex-direction:row;
