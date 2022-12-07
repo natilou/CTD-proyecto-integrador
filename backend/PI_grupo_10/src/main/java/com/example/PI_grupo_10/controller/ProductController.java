@@ -165,6 +165,43 @@ public class ProductController {
 
         return ResponseEntity.ok(productNew);
     }
+
+    @PostMapping("/uploadvarias")
+    public String handleUploadForm(@RequestParam("files") List<MultipartFile> multiparts) {
+        String message = "";
+        for (int i = 0; i < multiparts.size(); i++) {
+            String fileName = multiparts.get(i).getOriginalFilename();
+
+            System.out.println("filename: " + fileName);
+
+            try {
+                S3Util.uploadFile(fileName, multiparts.get(i).getInputStream());
+                message = "Se cargaron todas tus imágenes";
+            } catch (Exception ex) {
+                message = "Quizás se cargaron algunas imágenes pero alguna dio Error uploading file: " + ex.getMessage();
+            }
+        }
+
+        return message;
+    }
+
+    @PostMapping("/uploaduna")
+    public String handleUploadForm(@RequestParam("file") MultipartFile multipart) {
+        String fileName = multipart.getOriginalFilename();
+
+        System.out.println("filename: " + fileName);
+
+        String message = "";
+
+        try {
+            S3Util.uploadFile(fileName, multipart.getInputStream());
+            message = "Se cargó una imagen";
+        } catch (Exception ex) {
+            message = "Error uploading file: " + ex.getMessage();
+        }
+
+        return message;
+    }
 //*********************************************************************************************
 
 
