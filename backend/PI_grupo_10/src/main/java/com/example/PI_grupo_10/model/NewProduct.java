@@ -35,7 +35,7 @@ public class NewProduct {
 
     private List<NewPolicy> policies;
 
-    private List<MultipartFile> images;
+    //private List<MultipartFile> images;
 
     /*
     private List features;
