@@ -64,10 +64,7 @@ public class PiGrupo10Application {
 		return cors;
 	}
 
-	//
-	// Registro los filtros configurados anteriormente para que sea un filter implementado por sprinb
-	//  de esta manera uso e implemento el registro y apertura de los cors
-	//
+
 
 	@Bean
 	public FilterRegistrationBean<CorsFilter> corsFilter() {
