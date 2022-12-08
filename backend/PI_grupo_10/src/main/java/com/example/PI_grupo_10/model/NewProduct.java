@@ -35,13 +35,7 @@ public class NewProduct {
 
     private List<NewPolicy> policies;
 
-    //private List<MultipartFile> images;
+    private List<Image> images;
 
-    /*
-    private List features;
-
-    private List images;
-
-    private List<Policy> policies;
-     */
+    private List<String> imagesLinksS3;
 }

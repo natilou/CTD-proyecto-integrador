@@ -19,7 +19,6 @@ public class Policy {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "policy_sequence")
     private int id;
 
-    //private String name;
     private String description;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -35,7 +34,6 @@ public class Policy {
     private Type type;
 
     public Policy(String description, Product product, Type type) {
-        //this.name = name;
         this.description = description;
         this.product = product;
         this.type = type;
