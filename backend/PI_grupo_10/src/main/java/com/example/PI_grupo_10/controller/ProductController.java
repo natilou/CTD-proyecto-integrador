@@ -97,7 +97,7 @@ public class ProductController {
 
         return ResponseEntity.ok(product);
     }
-
+/*----------------------
     @PostMapping
     public ResponseEntity<Product> agregar(@RequestBody NewProduct newProduct){//agregar images:[url,title vacío, product vacio]
 
@@ -144,6 +144,62 @@ public class ProductController {
 
             newProduct.getImages().get(i).setTitle("galeria");
             newProduct.getImages().get(i).setUrl(newProduct.getImagesLinksS3().get(i));
+
+            imageService.agregar(newProduct.getImages().get(i));
+        }
+
+
+        return ResponseEntity.ok(createdProduct);
+    }
+------------------------------------------------*/
+
+    ////////////ENDPOINT DE PRUEBA SIN RECIBIR EL LISTADO DE LINKS EN UN ARRAY APARTE////////////////
+    @PostMapping
+    public ResponseEntity<Product> agregar(@RequestBody NewProduct newProduct){//agregar images:[url,title vacío, product vacio]
+
+        //////////////esto es para crear un nuevo Producto/////////////////////////////
+        Product createdProduct = new Product();
+
+        createdProduct.setTitle(newProduct.getTitle());
+
+        Category category = categoryService.buscar(newProduct.getCategoryId());
+        createdProduct.setCategory(category);
+
+        createdProduct.setAddress(newProduct.getAddress());
+
+        City city = cityService.buscar(newProduct.getCityId());
+        createdProduct.setCity(city);
+
+        createdProduct.setDescription(newProduct.getDescription());
+
+        createdProduct.setCoverImageUrl(newProduct.getCoverImageUrl());
+
+        createdProduct = productService.agregar(createdProduct);
+
+//////esto es para agregar las features y product_id a la tabla intermedia ProductFeatures/////////////////
+        productFeatureService.agregarFeaturesAProduct(createdProduct.getId(), newProduct.getFeaturesId());
+
+        //////////////esto es para agregar las políticas a la tabla Policies///////////////
+        for (int i = 0; i < newProduct.getPolicies().size(); i++) {
+            Policy policy = new Policy();
+
+            policy.setProduct(createdProduct);
+
+            policy.setDescription(newProduct.getPolicies().get(i).getDescription());
+
+            Type type = typeService.buscar(newProduct.getPolicies().get(i).getTypeId());
+
+            policy.setType(type);
+
+            policyService.agregar(policy);
+        }
+
+//////////////////////esto es para subir cada imagen a la tabla Images///////////////////
+        for (int i = 0; i < newProduct.getImages().size() ; i++) {
+            newProduct.getImages().get(i).setProduct(createdProduct);
+
+            //newProduct.getImages().get(i).setTitle("galeria");
+            //newProduct.getImages().get(i).setUrl(newProduct.getImagesLinksS3().get(i));
 
             imageService.agregar(newProduct.getImages().get(i));
         }
