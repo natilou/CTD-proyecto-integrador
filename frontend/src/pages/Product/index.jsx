@@ -16,6 +16,7 @@ function Product() {
     const [productImages, setProductImages] = useState([]);
     const [product, setProduct] = useState([]);
     const [features, setFeatures] = useState([])
+    console.log(features)
     const [isLoading, setIsLoading] = useState(true);
     const [showBookingScreen, setShowBookingScreen] = useState(false);
     const { id } = useParams()
