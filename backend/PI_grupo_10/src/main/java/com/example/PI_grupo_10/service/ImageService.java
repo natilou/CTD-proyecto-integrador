@@ -2,6 +2,7 @@ package com.example.PI_grupo_10.service;
 
 import com.example.PI_grupo_10.exceptions.ResourceNotFoundException;
 import com.example.PI_grupo_10.model.Image;
+import com.example.PI_grupo_10.model.Product;
 import com.example.PI_grupo_10.repository.ImageRepository;
 import com.example.PI_grupo_10.repository.ProductRepository;
 import lombok.AllArgsConstructor;
@@ -27,4 +28,7 @@ public class ImageService {
         }
     }
 
+    public Image agregar(Image image){
+        return imageRepository.save(image);
+    }
 }

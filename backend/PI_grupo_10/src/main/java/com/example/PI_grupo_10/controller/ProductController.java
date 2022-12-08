@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -97,38 +98,38 @@ public class ProductController {
         return ResponseEntity.ok(product);
     }
 
-//-------------------------------FALTA LISTADO DE IMAGES-------------------
     @PostMapping
-    public ResponseEntity<Product> agregar(@RequestBody NewProduct newProduct){
+    public ResponseEntity<Product> agregar(@RequestBody NewProduct newProduct){//agregar images:[url,title vacío, product vacio]
 
-        Product productNew = new Product();
+        //////////////esto es para crear un nuevo Producto/////////////////////////////
+        Product createdProduct = new Product();
 
-        productNew.setTitle(newProduct.getTitle());
+        createdProduct.setTitle(newProduct.getTitle());
 
         Category category = categoryService.buscar(newProduct.getCategoryId());
-        productNew.setCategory(category);
+        createdProduct.setCategory(category);
 
-        productNew.setAddress(newProduct.getAddress());
+        createdProduct.setAddress(newProduct.getAddress());
 
         City city = cityService.buscar(newProduct.getCityId());
-        productNew.setCity(city);
+        createdProduct.setCity(city);
 
-        productNew.setDescription(newProduct.getDescription());
+        createdProduct.setDescription(newProduct.getDescription());
 
-        productNew.setCoverImageUrl(newProduct.getCoverImageUrl());
+        createdProduct.setCoverImageUrl(newProduct.getCoverImageUrl());
 
-        productNew = productService.agregar(productNew);
+        createdProduct = productService.agregar(createdProduct);
 
-        productFeatureService.agregarFeaturesAProduct(productNew.getId(), newProduct.getFeaturesId());
+//////esto es para agregar las features y product_id a la tabla intermedia ProductFeatures/////////////////
+        productFeatureService.agregarFeaturesAProduct(createdProduct.getId(), newProduct.getFeaturesId());
 
+        //////////////esto es para agregar las políticas a la tabla Policies///////////////
         for (int i = 0; i < newProduct.getPolicies().size(); i++) {
             Policy policy = new Policy();
 
-            policy.setProduct(productNew);
+            policy.setProduct(createdProduct);
 
             policy.setDescription(newProduct.getPolicies().get(i).getDescription());
-
-            //policy.setName(newProduct.getPolicies().get(i).getName());
 
             Type type = typeService.buscar(newProduct.getPolicies().get(i).getTypeId());
 
@@ -136,39 +137,32 @@ public class ProductController {
 
             policyService.agregar(policy);
         }
-//------------------------------------------------------------------------
-        /*
-        MultipartFile multipart = newProduct.getImages().get(0);
 
-        String fileName = multipart.getOriginalFilename();
+//////////////////////esto es para subir cada imagen a la tabla Images///////////////////
+        for (int i = 0; i < newProduct.getImagesLinksS3().size() ; i++) {
+            newProduct.getImages().get(i).setProduct(createdProduct);
 
-        //System.out.println("Description: " + description);
-        log.info("filename: " + fileName);
+            newProduct.getImages().get(i).setTitle("galeria");
+            newProduct.getImages().get(i).setUrl(newProduct.getImagesLinksS3().get(i));
 
-        //String message = "";
-
-        //uuId
-        //@Transactional para que se cancelen los inputs
-
-        try {
-            S3Util.uploadFile(fileName, multipart.getInputStream());
-            log.info("Your file has been uploaded successfully!");
-            //message = "Your file has been uploaded successfully!";
-        } catch (Exception ex) {
-            log.info("Error uploading file: " + ex.getMessage());
-            //message = "Error uploading file: " + ex.getMessage();
+            imageService.agregar(newProduct.getImages().get(i));
         }
-        */
 
-//------------------------------------------------------------------------
-        //model.addAttribute("message", message);
 
-        return ResponseEntity.ok(productNew);
+        return ResponseEntity.ok(createdProduct);
     }
 
-    @PostMapping("/uploadvarias")
-    public String handleUploadForm(@RequestParam("files") List<MultipartFile> multiparts) {
-        String message = "";
+
+
+
+    ////ENDPOINT PARA CARGAR UNA O VARIAS IMÁGENES AL BUCKET S3/////////////////////////////////
+    @PostMapping("/uploadImages")
+    public List<String> handleUploadFormDos(@RequestParam("files") List<MultipartFile> multiparts) throws IOException {
+        List<String> message = new ArrayList<>();
+        List<String> filenamesUploaded = new ArrayList<>();
+        List<String> imagesLinksS3 = new ArrayList<>();
+        String S3Url ="https://s3-group-10-c6.s3.us-east-2.amazonaws.com/";
+
         for (int i = 0; i < multiparts.size(); i++) {
             String fileName = multiparts.get(i).getOriginalFilename();
 
@@ -176,70 +170,30 @@ public class ProductController {
 
             try {
                 S3Util.uploadFile(fileName, multiparts.get(i).getInputStream());
-                message = "Se cargaron todas tus imágenes";
+
+                filenamesUploaded.add(fileName);
+
+                imagesLinksS3.add(S3Url+fileName);
+
+                message = imagesLinksS3;
+
             } catch (Exception ex) {
-                message = "Quizás se cargaron algunas imágenes pero alguna dio Error uploading file: " + ex.getMessage();
+                if(!filenamesUploaded.isEmpty()) {
+                    for (int j = 0; j < filenamesUploaded.size(); i++) {
+
+                        S3Util.deleteFile(filenamesUploaded.get(j));
+                        message.add("Se borró: " + filenamesUploaded.get(j));
+                    }
+                }
             }
         }
 
         return message;
     }
 
-    @PostMapping("/uploaduna")
-    public String handleUploadForm(@RequestParam("file") MultipartFile multipart) {
-        String fileName = multipart.getOriginalFilename();
 
-        System.out.println("filename: " + fileName);
 
-        String message = "";
-
-        try {
-            S3Util.uploadFile(fileName, multipart.getInputStream());
-            message = "Se cargó una imagen";
-        } catch (Exception ex) {
-            message = "Error uploading file: " + ex.getMessage();
-        }
-
-        return message;
-    }
 //*********************************************************************************************
-
-
-//----------------------------------------------**********************--------------------------------
-    //Agregar validación para que sólo puedan hacerlo usuarios ADMIN
-    //
-/*    @PostMapping
-    public ResponseEntity<Product> agregar(@RequestBody Product product, @RequestParam ("features") List<String> features){
-        log.info("Se reciben los datos de un nuevo producto:" + product);
-        log.info("Se recibe un listado de caracteristicas:" + features);
-        //armar el producto antes de enviar al service
-        //intentar resolver con una QUERY en el Repository****************************
-        Category category = categoryService.buscar(product.getCategory().getId());
-        product.setCategory(category);
-        City city = cityService.buscar(product.getCity().getId());
-        product.setCity(city);
-
-        Set<Optional<Feature>> productFeatures = new HashSet<>();
-        //students.forEach((n) -> print(n));
-        Optional<Feature> fe;
-        for (int i = 0; i < features.size(); i++) {
-            fe=featureRepository.findById(parseInt(features.get(i)));
-            productFeatures.add(fe);
-        }
-
-        product.setFeatures(productFeatures);
-
-        Product newProduct = productService.agregar(product);
-
-        //students.forEach((n) -> print(n));
-        //features.forEach((n) -> featureService.addProductFeature(product.getId(), (Integer) n));
-
-        //return ResponseEntity.ok(productService.agregar(product));
-        return ResponseEntity.ok(newProduct);
-    }
-
- */
-
     //Agregar validación para que sólo puedan hacerlo usuarios ADMIN
     //METODO PARA ACTUALIZAR PRODUCTO
 /*    @PutMapping
@@ -254,7 +208,8 @@ public class ProductController {
         }
         return response;
     }
-********************/
+***********************************************************************************************/
+
     @GetMapping("/cities/{cityId}")
     public ResponseEntity<List<Product>> buscarPorCityId(@PathVariable Integer cityId) throws ResourceNotFoundException {
         return ResponseEntity.ok(productService.buscarPorCityId(cityId));
@@ -286,6 +241,71 @@ public class ProductController {
         Date eDate = simpleDateFormat.parse(endDate);
         log.info("Se convierten los datos:" + iDate +" "+eDate);
         return productService.obtenerProductosPorFechasDisponiblesCiudad(iDate, eDate, cityId);
+    }
+
+    ////ENDPOINT DE PRUEBA////////////////////////////////////
+    @PostMapping("/uploadvarias")
+    public String handleUploadForm(@RequestParam("files") List<MultipartFile> multiparts) {
+        String message = "";
+        for (int i = 0; i < multiparts.size(); i++) {
+            String fileName = multiparts.get(i).getOriginalFilename();
+
+            System.out.println("filename: " + fileName);
+
+            try {
+                S3Util.uploadFile(fileName, multiparts.get(i).getInputStream());
+                message = "Se cargaron todas tus imágenes";
+            } catch (Exception ex) {
+                message = "Quizás se cargaron algunas imágenes pero alguna dio Error uploading file: " + ex.getMessage();
+            }
+        }
+
+        return message;
+    }
+
+    ////ENDPOINT DE PRUEBA////////////////////////////////////
+    @PostMapping("/uploadunaimagenabd")
+    public Image handleUploadFormImagenBd(@RequestBody Image image) {
+        image.setProduct(productService.buscar(17));
+        return imageService.agregar(image);
+    }
+
+    ////ENDPOINT DE PRUEBA////////////////////////////////////
+    @PostMapping("/uploaduna")
+    public String handleUploadForm(@RequestParam("file") MultipartFile multipart) {
+        String fileName = multipart.getOriginalFilename();
+
+        System.out.println("filename: " + fileName);
+
+        String message = "";
+
+        try {
+            S3Util.uploadFile(fileName, multipart.getInputStream());
+            message = "Se cargó una imagen";
+        } catch (Exception ex) {
+            message = "Error uploading file: " + ex.getMessage();
+        }
+
+        return message;
+    }
+
+    ////ENDPOINT DE PRUEBA////////////////////////////////////
+    @DeleteMapping("/borraruna")
+    public String deleteImageS3(@RequestParam("FileName") String filename) throws IOException {
+        S3Util.deleteFile(filename);
+        return "Se borró la imagen: " + filename;
+    }
+
+    ////ENDPOINT DE PRUEBA////////////////////////////////////
+    @DeleteMapping("/borrarvarias")
+    public List<String> deleteImageS3(@RequestParam("FilesNames") List<String> filename) throws IOException {
+        List<String> message = new ArrayList<>();
+        for (int i = 0; i < filename.size(); i++) {
+
+            S3Util.deleteFile(filename.get(i));
+            message.add("Se borró: " + filename.get(i));
+        }
+        return message;
     }
 
 }
