@@ -37,5 +37,5 @@ public class NewProduct {
 
     private List<Image> images;
 
-    private List<String> imagesLinksS3;
+    //private List<String> imagesLinksS3;
 }
