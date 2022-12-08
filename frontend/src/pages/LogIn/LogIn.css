@@ -84,6 +84,11 @@ a:hover{
     color: #5faceb
 }
 
+.error-input{
+    color: red;
+    margin-bottom: 0.5rem;
+}
+
 @media (max-width: 700px) { 
     .alternative-login{
         margin-top: 0.5rem;
