@@ -4,7 +4,7 @@ import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { validateEmail, validatePasswordLength, validateEmailAndPassword, validatePasswordConfirmation } from '../LogIn/utils'
+import { validateEmailRegex, validatePasswordLength, validateEmailAndPassword, validatePasswordConfirmation } from '../LogIn/utils'
 import { usersRegistered } from "../LogIn/constants";
 import Swal from 'sweetalert2';
 
@@ -73,7 +73,7 @@ function Register() {
         text: 'Las contraseñas no coinciden',
       })
     }
-    else if(!validateEmail(email)){
+    else if(!validateEmailRegex(email)){
       Swal.fire({
         icon: 'error',
         text: 'Correo electrónico inválido',

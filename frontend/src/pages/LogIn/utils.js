@@ -1,6 +1,6 @@
 import { passwordValidLength, usersRegistered } from './constants'
 
-export function validateEmail(email){
+export function validateEmailRegex(email){
     let regex = new RegExp(/^[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/, 'i');
     return regex.test(email);
 }
