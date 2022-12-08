@@ -55,33 +55,36 @@ function PictureInput({ getProductImages }) {
     <div className="picture-input-container">
       <br></br>
 
-      <label className="picture-input-label">
-        <span>Seleccionar archivos </span>
-        <input hidden type="file" multiple accept="image/png, image/jpeg"  onChange={onInputChange}></input>
-      </label>
+      <form id="form">
 
-      <div className="picture-input-images-container">
-        {
-          images.map((img) => (
-            <div key={img.index}>
-              <div >
-                <button
-                  onClick={deleteImg.bind(this, img.index)}
-                  className="picture-input-delete-image-button"
-                >
-                  x
-                </button>
-                <img
-                  alt="algo"
-                  src={img.url}
-                  data-toggle="modal"
-                  data-target="#ModalPreViewImg"
-                  className="img-responsive"
-                />
+        <label className="picture-input-label">
+          <span>Seleccionar archivos </span>
+          <input hidden name="image" type="file" id="file" multiple accept="image/png, image/jpeg"  onChange={(e) => onInputChange(e)}></input>
+        </label>
+
+        <div className="picture-input-images-container">
+          {
+            images.map((img) => (
+              <div key={img.index}>
+                <div >
+                  <button
+                    onClick={deleteImg.bind(this, img.index)}
+                    className="picture-input-delete-image-button"
+                  >
+                    x
+                  </button>
+                  <img
+                    alt="algo"
+                    src={img.url}
+                    data-toggle="modal"
+                    data-target="#ModalPreViewImg"
+                    className="img-responsive"
+                  />
+                </div>
               </div>
-            </div>
-          ))}
-      </div>
+            ))}
+        </div>
+      </form>
     </div>
   );
 }

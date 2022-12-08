@@ -21,10 +21,10 @@ function Administration() {
     const [features, setFeatures] = useState([]);
     const [categories, setCategories] = useState([]);
     const [cities, setCities] = useState([]);
-    const [productImages, setProductImages] = useState([]);
-    const urlProductCreation = "";
+    const [productImages, setProductImages] = useState();
+    const urlImages = "http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/products/uploadImages";
+    const urlProductCreation = "http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/products";
     const header = {
-        // "Authorization": `${jwt.token}`,
         "content-type": "application/json",
         "accept": "application/json"
     }
@@ -52,6 +52,93 @@ function Administration() {
     useEffect(() => {
         getNecessaryData();
     }, []);
+
+    async function postImages() {
+        const images = new FormData();
+        for (let i = 0 ; i < productImages.length ; i++) {
+            images.append("files", productImages[i].file);
+        }
+
+        await fetch(urlImages,{
+            method: "POST",
+            body: images,
+        }).then(response => response.json())
+        .then(response => {
+            if (response.length === productImages.length) {
+                postProduct(response);
+                console.log(response, 'response')
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    text: 'Lamentablemente el producto no se creó. Por favor, intente más tarde',
+                })
+            }
+        })
+        .catch(error => console.log(error))
+        
+    }
+
+    async function postProduct(imagesList) {
+        const imagesToSend = imagesList.map((img, index) => ( 
+            {
+                title: index === 0 ? "portada" : "galería",
+                url: img,
+                product:{}
+            }
+        ))
+
+        console.log({ imagesToSend })
+
+        const productBody = {
+            title: productName,
+            categoryId: productCategory,
+            address: productAddress,
+            cityId: productCity,
+            description: productDescription,
+            coverImageUrl: imagesList[0],
+            featuresId: productFeatures,
+            policies: [
+                {
+                    description: productRules,
+                    typeId: 8,
+                },
+                {
+                    description: productSecurity,
+                    typeId: 9,
+                },
+                {
+                    description: productCancelationPolicy,
+                    typeId: 7,
+                }
+            ],
+            images: imagesToSend,
+        }
+        console.log({ productBody });
+
+        await fetch(urlProductCreation,{
+            method: "POST",
+            headers: header,
+            body: JSON.stringify(productBody)
+        })
+        .then(response => response.json())
+        .then(response => {
+            console.log(response, 'respuesta de producto')
+            if(response) {
+                navigate("/successful-product-creation")
+            } else {
+                Swal.fire({
+                icon: 'error',
+                text: 'Lamentablemente el producto no se creó. Por favor, intente más tarde',
+            })
+            }
+        })
+        .catch(error => console.log(error))
+
+    }
+
+    async function handleButtonCreationClick() {
+        await postImages();
+    }
 
     async function getNecessaryData() {
         setIsLoading(true);
@@ -126,80 +213,6 @@ function Administration() {
         setProductImages(images);
     }
 
-    const blobToBase64 = (blob) => {
-        return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(blob);
-        reader.onloadend = () => {
-            resolve(reader.result.split(',')[1]);
-        };
-        });
-    };
-
-    const blobToMultipart = (blob) => {
-        const formData = new FormData();
-        formData.append('image', blob)
-        return formData;
-    };
-
-    async function handleButtonCreationClick() {
-
-    const base64Images = productImages.map(async img => {
-        return await blobToBase64(img.file)
-    });
-
-    console.log(base64Images);
-
-    const multipartImages = productImages.map(async img => {
-        const multipart = blobToMultipart(img.file);
-        return multipart
-    });
-
-    console.log(multipartImages);
-
-    const productBody = {
-        title: productName,
-        categoryId: productCategory,
-        address: productAddress,
-        cityId: productCity,
-        description: productDescription,
-        images: multipartImages,
-        featuresId: productFeatures,
-        polices: [
-            {
-                description: productRules,
-                typeId: 8,
-            },
-            {
-                description: productSecurity,
-                typeId: 9,
-            },
-            {
-                description: productCancelationPolicy,
-                typeId: 7,
-            }
-        ],
-    }
-    console.log({ productBody });
-
-    fetch(urlProductCreation,{
-        method: "POST",
-        headers: header,
-        body: JSON.stringify(productBody)
-    })
-    .then(response => response.json())
-    .then(response => {
-        !response
-        ?
-        Swal.fire({
-            icon: 'error',
-            text: 'Lamentablemente el producto no se creó. Por favor, intente más tarde',
-        })
-        :
-        navigate("/successful-booking")
-    })
-    .catch(error => console.log(error))
-  }
 
     return (
         <>
