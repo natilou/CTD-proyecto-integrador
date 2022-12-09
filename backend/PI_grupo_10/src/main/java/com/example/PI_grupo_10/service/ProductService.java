@@ -97,11 +97,11 @@ public class ProductService {
         }
     }
 
-    public List<Product> obtenerProductosPorFechasDisponibles(Date iDate, Date eDate){
+    public List<Product> buscarPorFechasDisponibles(Date iDate, Date eDate){
         return productRepository.findByAvailableDate(iDate,eDate);
     }
 
-    public List<Product> obtenerProductosPorFechasDisponiblesCiudad(Date iDate, Date eDate, Integer cityId){
+    public List<Product> buscarPorFechasDisponiblesYCiudad(Date iDate, Date eDate, Integer cityId){
         return productRepository.findByAvailableDateCity(iDate,eDate,cityId);
     }
 
