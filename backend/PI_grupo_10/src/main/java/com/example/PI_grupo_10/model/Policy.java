@@ -27,10 +27,10 @@ public class Policy {
     @JsonIgnore
     private Product product;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)//ERA LAZY
     @JoinColumn(name = "type_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
+    //@JsonIgnore
     private Type type;
 
     public Policy(String description, Product product, Type type) {
