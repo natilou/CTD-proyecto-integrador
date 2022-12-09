@@ -11,12 +11,12 @@ import BookingDetail from "../../components/BookingDetail";
 
 function Booking() {
     const [productImages, setProductImages] = useState([]);
+    const [productPolicies, setProductPolicies] = useState([]);
     const [product, setProduct] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [start, setStar] = useState(null);
     const [end, setEnd] = useState(null);
     const { id } = useParams()
-    const { category } = useParams()
     const showLogin = true;
     const showLogout = true;
     const showLine = true;
@@ -44,6 +44,10 @@ function Booking() {
                 .then((response) => response.json())
                 .then((data) =>
                     setProductImages(data));
+            await fetch(`http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/policies/product/${id}`)
+                .then((response) => response.json())
+                .then((data) =>
+            setProductPolicies(data));
             await fetch(urlProductID)
                 .then((response) => response.json())
                 .then((data) => setProduct(data));
@@ -88,7 +92,7 @@ function Booking() {
                                         <BookingDetail productImages={productImages} product={product} start={start} end={end}/>
                                     </div>
                                 </div>
-                                <ProductPolices />
+                                <ProductPolices productPolicies={productPolicies}/>
                             </div>
                         <Footer />
                     </div>
