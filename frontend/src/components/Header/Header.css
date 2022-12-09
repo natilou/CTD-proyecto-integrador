@@ -100,6 +100,23 @@
 .menu_icon:hover{
     cursor: pointer;
 }
+.link_user_reservation{
+    display: flex;
+    flex-direction: row;
+    text-decoration: none;
+    border-right: solid 3px  #f0572d;
+    margin-right: 20px;
+    height: 50px;
+   font-weight: bolder;
+   font-size: 1.2rem;
+   padding-right: 20px;
+}
+.p_reservation{
+    margin-top: 10px;
+    margin-left: 25px; 
+    text-decoration: none;
+    color:  black;
+}
 
 @media (min-width: 761px) {
     .header_buttons {

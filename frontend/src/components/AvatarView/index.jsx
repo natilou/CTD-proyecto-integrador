@@ -30,12 +30,6 @@ function AvatarView({userName}){
   }
   return(
     <div className="main_container" data-testid="avatar-container">
-      
-        <div className='link_user_reservation '>
-        <Link to="/reserva/booking"><p className='p_reservation'>Reservas</p></Link>
-        </div>
-      
-      
       <div className='row-avatar' data-testid="avatar-row">
         <div className="avatar_container" data-testid="avatar-container-2">
           <p className="avatar" data-testid="initials">

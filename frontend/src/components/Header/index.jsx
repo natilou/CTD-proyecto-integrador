@@ -7,7 +7,7 @@ import menuIcon from '../../assets/svgs/menuIcon.svg';
 import Menu from '../Menu'
 import AvatarView from '../AvatarView'
 
-function Header({ showLogout, showLogin, showLine,showBtnReservation}) {
+function Header({ showLogout, showLogin, showLine}) {
     const [showMenu, setShowMenu] = useState(false);
     const isMobile = useMediaQuery({ query: '(max-width: 761px)' });
     const user = JSON.parse(localStorage.getItem("user"));
@@ -15,7 +15,6 @@ function Header({ showLogout, showLogin, showLine,showBtnReservation}) {
     function toggleShowMenu() {
         setShowMenu(!showMenu);
     }
-    console.log(showBtnReservation)
     return (
         <header className="header" data-testid="header-container">
             <div className="container_logo" data-testid="header-container-logo">
@@ -37,8 +36,11 @@ function Header({ showLogout, showLogin, showLine,showBtnReservation}) {
                         {
                             user ? (
                                 <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'space-evenly', alignItems: 'center'}}>
-                                    <Link to="/admin" style={{ marginRight: 30 }}><button className="btn_header">Administración</button></Link>
-                                    <AvatarView userName={`${user.name} ${user.lastName}`} />
+                                    <Link to="/admin" style={{ marginRight: 30 }}><button className="btn_header">Administración</button></Link>                           
+                                    <div className='link_user_reservation '>
+                                      <Link to="/reserva/booking"><p className='p_reservation'>Reservas</p></Link>
+                                    </div>
+                                    <AvatarView userName={user.name} />
                                 </div>
                             ) : (
                                 <>
