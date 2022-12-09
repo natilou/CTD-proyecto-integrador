@@ -8,4 +8,5 @@ public class AuthDto {
     public String name;
     public String lastName;
     public Role role;
+    public int id;
 }

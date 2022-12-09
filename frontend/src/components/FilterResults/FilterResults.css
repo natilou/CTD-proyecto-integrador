@@ -1,0 +1,27 @@
+.not-found{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.gif-not-found{
+    width: 20%;
+}
+
+.not-found-message{
+    text-align: center;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    font-weight: bold;
+    font-size: x-large;
+}
+
+@media (max-width: 700px) { 
+    .gif-not-found{
+        width: 40%;
+    }  
+
+}
