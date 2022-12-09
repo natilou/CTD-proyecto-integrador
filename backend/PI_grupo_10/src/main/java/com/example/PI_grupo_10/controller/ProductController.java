@@ -89,7 +89,7 @@ public class ProductController {
 
     @PostMapping
     public ResponseEntity<Product> agregarMejorado(@RequestBody NewProduct newProduct){
-        return ResponseEntity.ok(productService.agregar(newProduct));
+        return new ResponseEntity<>(productService.agregar(newProduct), HttpStatus.CREATED);
     }
 
 //*********************************************************************************************
