@@ -63,6 +63,7 @@ function Administration() {
         for (let i = 0 ; i < productImages.length ; i++) {
             images.append("files", productImages[i].file);
         }
+       
 
         await fetch(urlImages,{
             method: "POST",
@@ -157,8 +158,8 @@ function Administration() {
         } else{
             await postImages();
         }
-      
     }
+      
 
     async function getNecessaryData() {
         setIsLoading(true);
@@ -182,6 +183,8 @@ function Administration() {
             setIsLoading(false);
         }
     }
+
+
 
     function validateName(value) {
 
@@ -347,7 +350,6 @@ function Administration() {
             base: await blobToBase64(img.file)
         }}
     );
-
 
     return (
 
@@ -770,13 +772,6 @@ function Administration() {
         
         );
         
-        }
+    }
         
-        
-        
-        
-        export default Administration;
-        
-        
-        
-        
+export default Administration;
