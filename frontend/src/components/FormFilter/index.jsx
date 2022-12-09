@@ -5,7 +5,7 @@ import Selector from '../Selector';
 import "./FormFilter.css";
 import Swal from 'sweetalert2';
 
-function FormFilter({ cities, searchByDates, getFilterCities }){ 
+function FormFilter({ cities, searchByDates, getFilterCities, searchByCityAndDates }){ 
 
       const [getIdCity, setGetIdCity] = useState()
       const [rangeSelected, setRangeSelected] = useState([null, null]);
@@ -17,11 +17,13 @@ function FormFilter({ cities, searchByDates, getFilterCities }){
             icon: 'error',
             text: 'Debes seleccionar una ciudad o un rango de fechas para realizar la búsqueda',
           })
-        } else if(getIdCity){
+        } else if(getIdCity && !rangeSelected[0] && !rangeSelected[1]){
           getFilterCities(getIdCity)
-        } else if (rangeSelected){
+        } else if (rangeSelected && !getIdCity){
           searchByDates(rangeSelected)
-        } 
+        } else if (getIdCity && rangeSelected){
+          searchByCityAndDates(getIdCity, rangeSelected)
+        }
       }
   
   return(
