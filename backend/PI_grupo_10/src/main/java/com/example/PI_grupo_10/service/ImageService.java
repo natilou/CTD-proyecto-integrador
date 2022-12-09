@@ -6,10 +6,12 @@ import com.example.PI_grupo_10.model.Product;
 import com.example.PI_grupo_10.repository.ImageRepository;
 import com.example.PI_grupo_10.repository.ProductRepository;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
+@Slf4j
 @AllArgsConstructor
 @Service
 public class ImageService {
@@ -17,13 +19,11 @@ public class ImageService {
     private ProductRepository productRepository;
     private ImageRepository imageRepository;
 
-    private static final Logger logger = Logger.getLogger(ProductService.class);
-
     public List<Image> buscarPorProductId(Integer productId) throws ResourceNotFoundException {
         if (!productRepository.existsById(productId)) {
             throw new ResourceNotFoundException("Not found product with id = " + productId);
         } else {
-            logger.info("Se buscan todas las imágenes con el productId: " + productId);
+            log.info("Se buscan todas las imágenes con el productId: " + productId);
             return imageRepository.findByProductId(productId);
         }
     }

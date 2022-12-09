@@ -121,31 +121,34 @@ public class ProductService {
         return createdProduct;
     }
 
-    public void agregarFeaturesAProduct(Integer productId, List<String> featuresId){
+    public void agregarFeaturesAProduct(Integer productId, List<Integer> featuresId){
         productFeatureService.agregarFeaturesAProduct(productId, featuresId);
     }
 
     public void agregarPolicies(List<NewPolicy> policies, Product createdProduct){
 
-        for (int i = 0; i < policies.size(); i++) {
+        for (NewPolicy newPolicy:
+             policies) {
             Policy policy = new Policy();
 
             policy.setProduct(createdProduct);
 
-            policy.setDescription(policies.get(i).getDescription());
+            policy.setDescription(newPolicy.getDescription());
 
-            Type type = typeService.buscar(policies.get(i).getTypeId());
+            Type type = typeService.buscar(newPolicy.getTypeId());
 
             policy.setType(type);
 
             policyService.agregar(policy);
         }
+
     }
 
     public void agregarImages(List<Image> images, Product createdProduct){
-        for (int i = 0; i < images.size() ; i++) {
-            images.get(i).setProduct(createdProduct);
-            imageService.agregar(images.get(i));
+        for (Image image:
+             images) {
+            image.setProduct(createdProduct);
+            imageService.agregar(image);
         }
     }
 

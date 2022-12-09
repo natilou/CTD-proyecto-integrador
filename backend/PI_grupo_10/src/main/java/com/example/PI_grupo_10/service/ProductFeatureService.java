@@ -25,17 +25,18 @@ public class ProductFeatureService {
     private FeatureRepository featureRepository;
     private ProductRepository productRepository;
 
-    public List findByProductId(Integer productId) throws ResourceNotFoundException {
+    public List<Optional<Feature>> findByProductId(Integer productId) throws ResourceNotFoundException {
         if (!productRepository.existsById(productId)) {
             throw new ResourceNotFoundException("Not found Product with id = " + productId);
         }
 
-        List featuresId = productFeatureRepository.findByProductId(productId);
+        List<Integer> featuresId = productFeatureRepository.findByProductId(productId);
 
         List<Optional<Feature>> productFeatures = new ArrayList<>();
 
-        for (int i = 0; i < featuresId.size() ; i++) {
-            productFeatures.add(featureRepository.findById((Integer) featuresId.get(i)));
+        for (Integer featureId:
+             featuresId) {
+            productFeatures.add(featureRepository.findById(featureId));
         }
 
         return productFeatures;
@@ -44,22 +45,21 @@ public class ProductFeatureService {
 //para agregar varias Features modificar atributo a List
     //recorrer la lista de Features para agregarlas a la tabla intermedia ProductFeatures
 
-    public void agregarFeaturesAProduct(Integer productId, List<String> featuresId){
+    public void agregarFeaturesAProduct(Integer productId, List<Integer> featuresId){
         ProductFeatureKey productFeatureKey = new ProductFeatureKey();
         productFeatureKey.setProductId(productId);
 
         ProductFeature productFeature = new ProductFeature();
+
         Optional<Product> p = productRepository.findById(productId);
         productFeature.setProduct(p.get());
 
-        for (int i = 0; i < featuresId.size(); i++) {
-
-            productFeatureKey.setFeatureId(Integer.parseInt(featuresId.get(i)));
-
-            Optional<Feature> f = featureRepository.findById(Integer.parseInt(featuresId.get(i)));
-
+        for (Integer featureId:
+             featuresId) {
+            productFeatureKey.setFeatureId(featureId);
             productFeature.setId(productFeatureKey);
 
+            Optional<Feature> f = featureRepository.findById(featureId);
             productFeature.setFeature(f.get());
 
             productFeatureRepository.save(productFeature);
