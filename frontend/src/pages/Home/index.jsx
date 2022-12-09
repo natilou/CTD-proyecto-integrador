@@ -11,11 +11,9 @@ import FilterResults from "../../components/FilterResults";
 
 function Home() {
   const [sectionCategory, setSectionCategory] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
   const [isLoadingData, setIsLoadingData] = useState(true);
   const [products, setProducts] = useState([]);
   const [cities, setCities] = useState([]);
-  const [dataFilterCategory, setDataFilterCategory] = useState([]);
   const [isLoadingFilterData, setLoadingFilterData] = useState(true);
   const [filterData, setFilterData] = useState([]);
   const [title, setTitle] = useState("");
@@ -56,17 +54,18 @@ function Home() {
 
 
   async function getCategory(id) {
-    setIsLoading(true);
+    let category = sectionCategory.find(category => category.id === id);
     try {
-      setIsLoading(true);
       await fetch(`http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/products/categories/${Number(id)}`)
         .then((response) => response.json())
-        .then((data) => setDataFilterCategory(data));
-
-      setIsLoading(false);
+        .then((data) => {
+          setFilterData(data)
+          setTitle(category.title)
+        });
+        setLoadingFilterData(false);
     } catch (error) {
       console.log({ error });
-      setIsLoading(false);
+      setLoadingFilterData(false);
     }
   }
 
@@ -162,14 +161,6 @@ function Home() {
               <h2 className="title_categories" data-testid="home-title">Buscar por tipo de alojamiento</h2>
 
               <Categories data={sectionCategory} onclick={getCategory} />
-
-              {
-                !isLoading &&(
-                    <div>
-                      <h2 className="main_title_recommedation" data-testid="home-title-2">{dataFilterCategory[0].category.title}</h2>
-                      <Recommendation dataLodging={dataFilterCategory} />
-                    </div>)
-              }
               {
                 !isLoadingFilterData && (
                   <FilterResults title={title} dataLodging={filterData}/>
