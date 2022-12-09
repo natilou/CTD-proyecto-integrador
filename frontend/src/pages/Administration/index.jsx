@@ -22,7 +22,7 @@ function Administration() {
     const [categories, setCategories] = useState([]);
     const [cities, setCities] = useState([]);
     const [productImages, setProductImages] = useState();
-    const urlImages = "http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/products/uploadImages";
+    const urlImages = "http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/images/upload";
     const urlProductCreation = "http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/products";
     const header = {
         "content-type": "application/json",
