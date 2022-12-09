@@ -21,17 +21,18 @@ import java.util.Set;
 @Table(name= "products")
 public class Product {
 
-    //-------------------------------------------------
-    /*
-    @PersistenceContext
-    EntityManager em = null;
-
-     */
-//-------------------------------------------------
-
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_sequence")
     private int id;
+
+    /////////////////////USER ID del ADMIN que publicó el producto///////////////////
+    /*
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private User user;
+*/
+
     private String title;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
@@ -50,29 +51,6 @@ public class Product {
 
     @JoinColumn(name = "cover_image_url", nullable = false)
     private String coverImageUrl;
-
-    /*
-    @OneToMany(mappedBy = "product")
-    @JsonManagedReference
-    @JsonIgnore
-    private Set<ProductFeature> productFeatures;
-*/
-    //-------------------------------------
-/*
-    @ManyToMany(fetch = FetchType.LAZY,
-
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            })
-    @JoinTable(name = "products_features",
-            joinColumns = { @JoinColumn(name = "product_id") },
-            inverseJoinColumns = { @JoinColumn(name = "feature_id") })
-    @JsonIgnore
-    private Set<Feature> features = new HashSet<>();
-*/
-
-    //-------------------------------------
 
     public Product(String title, Category category, String address, City city, String description, String coverImageUrl) {
         this.title = title;

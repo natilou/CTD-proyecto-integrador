@@ -7,6 +7,8 @@ import com.example.PI_grupo_10.repository.BookingRepository;
 import com.example.PI_grupo_10.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -37,11 +39,24 @@ public class BookingService {
         return new BookingDto(booking.get());
     }
 
-    public List<Booking> findByUserId(int userId) throws ResourceNotFoundException {
+    public List<BookingDto> findByUserId(int userId) throws ResourceNotFoundException {
         if (!_userRepository.existsById(userId)){
             throw new ResourceNotFoundException("Not found User with id = " + userId);
         }
-        return _bookingRepository.findByUser(_userRepository.findById(userId));
+
+        var bookings = this._bookingRepository.findByUser(_userRepository.findById(userId));
+
+        if (bookings.isEmpty())
+            return null;
+
+        List<BookingDto> bookingDtos = new ArrayList<>();
+
+        for (Booking booking:
+             bookings) {
+            bookingDtos.add(new BookingDto(booking));
+        }
+
+        return bookingDtos;
     }
 
 }

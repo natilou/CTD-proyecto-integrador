@@ -31,7 +31,7 @@ public class NewProduct {
 
     private String coverImageUrl;
 
-    private List<String> featuresId;
+    private List<Integer> featuresId;
 
     private List<NewPolicy> policies;
 
