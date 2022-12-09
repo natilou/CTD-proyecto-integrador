@@ -2,20 +2,15 @@ package com.example.PI_grupo_10.config;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.stereotype.Service;
-
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class JwtGenerator {
-    // Setear desde application.properties
-    //    @Value("${app.jwt.secret}")
-    //    private String secret;
 
     public String generateToken(String email) {
         String secretKey = "mySecretKey";

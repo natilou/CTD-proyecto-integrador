@@ -1,5 +1,6 @@
 package com.example.PI_grupo_10.service;
 
+import com.example.PI_grupo_10.config.PasswordEncoder;
 import com.example.PI_grupo_10.model.User;
 import com.example.PI_grupo_10.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,9 @@ public class UserService {
     }
 
     public User agregarUsuario(User user) {
-        logger.info("Se agrego el usuario: " + user);
+        logger.info("agregarUsuario ha sido llamado: " + user);
+        var passwordEncoded = PasswordEncoder.EncodePassword(user.getPassword());
+        user.setPassword(passwordEncoded);
         return userRepository.save(user);
     }
 }

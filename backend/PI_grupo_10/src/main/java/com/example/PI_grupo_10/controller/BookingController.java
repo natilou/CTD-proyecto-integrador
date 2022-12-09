@@ -1,8 +1,6 @@
 package com.example.PI_grupo_10.controller;
 
 import com.example.PI_grupo_10.exceptions.ResourceNotFoundException;
-import com.example.PI_grupo_10.model.Booking;
-import com.example.PI_grupo_10.model.Product;
 import com.example.PI_grupo_10.model.dto.BookingDto;
 import com.example.PI_grupo_10.service.BookingService;
 import lombok.extern.slf4j.Slf4j;
