@@ -4,7 +4,6 @@ import "./FilterResults.css";
 
 function FilterResults({ title, dataLodging }){
     let gif = getRandomGif();
-    console.log(gif)
     return(
         <div id="FilterCity">
             <h2 className="main_title_recommedation" data-testid="home-title-2">{title}</h2>

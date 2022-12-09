@@ -14,12 +14,12 @@ function CalendarProduct({ handleStartDateChange, handleEndDateChange }) {
         const [start, end] = dates;
         setStartDate(start);
         setEndDate(end);
-        const startDay = ("0" + start.getDate()).slice(-2);
-        const startMonth = ("0" + start.getMonth() + 1).slice(-2);
+        const startDay = start.getDate().toString().length === 1 ? `0${start.getDate()}` : start.getDate();
+        const startMonth = start.getMonth().toString().length === 1 ? `0${start.getMonth() + 1}` : start.getMonth() + 1;
         const startYear = start.getFullYear();
         handleStartDateChange(`${startYear}-${startMonth}-${startDay}`);
-        const endDay = ("0" + end.getDate()).slice(-2);
-        const endMonth = ("0" + start.getMonth() + 1).slice(-2);
+        const endDay = end.getDate().toString().length === 1 ? `0${end.getDate()}` : end.getDate();
+        const endMonth = end.getMonth().toString().length === 1 ? `0${end.getMonth() + 1}` : end.getMonth() + 1;
         const endYear = end.getFullYear();
         handleEndDateChange(`${endYear}-${endMonth}-${endDay}`)
     }
