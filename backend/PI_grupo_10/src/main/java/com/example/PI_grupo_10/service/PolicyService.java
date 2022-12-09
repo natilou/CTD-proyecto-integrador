@@ -34,29 +34,5 @@ public class PolicyService {
             return policyRepository.findByProductId(productId);
         }
     }
-/*
-    public void agregarPoliciesAProduct(Integer productId, List<String> policies){
-        ProductFeatureKey productFeatureKey = new ProductFeatureKey();
-        productFeatureKey.setProductId(productId);
 
-        ProductFeature productFeature = new ProductFeature();
-        Optional<Product> p = productRepository.findById(productId);
-        productFeature.setProduct(p.get());
-
-        for (int i = 0; i < featuresId.size(); i++) {
-
-            productFeatureKey.setFeatureId(Integer.parseInt(featuresId.get(i)));
-
-            Optional<Feature> f = featureRepository.findById(Integer.parseInt(featuresId.get(i)));
-
-            productFeature.setId(productFeatureKey);
-
-            productFeature.setFeature(f.get());
-
-            productFeatureRepository.save(productFeature);
-        }
-
-    }
-
- */
 }
