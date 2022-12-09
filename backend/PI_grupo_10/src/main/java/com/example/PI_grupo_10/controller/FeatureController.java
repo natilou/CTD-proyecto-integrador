@@ -37,6 +37,7 @@ public class FeatureController {
 
     @GetMapping
     public ResponseEntity<List<Feature>> listarTodos(){
+
         return ResponseEntity.ok(featureService.listarTodos());
     }
 
