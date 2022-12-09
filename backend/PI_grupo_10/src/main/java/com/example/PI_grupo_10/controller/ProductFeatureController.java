@@ -17,21 +17,10 @@ public class ProductFeatureController {
 
     @Autowired
     private ProductFeatureService productFeatureService;
-/*
-    @PostMapping
-    public ResponseEntity<ProductFeature> agregarFeatureAProduct(@RequestParam("productId") Integer productId, @RequestParam("featureId") Integer featureId) {
-        return ResponseEntity.ok(productFeatureService.agregarFeatureAProduct(productId, featureId));
-    }
-*/
+
     @PostMapping
     public void agregarFeaturesAProduct(@RequestParam("productId") Integer productId, @RequestParam("featureId") List featuresId) {
         productFeatureService.agregarFeaturesAProduct(productId, featuresId);
     }
-/*
-    @PostMapping
-    public void agregarFeaturesAProduct(@RequestBody AlgoDto algoDto) {
-        productFeatureService.agregarFeaturesAProduct(productId, featuresId);
-    }
 
- */
 }
