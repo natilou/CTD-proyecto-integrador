@@ -66,7 +66,6 @@ function Administration() {
         .then(response => {
             if (response.length === productImages.length) {
                 postProduct(response);
-                console.log(response, 'response')
             } else {
                 Swal.fire({
                     icon: 'error',
@@ -86,8 +85,6 @@ function Administration() {
                 product:{}
             }
         ))
-
-        console.log({ imagesToSend })
 
         const productBody = {
             title: productName,
@@ -113,7 +110,6 @@ function Administration() {
             ],
             images: imagesToSend,
         }
-        console.log({ productBody });
 
         await fetch(urlProductCreation,{
             method: "POST",
@@ -122,7 +118,6 @@ function Administration() {
         })
         .then(response => response.json())
         .then(response => {
-            console.log(response, 'respuesta de producto')
             if(response) {
                 navigate("/successful-product-creation")
             } else {

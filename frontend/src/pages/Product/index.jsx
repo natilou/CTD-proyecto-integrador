@@ -9,16 +9,14 @@ import iconStar from "../../assets/images/icons/iconStar1.png";
 import CalendarProduct from "../../components/CalendarProduct";
 import BookingAction from "../../components/BookingAction";
 import ProductPolices from "../../components/ProductPolices";
-import Booking from '../Booking';
 
 
 function Product() {
     const [productImages, setProductImages] = useState([]);
     const [product, setProduct] = useState([]);
+    const [productPolicies, setProductPolicies] = useState([]);
     const [features, setFeatures] = useState([])
-    console.log(features)
     const [isLoading, setIsLoading] = useState(true);
-    const [showBookingScreen, setShowBookingScreen] = useState(false);
     const { id } = useParams()
     const { category } = useParams()
     const showLogin = true;
@@ -39,6 +37,10 @@ function Product() {
                 .then((response) => response.json())
                 .then((data) =>
                     setProductImages(data));
+            await fetch(`http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/policies/product/${id}`)
+                .then((response) => response.json())
+                .then((data) =>
+                setProductPolicies(data));
             await fetch(urlProductID)
                 .then((response) => response.json())
                 .then((data) => {
@@ -54,10 +56,6 @@ function Product() {
         }
     }
 
-    function handleBookingButtonClick() {
-        setShowBookingScreen(!showBookingScreen);
-    }
-
     return (
         <>
             {
@@ -67,12 +65,7 @@ function Product() {
                     </div > 
                 ) : (
                     <div className="main_container_product" data-testid="product-container">
-                        <Header showLogin={showLogin} showLogout={showLogout} showLine={showLine} />            
-                        {
-                            showBookingScreen ? (
-                                <Booking />
-                            ) : (
-                                <>
+                        <Header showLogin={showLogin} showLogout={showLogout} showLine={showLine} />
                                     <div className="block_header" data-testid="product-header">
                                         <div className="block_header_titles" data-testid="product-title-container">
                                             <h3 className="block_d" data-testid="product-title">{category}</h3>
@@ -142,7 +135,7 @@ function Product() {
                                             }
                                         </div>
                                     </div>
-                                    <ProductPolices />
+                                    <ProductPolices productPolicies={productPolicies} />
                                     <div className="container_booking">
                                         <h2 className="title_booking">Fechas disponibles</h2>
                                         <div className="calendar-booking-container">
@@ -158,9 +151,6 @@ function Product() {
                                         </div>
                                     </div>
                                     <Footer />
-                                </>
-                            )
-                        }
                     </div>
                 )
             }
