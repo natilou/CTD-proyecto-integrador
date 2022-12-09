@@ -287,16 +287,30 @@ public class ProductController {
         return productService.obtenerProductosPorFechasDisponibles(iDate, eDate);
     }
 
-//AGREGAR QUE LOS PARAMS NO SON OBLIGATORIOS: puede recibir Ciudad o fechasLímite o ambas
-    @GetMapping("/datescity")
-    public List<Product> obtenerProductosPorFechasDisponiblesCiudad(@RequestParam String initialDate, @RequestParam String endDate, @RequestParam Integer cityId) throws ParseException {
-        log.info("Se reciben los datos:" + initialDate +" "+endDate+" "+cityId);
-        String pattern = "yyyy-MM-dd";
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-        Date iDate = simpleDateFormat.parse(initialDate);
-        Date eDate = simpleDateFormat.parse(endDate);
-        log.info("Se convierten los datos:" + iDate +" "+eDate);
-        return productService.obtenerProductosPorFechasDisponiblesCiudad(iDate, eDate, cityId);
+//Puede recibir Ciudad o fechas Límite o las 3
+    @GetMapping("/availability")
+    public List<Product> obtenerProductosPorFechasDisponiblesCiudad(@RequestParam(required = false) String initialDate, @RequestParam(required = false) String endDate, @RequestParam(required = false) Integer cityId) throws ParseException, ResourceNotFoundException {
+        log.info("Se reciben los datos: fechaInicio: " + initialDate +", fechaFinal: "+endDate+", cityID: "+cityId);
+
+        if(cityId != null && initialDate == null && endDate == null)
+        {
+            return productService.buscarPorCityId(cityId);
+        }else if(cityId==null && initialDate != null && endDate != null){
+            String pattern = "yyyy-MM-dd";
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+            Date iDate = simpleDateFormat.parse(initialDate);
+            Date eDate = simpleDateFormat.parse(endDate);
+            log.info("Se convierten los datos:" + iDate +" "+eDate);
+            return productService.obtenerProductosPorFechasDisponibles(iDate,eDate);
+        }else //if (cityId != null && initialDate != null && endDate != null)
+        {
+            String pattern = "yyyy-MM-dd";
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+            Date iDate = simpleDateFormat.parse(initialDate);
+            Date eDate = simpleDateFormat.parse(endDate);
+            log.info("Se convierten los datos:" + iDate +" "+eDate);
+            return productService.obtenerProductosPorFechasDisponiblesCiudad(iDate, eDate, cityId);
+        }
     }
 
     ////ENDPOINT DE PRUEBA////////////////////////////////////
