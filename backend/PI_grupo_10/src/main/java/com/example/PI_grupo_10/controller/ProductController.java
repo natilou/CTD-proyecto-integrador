@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
@@ -57,10 +58,11 @@ public class ProductController {
     }
 
     @GetMapping("/{productId}/features")
-    public ResponseEntity<List> getAllFeaturesByProductId(@PathVariable(value = "productId") Integer productId) throws ResourceNotFoundException {
+    public ResponseEntity<List<Optional<Feature>>> getAllFeaturesByProductId(@PathVariable(value = "productId") Integer productId) throws ResourceNotFoundException {
         return ResponseEntity.ok(productFeatureService.findByProductId(productId));
     }
 
+    @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/all")
     public ResponseEntity<List<Product>> listarTodos(){
         return ResponseEntity.ok(productService.listarTodos());

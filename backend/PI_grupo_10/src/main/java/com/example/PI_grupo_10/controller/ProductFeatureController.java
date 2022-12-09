@@ -17,7 +17,7 @@ public class ProductFeatureController {
     private ProductFeatureService productFeatureService;
 
     @PostMapping
-    public void agregarFeaturesAProduct(@RequestParam("productId") Integer productId, @RequestParam("featureId") List featuresId) {
+    public void agregarFeaturesAProduct(@RequestParam("productId") Integer productId, @RequestParam("featureId") List<Integer> featuresId) {
         productFeatureService.agregarFeaturesAProduct(productId, featuresId);
     }
 
