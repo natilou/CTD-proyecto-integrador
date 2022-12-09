@@ -39,6 +39,7 @@ public class AuthController {
             auth.name = userData.getName();
             auth.lastName = userData.getLastName();
             auth.role = userData.getRole();
+            auth.id = userData.getId();
 
             return ResponseEntity.ok(auth);
         } catch (Exception e) {

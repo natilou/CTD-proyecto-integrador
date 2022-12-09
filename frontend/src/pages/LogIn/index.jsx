@@ -46,7 +46,6 @@ function LogIn() {
         text: 'Debes completar todos los campos correctamente para iniciar sesión',
       })
     }
-
     fetch(`http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/auth/?email=${email}&password=${password}`, {
       method: "POST", 
       headers: {
@@ -57,7 +56,8 @@ function LogIn() {
     .then(response => response.json())
     .then(response => {
       if (response){
-        localStorage.setItem("user", JSON.stringify({name: response.name, lastName: response.lastName, email: response.email, role: response.role})); 
+        console.log(response)
+        localStorage.setItem("user", JSON.stringify({id: response.id, name: response.name, lastName: response.lastName, email: response.email, role: response.role})); 
         localStorage.setItem("jwt", JSON.stringify({token: response.token})); 
         navigate("/")
       } else {
