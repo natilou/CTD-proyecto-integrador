@@ -20,8 +20,8 @@ public class BookingController
     private BookingService bookingService;
 
     @PostMapping
-    public ResponseEntity<BookingDto> crear(@RequestBody BookingDto booking){
-        var bookingGuardado = bookingService.guardar(booking);
+    public ResponseEntity<BookingDto> crearReserva(@RequestBody BookingDto booking){
+        var bookingGuardado = bookingService.guardarReserva(booking);
         if (bookingGuardado == null) {
             return (ResponseEntity<BookingDto>) ResponseEntity.badRequest();
         }
@@ -36,7 +36,6 @@ public class BookingController
         if (booking == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Reserva no encontrada");
         }
-
         return ResponseEntity.ok(booking);
     }
 
@@ -47,8 +46,11 @@ public class BookingController
         if (booking == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Reserva no encontrada");
         }
-
         return ResponseEntity.ok(booking);
     }
-
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> eliminarReserva(@PathVariable Integer id) throws ResourceNotFoundException {
+        bookingService.eliminarReserva(id);
+        return ResponseEntity.ok().body("Booking eliminada");
+    }
 }
