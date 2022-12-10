@@ -20,7 +20,7 @@ const ProductPolices = ({ productPolicies }) => {
                 name = 'Normas de la casa';
             }
             if (police.type.id === 9) {
-                name = 'Salud y seguridad';
+                name = 'Seguridad';
             }
             return (
                 {
