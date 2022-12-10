@@ -28,11 +28,12 @@ public class AuthController {
             if(email == null || password == null) {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email o contrasena vacios");
             }
-            User userData = userService.getUserByNameAndPassword(email, password);
+            User userData = userService.login(email, password);
 
             if(userData == null){
                 throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Email o contrasena invalidos");
             }
+
             AuthDto auth = new AuthDto();
             auth.email = userData.getEmail();
             auth.token = (jwtGenerator.generateToken(email));

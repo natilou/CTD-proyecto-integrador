@@ -13,11 +13,16 @@ public class UserService {
     private UserRepository userRepository;
     private static final Logger logger = Logger.getLogger(UserService.class);
 
-    public User getUserByNameAndPassword(String email, String password) {
-        User user = this.userRepository.findByEmailAndPassword(email, password);
+    public User login(String email, String password) {
+        User user = this.userRepository.findByEmail(email);
         if (user == null) {
             return null;
         }
+
+        if (!PasswordEncoder.MatchPassword(password, user.getPassword())) {
+            return null;
+        }
+
         return user;
     }
 
@@ -27,4 +32,6 @@ public class UserService {
         user.setPassword(passwordEncoded);
         return userRepository.save(user);
     }
+
+
 }
