@@ -9,7 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
@@ -90,7 +89,12 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<Product> agregar(@RequestBody NewProduct newProduct) throws ResourceNotFoundException {
+    public ResponseEntity<Product> agregar(@RequestBody NewProduct newProduct) throws ResourceNotFoundException, IOException {
+        return new ResponseEntity<>(productService.agregar(newProduct), HttpStatus.CREATED);
+    }
+
+    @PostMapping("/agregarBis")
+    public ResponseEntity<Product> agregarBis(@RequestBody NewProduct newProduct) throws ResourceNotFoundException, IOException {
         return new ResponseEntity<>(productService.agregar(newProduct), HttpStatus.CREATED);
     }
 

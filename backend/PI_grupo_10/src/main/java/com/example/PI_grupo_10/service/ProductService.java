@@ -2,18 +2,14 @@ package com.example.PI_grupo_10.service;
 
 import com.example.PI_grupo_10.exceptions.ResourceNotFoundException;
 import com.example.PI_grupo_10.model.*;
-import com.example.PI_grupo_10.model.dto.BookingDto;
 import com.example.PI_grupo_10.model.dto.ProductDto;
 import com.example.PI_grupo_10.repository.*;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import java.io.IOException;
 import java.util.*;
 
 @Slf4j
@@ -90,14 +86,13 @@ public class ProductService {
         return productRepository.findTop8();
     }
 
+/*
     public Product agregar(NewProduct newProduct) throws ResourceNotFoundException {
 //////crear nuevo producto//////////////////////////////////////////////////////////////////
         Product createdProduct = new Product();
 
         //temporalmente hasta obtenerlo del token
         createdProduct.setUser(userRepository.findById(newProduct.getUserId()).get());
-        //int idDePrueba = 352;
-        //createdProduct.setUser(userRepository.findById(idDePrueba).get());
 
         createdProduct.setTitle(newProduct.getTitle());
 
@@ -128,12 +123,79 @@ public class ProductService {
 
         return createdProduct;
     }
+*/
+    //@Transactional//(rollbackFor = { ResourceNotFoundException.class })
+    public Product agregar(NewProduct newProduct) throws ResourceNotFoundException, IOException {
+//////crear nuevo producto//////////////////////////////////////////////////////////////////
+        Product createdProduct = new Product();
+        try {
+            //temporalmente hasta obtenerlo del token
+            createdProduct.setUser(userRepository.findById(newProduct.getUserId()).get());
+        }catch (Exception ex){
+
+            //borrar imágenes del bucket S3//
+            //////////////////////////////////////////////////////////////
+            List<String> imagesABorrar = new ArrayList<>();
+            for (Image imageABorrar:
+                    newProduct.getImages()) {
+                imagesABorrar.add(imageABorrar.getUrl());
+            }
+            imageService.eliminarImagenesDeBucketS3(imagesABorrar);
+            //////////////////////////////////////////////////////////////////
+            throw new ResourceNotFoundException("No existe el usuario con Id:" + newProduct.getUserId());
+        }
+            createdProduct.setTitle(newProduct.getTitle());
+
+        try {
+            Category category = categoryService.buscar(newProduct.getCategoryId());
+            createdProduct.setCategory(category);
+        }catch (Exception ex) {
+            //borrar imágenes del bucket S3//
+            throw new ResourceNotFoundException("No existe la category con Id: " + newProduct.getCategoryId());
+        }
+
+            createdProduct.setAddress(newProduct.getAddress());
+
+        try {
+            City city = cityService.buscar(newProduct.getCityId());
+            createdProduct.setCity(city);
+        }catch (Exception ex){
+            //borrar imágenes del bucket S3//
+            throw new ResourceNotFoundException("No existe la city con Id: " + newProduct.getCityId());
+        }
+            createdProduct.setDescription(newProduct.getDescription());
+
+            createdProduct.setCoverImageUrl(newProduct.getCoverImageUrl());
+
+            log.info("Se crea el producto: " + createdProduct);
+
+            createdProduct = productRepository.save(createdProduct);
+
+//////agregar las features y product_id a la tabla intermedia ProductFeatures/////////////////
+        try {
+            this.agregarFeaturesAProduct(createdProduct.getId(), newProduct.getFeaturesId());
+        }catch (Exception ex){
+            //borrar imágenes del bucket S3//
+            throw new ResourceNotFoundException("Revisar featuresId - " + ex.getMessage());
+        }
+//////////////agregar las políticas a la tabla Policies///////////////
+        try {
+            this.agregarPolicies(newProduct.getPolicies(), createdProduct);
+        }catch (Exception ex){
+            throw new ResourceNotFoundException("Revisar policies - " + ex.getMessage());
+        }
+//////////////////////subir cada imagen a la tabla Images///////////////////
+            this.agregarImages(newProduct.getImages(), createdProduct);
+
+            return createdProduct;
+
+        }
 
     public void agregarFeaturesAProduct(Integer productId, List<Integer> featuresId) throws ResourceNotFoundException {
         productFeatureService.agregarFeaturesAProduct(productId, featuresId);
     }
 
-    public void agregarPolicies(List<NewPolicy> policies, Product createdProduct){
+    public void agregarPolicies(List<NewPolicy> policies, Product createdProduct) throws ResourceNotFoundException {
 
         for (NewPolicy newPolicy:
              policies) {

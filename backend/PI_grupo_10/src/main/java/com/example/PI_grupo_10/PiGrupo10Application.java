@@ -49,8 +49,10 @@ public class PiGrupo10Application {
 					.addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
 					.authorizeRequests()
 					.antMatchers("/bookings").authenticated()
-					.antMatchers(HttpMethod.POST, "/bookings").hasRole(Role.ROLE_USER.name())
-					.antMatchers(HttpMethod.GET, "/bookings/users/{id}").hasRole(Role.ROLE_USER.name())
+					/////////////////
+					.antMatchers(HttpMethod.POST, "/bookings").hasRole("USER")
+					.antMatchers(HttpMethod.GET, "/bookings/users/{id}").hasRole("USER")
+					////////////////////
 					.antMatchers("/**").permitAll();
 		}
 	}

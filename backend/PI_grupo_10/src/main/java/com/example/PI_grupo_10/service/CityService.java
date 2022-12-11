@@ -1,5 +1,6 @@
 package com.example.PI_grupo_10.service;
 
+import com.example.PI_grupo_10.exceptions.ResourceNotFoundException;
 import com.example.PI_grupo_10.model.Category;
 import com.example.PI_grupo_10.model.City;
 import com.example.PI_grupo_10.repository.CityRepository;
@@ -22,13 +23,13 @@ public class CityService {
         return cityRepository.findAll();
     }
 
-    public City buscar(Integer id){
-        City city = null;
-        Optional<City> optionalCity= cityRepository.findById(id);
-        if (optionalCity.isPresent()){
-            city = optionalCity.get();
-            log.info("Se encontró la city con el id: " + id);
+    public City buscar(Integer id) throws ResourceNotFoundException {
+        Optional<City> city= cityRepository.findById(id);
+        if (!city.isPresent()) {
+            log.error("NO EXISTE LA CITY CON EL ID: "+id);
+            throw new ResourceNotFoundException("No existe la city con el id: "+ id);
         }
-        return city;
+        log.info("Se encontró la city con el id: " + id);
+        return city.get();
     }
 }

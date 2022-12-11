@@ -25,6 +25,9 @@ public class ProductFeatureService {
     @Autowired
     private ProductService productService;
 */
+    @Autowired
+    private FeatureService featureService;
+
     private ProductFeatureRepository productFeatureRepository;
     private FeatureRepository featureRepository;
     private ProductRepository productRepository;
@@ -50,7 +53,7 @@ public class ProductFeatureService {
     //recorrer la lista de Features para agregarlas a la tabla intermedia ProductFeatures
 
     public void agregarFeaturesAProduct(Integer productId, List<Integer> featuresId) throws ResourceNotFoundException {
-        if(productRepository.findById(productId) == null){
+        if(!productRepository.existsById(productId)){
             throw new ResourceNotFoundException("No existe el product con el id: " + productId);
         }
 
@@ -67,8 +70,8 @@ public class ProductFeatureService {
             productFeatureKey.setFeatureId(featureId);
             productFeature.setId(productFeatureKey);
 
-            Optional<Feature> f = featureRepository.findById(featureId);
-            productFeature.setFeature(f.get());
+            Feature f = featureService.buscar(featureId);
+            productFeature.setFeature(f);
 
             productFeatureRepository.save(productFeature);
         }

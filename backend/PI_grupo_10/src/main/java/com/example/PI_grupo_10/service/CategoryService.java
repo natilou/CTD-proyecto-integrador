@@ -2,6 +2,7 @@ package com.example.PI_grupo_10.service;
 
 import com.example.PI_grupo_10.exceptions.ResourceNotFoundException;
 import com.example.PI_grupo_10.model.Category;
+import com.example.PI_grupo_10.model.City;
 import com.example.PI_grupo_10.repository.CategoryRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,14 +23,14 @@ public class CategoryService {
         return categoryRepository.save(c);
     }
 
-    public Category buscar(Integer id){
-        Category category = null;
-        Optional<Category> optionalCategoria= categoryRepository.findById(id);
-        if (optionalCategoria.isPresent()){
-            category = optionalCategoria.get();
-            log.info("Se encontró la category con el id: " + id);
+    public Category buscar(Integer id) throws ResourceNotFoundException {
+        Optional<Category> category= categoryRepository.findById(id);
+        if (!category.isPresent()){
+            log.error("NO EXISTE LA CATEGORY CON EL ID: "+id);
+            throw new ResourceNotFoundException("No existe la category con el id: "+ id);
         }
-        return category;
+        log.info("Se encontró la category con el id: " + id);
+        return category.get();
     }
 
     public List<Category> listarTodas(){
@@ -38,7 +39,7 @@ public class CategoryService {
     }
 
     public void eliminar(Integer id) throws ResourceNotFoundException {
-        if (this.buscar(id)==null){
+        if (!categoryRepository.existsById(id)){
             log.error("Se quiere eliminar una categoria con un id inexistente en la base de datos.");
             throw new ResourceNotFoundException("No existe una categoria con el ID: " + id);
         } else{
