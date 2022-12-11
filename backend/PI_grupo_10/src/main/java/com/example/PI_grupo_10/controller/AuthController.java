@@ -43,6 +43,8 @@ public class AuthController {
             auth.id = userData.getId();
 
             return ResponseEntity.ok(auth);
+        } catch (ResponseStatusException e) {
+            return new ResponseEntity(e.getMessage(), e.getStatus());
         } catch (Exception e) {
             return new ResponseEntity(e.getMessage(), HttpStatus.CONFLICT);
         }
