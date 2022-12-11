@@ -40,6 +40,4 @@ public class UserService {
             throw new BadRequestException("Ya existe el usuario con email: " + user.getEmail());
         }
     }
-
-
 }
