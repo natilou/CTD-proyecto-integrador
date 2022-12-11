@@ -1,5 +1,6 @@
 package com.example.PI_grupo_10.config;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.core.GrantedAuthority;
@@ -33,4 +34,18 @@ public class JwtGenerator {
 
         return "Bearer " + token;
     }
+    public String getUserLogged(String token){
+        // Obtenga la clave secreta
+        String secretKey = "mySecretKey";
+        // Parse el token y valide su firma
+        Claims claims = Jwts.parser()
+                .setSigningKey(secretKey.getBytes())
+                .parseClaimsJws(token)
+                .getBody();
+
+        // Acceda a la información contenida en el token
+        String subject = claims.getSubject();
+        return subject;
+    }
+
 }
