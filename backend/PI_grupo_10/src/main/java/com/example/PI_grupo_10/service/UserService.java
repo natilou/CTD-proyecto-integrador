@@ -1,36 +1,44 @@
 package com.example.PI_grupo_10.service;
 
 import com.example.PI_grupo_10.config.PasswordEncoder;
+import com.example.PI_grupo_10.exceptions.BadRequestException;
+import com.example.PI_grupo_10.exceptions.ResourceNotFoundException;
 import com.example.PI_grupo_10.model.User;
 import com.example.PI_grupo_10.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class UserService {
     @Autowired
     private UserRepository userRepository;
-    private static final Logger logger = Logger.getLogger(UserService.class);
 
-    public User login(String email, String password) {
-        User user = this.userRepository.findByEmail(email);
+    public User getUserByNameAndPassword(String email, String password) throws ResourceNotFoundException, BadRequestException {
+        User user = userRepository.findByEmail(email);
+
         if (user == null) {
-            return null;
+            throw new ResourceNotFoundException("No existe el usuario con email: "+ email);
         }
 
         if (!PasswordEncoder.MatchPassword(password, user.getPassword())) {
-            return null;
+            throw new BadRequestException("Password incorrecto");
         }
 
         return user;
     }
 
-    public User agregarUsuario(User user) {
-        logger.info("agregarUsuario ha sido llamado: " + user);
-        var passwordEncoded = PasswordEncoder.EncodePassword(user.getPassword());
-        user.setPassword(passwordEncoded);
-        return userRepository.save(user);
+    public User agregarUsuario(User user) throws BadRequestException {
+        log.info("agregarUsuario ha sido llamado: " + user);
+        if(userRepository.findByEmail(user.getEmail()) == null) {
+            var passwordEncoded = PasswordEncoder.EncodePassword(user.getPassword());
+            user.setPassword(passwordEncoded);
+            return userRepository.save(user);
+        }else{
+            throw new BadRequestException("Ya existe el usuario con email: " + user.getEmail());
+        }
     }
 
 

@@ -26,9 +26,9 @@ public class Product {
     private int id;
 
     /////////////////////USER ID del ADMIN que publicó el producto///////////////////
-    /*
+/*
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "admin_user_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 */

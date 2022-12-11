@@ -10,6 +10,7 @@ import com.example.PI_grupo_10.repository.ProductFeatureRepository;
 import com.example.PI_grupo_10.repository.ProductRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -20,7 +21,10 @@ import java.util.Optional;
 @AllArgsConstructor
 @Service
 public class ProductFeatureService {
-
+/*
+    @Autowired
+    private ProductService productService;
+*/
     private ProductFeatureRepository productFeatureRepository;
     private FeatureRepository featureRepository;
     private ProductRepository productRepository;
@@ -45,7 +49,11 @@ public class ProductFeatureService {
 //para agregar varias Features modificar atributo a List
     //recorrer la lista de Features para agregarlas a la tabla intermedia ProductFeatures
 
-    public void agregarFeaturesAProduct(Integer productId, List<Integer> featuresId){
+    public void agregarFeaturesAProduct(Integer productId, List<Integer> featuresId) throws ResourceNotFoundException {
+        if(productRepository.findById(productId) == null){
+            throw new ResourceNotFoundException("No existe el product con el id: " + productId);
+        }
+
         ProductFeatureKey productFeatureKey = new ProductFeatureKey();
         productFeatureKey.setProductId(productId);
 

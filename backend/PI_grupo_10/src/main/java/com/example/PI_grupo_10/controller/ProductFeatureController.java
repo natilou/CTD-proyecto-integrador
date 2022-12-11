@@ -1,5 +1,6 @@
 package com.example.PI_grupo_10.controller;
 
+import com.example.PI_grupo_10.exceptions.ResourceNotFoundException;
 import com.example.PI_grupo_10.service.ProductFeatureService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ public class ProductFeatureController {
     private ProductFeatureService productFeatureService;
 
     @PostMapping
-    public void agregarFeaturesAProduct(@RequestParam("productId") Integer productId, @RequestParam("featureId") List<Integer> featuresId) {
+    public void agregarFeaturesAProduct(@RequestParam("productId") Integer productId, @RequestParam("featureId") List<Integer> featuresId) throws ResourceNotFoundException {
         productFeatureService.agregarFeaturesAProduct(productId, featuresId);
     }
 
