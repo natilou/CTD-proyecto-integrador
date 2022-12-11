@@ -17,7 +17,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-//@Entity
 public class NewProduct {
     private String title;
 
@@ -37,5 +36,5 @@ public class NewProduct {
 
     private List<Image> images;
 
-    //private List<String> imagesLinksS3;
+    //private int adminUserId;
 }

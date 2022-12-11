@@ -23,6 +23,7 @@ public class CategoryController {
     public ResponseEntity<Category> editar(@RequestBody Category category){
         return new ResponseEntity<>(categoryService.editar(category), HttpStatus.CREATED);
     }
+
     @GetMapping
     public ResponseEntity<List<Category>> listarTodas(){
         return ResponseEntity.ok(categoryService.listarTodas());
@@ -33,6 +34,7 @@ public class CategoryController {
         categoryService.eliminar(id);
         return ResponseEntity.ok().body("Category eliminada");
     }
+
     @PostMapping
     public ResponseEntity<Category> agregar(@RequestBody Category category){
         return new ResponseEntity<>(categoryService.agregar(category), HttpStatus.CREATED);

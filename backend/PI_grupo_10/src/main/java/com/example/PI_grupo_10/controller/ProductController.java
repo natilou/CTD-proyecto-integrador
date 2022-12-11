@@ -1,5 +1,6 @@
 package com.example.PI_grupo_10.controller;
 
+import com.example.PI_grupo_10.exceptions.BadRequestException;
 import com.example.PI_grupo_10.exceptions.ResourceNotFoundException;
 import com.example.PI_grupo_10.model.*;
 import com.example.PI_grupo_10.repository.FeatureRepository;
@@ -62,7 +63,6 @@ public class ProductController {
         return ResponseEntity.ok(productFeatureService.findByProductId(productId));
     }
 
-    @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/all")
     public ResponseEntity<List<Product>> listarTodos(){
         return ResponseEntity.ok(productService.listarTodos());
@@ -72,14 +72,14 @@ public class ProductController {
     public ResponseEntity<List<Product>> listarOchoProductos(){
         return ResponseEntity.ok(productService.listarOchoProductos());
     }
-
+//va este????
     @GetMapping("/{id}")
     public ResponseEntity<Product> buscar(@PathVariable Integer id) throws ResourceNotFoundException {
         return ResponseEntity.ok(productService.buscar(id));
     }
-
+//o este????
     @GetMapping("/prueba/{id}")
-    public ResponseEntity ObtenerProducto(@PathVariable int id){
+    public ResponseEntity ObtenerProducto(@PathVariable int id) throws ResourceNotFoundException {
         var product = this.productService.obtenerProduct(id);
 
         if (product == null) {
@@ -90,7 +90,7 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<Product> agregarMejorado(@RequestBody NewProduct newProduct){
+    public ResponseEntity<Product> agregar(@RequestBody NewProduct newProduct) throws ResourceNotFoundException {
         return new ResponseEntity<>(productService.agregar(newProduct), HttpStatus.CREATED);
     }
 
@@ -137,10 +137,16 @@ public class ProductController {
 
 //Puede recibir Ciudad o fechas Límite o las 3
     @GetMapping("/availability")
-    public List<Product> buscarPorFechasDisponiblesCiudad(@RequestParam(required = false) String initialDate, @RequestParam(required = false) String endDate, @RequestParam(required = false) Integer cityId) throws ParseException, ResourceNotFoundException {
+    public List<Product> buscarPorFechasDisponiblesCiudad(@RequestParam(required = false) String initialDate, @RequestParam(required = false) String endDate, @RequestParam(required = false) Integer cityId) throws ParseException, ResourceNotFoundException, BadRequestException {
         log.info("Se reciben los datos: fechaInicio: " + initialDate +", fechaFinal: "+endDate+", cityID: "+cityId);
 
-        if(cityId != null && initialDate == null && endDate == null)
+        if(cityId==null && initialDate == null && endDate == null){
+            log.error("No se recibió ningún parámetro: initialDate, endDate, cityId");
+            //throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "No se recibió ningún parámetro: initialDate, endDate, cityId");
+            throw new BadRequestException("No se recibió ningún parámetro: initialDate, endDate, cityId");
+            //throw new ResourceNotFoundException("No se recibió ningún parámetro: initialDate, endDate, cityId");
+        }
+        else if(cityId != null && initialDate == null && endDate == null)
         {
             return productService.buscarPorCityId(cityId);
         }else if(cityId==null && initialDate != null && endDate != null){
@@ -150,7 +156,7 @@ public class ProductController {
             Date eDate = simpleDateFormat.parse(endDate);
             log.info("Se convierten los datos:" + iDate +" "+eDate);
             return productService.buscarPorFechasDisponibles(iDate,eDate);
-        }else //if (cityId != null && initialDate != null && endDate != null)
+        }else
         {
             String pattern = "yyyy-MM-dd";
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);

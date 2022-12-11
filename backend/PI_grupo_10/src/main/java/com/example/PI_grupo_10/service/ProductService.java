@@ -87,7 +87,7 @@ public class ProductService {
         return productRepository.findTop8();
     }
 
-    public Product agregar(NewProduct newProduct) {
+    public Product agregar(NewProduct newProduct) throws ResourceNotFoundException {
 //////crear nuevo producto//////////////////////////////////////////////////////////////////
         Product createdProduct = new Product();
 
@@ -121,7 +121,7 @@ public class ProductService {
         return createdProduct;
     }
 
-    public void agregarFeaturesAProduct(Integer productId, List<Integer> featuresId){
+    public void agregarFeaturesAProduct(Integer productId, List<Integer> featuresId) throws ResourceNotFoundException {
         productFeatureService.agregarFeaturesAProduct(productId, featuresId);
     }
 
