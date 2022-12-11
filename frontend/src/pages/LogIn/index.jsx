@@ -38,7 +38,7 @@ function LogIn() {
     return error;
   };
 
-  const hanldeSubmit = () => {
+  const handleSubmit = () => {
      
     if(!email && !password){
       Swal.fire({
@@ -46,28 +46,29 @@ function LogIn() {
         text: 'Debes completar todos los campos correctamente para iniciar sesión',
       })
     }
-    fetch(`http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/auth/?email=${email}&password=${password}`, {
+    //http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080
+    fetch(`http://localhost:8080/auth/?email=${email}&password=${password}`, {
       method: "POST", 
       headers: {
         "content-type": "application/json",
         "accept": "application/json"
       }
     })
-    .then(response => response.json())
     .then(response => {
-      if (response){
-        localStorage.setItem("user", JSON.stringify({id: response.id, name: response.name, lastName: response.lastName, email: response.email, role: response.role})); 
-        localStorage.setItem("jwt", JSON.stringify({token: response.token})); 
-        navigate("/")
-      } else {
+      if(!response.ok){
         Swal.fire({
           icon: 'error',
-          text: 'Lamentablemente no ha podido iniciar sesión. Por favor, intente más tarde',
+          text: 'Credenciales inválidas. Por favor intenta nuevamente.',
+        })
+      } else {
+        return response.json()
+          .then(response => {
+            localStorage.setItem("user", JSON.stringify({id: response.id, name: response.name, lastName: response.lastName, email: response.email, role: response.role})); 
+            localStorage.setItem("jwt", JSON.stringify({token: response.token})); 
+            navigate("/")      
         })
       }
-      
-    })
-    .catch(error => console.log(error))
+    }).catch(error => console.log(error))
   }
 
   return (
@@ -96,7 +97,7 @@ function LogIn() {
               </form>
             )}
           </Formik>
-          <button onClick={hanldeSubmit} className="btn-login" data-testid="login-btn">Ingresar</button>
+          <button onClick={handleSubmit} className="btn-login" data-testid="login-btn">Ingresar</button>
           <div className="alternative-login" data-testid="login-alternative">
             <span className="span-login" data-testid="login-span1-alternative">¿Aún no tienes cuenta?</span><Link to="/register" data-testid="register-link"><span className="link-register" data-testid="login-span2-alternative">Registrate</span></Link>
           </div>

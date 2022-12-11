@@ -107,18 +107,26 @@ function Register() {
         },
         body: JSON.stringify(payload)
       })
-      .then(response => response.json())
       .then(response => {
-        if(response){
+        if (!response.ok){
           Swal.fire({
-            icon: 'success',
-            text: 'Usuario creado correctamente',
-          }).then((result) => {
-            if (result.isConfirmed) {
-              setTimeout(()=>{
-                return navigate("/login")
-                },500) 
-            }}) 
+            icon: 'error',
+            text: 'Lamentablemente hubo un error durante el registro. Vuelve a intentarlo.',
+          })
+        } else {
+          return response.json()
+            .then(
+              Swal.fire({
+                icon: 'success',
+                text: 'Usuario creado correctamente',
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  setTimeout(()=>{
+                    return navigate("/login")
+                    },500) 
+                }}
+              )
+            )
         }
         
       })
