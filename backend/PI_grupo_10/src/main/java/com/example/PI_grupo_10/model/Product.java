@@ -26,12 +26,13 @@ public class Product {
     private int id;
 
     /////////////////////USER ID del ADMIN que publicó el producto///////////////////
-    /*
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
     private User user;
-*/
+
 
     private String title;
 
