@@ -46,8 +46,7 @@ function LogIn() {
         text: 'Debes completar todos los campos correctamente para iniciar sesión',
       })
     }
-    //http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080
-    fetch(`http://localhost:8080/auth/?email=${email}&password=${password}`, {
+    fetch(`http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/auth/?email=${email}&password=${password}`, {
       method: "POST", 
       headers: {
         "content-type": "application/json",
