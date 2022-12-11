@@ -5,12 +5,14 @@ import Header from "../../components/Header";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Formik, Field } from 'formik';
-import { validateEmailRegex, validatePasswordLength, validateEmailAndPassword, validatePasswordConfirmation } from '../LogIn/utils'
+import { validateEmailRegex, validatePasswordConfirmation } from '../LogIn/utils'
 import Swal from 'sweetalert2';
 
 
 
 function Register() {
+
+  
 
   const showlogin = true; 
   const [name, setName] = useState("");

@@ -8,7 +8,7 @@ function UserReservation() {
   const [isLoading, setIsLoading] = useState(true);
   const [product, setProduct] = useState();
   const user = JSON.parse(localStorage.getItem("user"));
-
+ 
   useEffect(() => {
     getUserBooking(user.id)
   }, [])
@@ -18,7 +18,7 @@ function UserReservation() {
     setIsLoading(true);
     try {
       setIsLoading(true);
-      await fetch(`http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/bookings/users/${Number(1)}`)
+      await fetch(`http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/bookings/users/${Number(id)}`)
         .then((response) => response.json())
         .then((data) => { setProduct(data) });
 
@@ -29,9 +29,7 @@ function UserReservation() {
       setIsLoading(false);
     }
   }
-   console.log(product)
-   console.log(user)
-   console.log(user.id)
+  console.log(product)
   return (
     <>
       {
@@ -54,6 +52,7 @@ function UserReservation() {
               </div>
 
             </div>
+            
             <Link to="/">
               <div className="super-container-r">
                 <section className="successful-booking-container-r" data-testid="successful-container">
