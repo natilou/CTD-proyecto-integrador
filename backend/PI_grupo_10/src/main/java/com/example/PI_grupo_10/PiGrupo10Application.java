@@ -1,5 +1,6 @@
 package com.example.PI_grupo_10;
 
+import com.example.PI_grupo_10.model.Role;
 import com.example.PI_grupo_10.security.JWTAuthorizationFilter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -48,6 +49,8 @@ public class PiGrupo10Application {
 					.addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
 					.authorizeRequests()
 					.antMatchers("/bookings").authenticated()
+					.antMatchers(HttpMethod.POST, "/bookings").hasRole(Role.ROLE_USER.name())
+					.antMatchers(HttpMethod.GET, "/bookings/users/{id}").hasRole(Role.ROLE_USER.name())
 					.antMatchers("/**").permitAll();
 		}
 	}
