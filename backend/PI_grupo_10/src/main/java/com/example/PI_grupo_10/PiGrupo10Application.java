@@ -55,7 +55,7 @@ public class PiGrupo10Application {
 					.antMatchers(HttpMethod.GET, "/bookings/users/{id}").hasRole("ROLE_USER")
 					*/
 					////////////////////
-					 */
+					
 					.antMatchers("/**").permitAll();
 		}
 	}
