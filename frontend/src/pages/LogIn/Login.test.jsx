@@ -25,13 +25,13 @@ describe("Test Login", () => {
         expect(screen.getByTestId("login-title")).toBeInTheDocument();
     })
 
-    it("should render row", () => {
+    it("should render form row", () => {
         render(
               <BrowserRouter>
                 <Login />
             </BrowserRouter>
         )
-        expect(screen.getByTestId("login-row")).toBeInTheDocument();
+        expect(screen.getByTestId("row")).toBeInTheDocument();
     })
 
     it("should render email label", () => {
@@ -95,5 +95,14 @@ describe("Test Login", () => {
             </BrowserRouter>
         )
         expect(screen.getByTestId("register-link")).toBeInTheDocument();
+    })
+
+    it("should render register error input", () => {
+        render(
+              <BrowserRouter>
+                <Login />
+            </BrowserRouter>
+        )
+        expect(screen.getByTestId("error-input")).toBeInTheDocument();
     })
 });

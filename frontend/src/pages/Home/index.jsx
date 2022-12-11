@@ -47,7 +47,7 @@ function Home() {
 
       setIsLoadingData(false);
     } catch (error) {
-      console.log({ error });
+      console.log(error);
       setIsLoadingData(false);
     }
   }

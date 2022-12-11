@@ -55,13 +55,13 @@ const BookingDetail = ({ user, product, productImages, start, end }) => {
     }
 
     return (
-        <div className="booking-detail-main-container">
-            <h2 className="booking-detail-title">Detalles de la reserva</h2>
-            <img src={productImages[0].url} alt={productImages[0].title} />
-            <div style={{ marginTop: 20 }}>
-                <h3 style={{ color: 'grey' }}>{product.category.title}</h3>
-                <h3>{product.title}</h3>
-                <ul className="booking-detail-icon-star-container">
+        <div className="booking-detail-main-container" data-testid="booking-detail-container">
+            <h2 className="booking-detail-title" data-testid="booking-detail-title">Detalles de la reserva</h2>
+            <img src={productImages[0].url} alt={productImages[0].title} data-testid="booking-detail-img"/>
+            <div style={{ marginTop: 20 }} data-testid="booking-detail-sub-container">
+                <h3 style={{ color: 'grey' }} data-testid="booking-detail-category">{product.category.title}</h3>
+                <h3 data-testid="booking-detail-product">{product.title}</h3>
+                <ul className="booking-detail-icon-star-container" data-testid="booking-detail-ul-start">
                     <li>
                         <img src={iconStar} alt="star" className="booking-detail-star-icon" />
                     </li>
@@ -79,14 +79,14 @@ const BookingDetail = ({ user, product, productImages, start, end }) => {
                     </li>
                 </ul>
             </div>
-            <div className="booking-detail-location-container">
-                <div className="booking-detail-location-sub-container">
-                    <img className="booking-detail-location-icon" src={locationIcon} alt="location icon" />
-                    <p className="booking-detail-location-address"> {product.address}, </p>
-                    <p className="booking-detail-location-city">Ciudad de {product.city.name}, {product.city.country.name}</p>
+            <div className="booking-detail-location-container" data-testid="booking-detail-location">
+                <div className="booking-detail-location-sub-container" data-testid="booking-detail-location-sub">
+                    <img className="booking-detail-location-icon" src={locationIcon} alt="location icon" data-testid="booking-detail-location-img"/>
+                    <p className="booking-detail-location-address" data-testid="booking-detail-address">{product.address}, </p>
+                    <p className="booking-detail-location-city" data-testid="booking-detail-city">Ciudad de {product.city.name}, {product.city.country.name}</p>
                 </div>
             </div>
-            <div className="booking-detail-check-in-container">
+            <div className="booking-detail-check-in-container" data-testid="booking-detail-check-in">
                 <p style={{ fontWeight: 'bold' }}>
                     Check in
                 </p>
@@ -94,7 +94,7 @@ const BookingDetail = ({ user, product, productImages, start, end }) => {
                     {start}
                 </p>
             </div>
-            <div className="booking-detail-check-out-container">
+            <div className="booking-detail-check-out-container" data-testid="booking-detail-check-out">
                 <p style={{ fontWeight: 'bold' }}>
                     Check out
                 </p>
@@ -103,10 +103,9 @@ const BookingDetail = ({ user, product, productImages, start, end }) => {
                 </p>
             </div>
             <div className="booking-detail-submit-button-container">
-                <button className="booking-detail-submit-button" onClick={handleClick}>
+                <button className="booking-detail-submit-button" onClick={handleClick} data-testid="booking-detail-btn">
                     Confirmar reserva
                 </button>
-
             </div>
         </div>
     );

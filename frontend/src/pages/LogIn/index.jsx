@@ -84,12 +84,12 @@ function LogIn() {
             {({ errors, touched }) => (
               <form className="row">
                   <label className="label-login" data-testid="login-email-label">Correo electrónico</label>
-                  <Field name="email" validate={validateEmail} className="input-login" />
+                  <Field name="email" validate={validateEmail} className="input-login"  data-testid="login-email-input" />
                   {errors.email && touched.email ? (
-                    <div className="error-input">{errors.email}</div>
+                    <div className="error-input" data-testid="error-input">{errors.email}</div>
                   ) :  <div className="error-input"></div>}
                   <label className="label-login" data-testid="login-password-label">Contraseña</label>
-                  <Field name="password" type="password" validate={validatePassword} className="input-login"/>
+                  <Field name="password" type="password" validate={validatePassword} className="input-login" data-testid="login-password-input"/>
                   {errors.password && touched.password ? (
                     <div className="error-input">{errors.password}</div>
                   ) :  <div className="error-input"></div>}
