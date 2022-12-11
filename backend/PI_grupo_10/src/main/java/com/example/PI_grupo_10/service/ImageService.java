@@ -40,6 +40,27 @@ public class ImageService {
         return imageRepository.save(image);
     }
 
+    public String eliminarImagenesDeBucketS3(List<String> imagenesCargadas) throws IOException {
+        for (String imagenABorrar:
+                imagenesCargadas)
+        {
+            S3Util.deleteFile(imagenABorrar);
+            log.info("Se borró del bucket S3: " + imagenABorrar);
+        }
+        return "Se eliminaron del bucket S3 las imágenes: " + imagenesCargadas;
+    }
+
+    public String eliminarImagenesDeBucketS3Bis(List<String> imagenesCargadas) throws IOException {
+        for (String imagenABorrar:
+                imagenesCargadas)
+        {
+            S3Util.deleteFile(imagenABorrar);
+            log.info("Se borró del bucket S3: " + imagenABorrar);
+        }
+        return "Se eliminaron del bucket S3 las imágenes: " + imagenesCargadas;
+    }
+
+
     public List<String> subirImagenesABucketS3(List<MultipartFile> multiparts) throws IOException {
         List<String> filenamesUploaded = new ArrayList<>();
         List<String> imagesLinksS3 = new ArrayList<>();
@@ -66,12 +87,16 @@ public class ImageService {
 
             } catch (Exception ex) {
                 if(!filenamesUploaded.isEmpty()) {
+                    this.eliminarImagenesDeBucketS3(filenamesUploaded);
+                    /*
                     for (String filenameUploaded:
                          filenamesUploaded)
                     {
                         S3Util.deleteFile(filenameUploaded);
                         log.info("Se borró del bucket S3: " + filenameUploaded);
                     }
+
+                     */
                 }
                 throw new IOException("Falló la subida de imágenes");
             }

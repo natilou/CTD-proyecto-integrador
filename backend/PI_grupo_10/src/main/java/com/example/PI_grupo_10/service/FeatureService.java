@@ -1,7 +1,9 @@
 package com.example.PI_grupo_10.service;
 
 import com.example.PI_grupo_10.exceptions.ResourceNotFoundException;
+import com.example.PI_grupo_10.model.City;
 import com.example.PI_grupo_10.model.Feature;
+import com.example.PI_grupo_10.model.Type;
 import com.example.PI_grupo_10.repository.FeatureRepository;
 import com.example.PI_grupo_10.repository.ProductFeatureRepository;
 import com.example.PI_grupo_10.repository.ProductRepository;
@@ -21,14 +23,14 @@ public class FeatureService {
     private ProductRepository productRepository;
     private ProductFeatureRepository productFeatureRepository;
 
-    public Feature buscar(Integer id) {
-        Feature feature = null;
-        Optional<Feature> optionalFeature = featureRepository.findById(id);
-        if (optionalFeature.isPresent()) {
-            feature = optionalFeature.get();
-            log.info("Se encontró la feature con el id: " + id);
+    public Feature buscar(Integer id) throws ResourceNotFoundException {
+        Optional<Feature> feature = featureRepository.findById(id);
+        if (!feature.isPresent()) {
+            log.error("NO EXISTE LA FEATURE CON EL ID: "+id);
+            throw new ResourceNotFoundException("No existe la feature con el id: "+ id);
         }
-        return feature;
+        log.info("Se encontró la feature con el id: " + id);
+        return feature.get();
     }
 
     public List<Feature> listarTodos() {
