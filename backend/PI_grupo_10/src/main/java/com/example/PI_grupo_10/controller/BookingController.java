@@ -1,5 +1,6 @@
 package com.example.PI_grupo_10.controller;
 
+import com.example.PI_grupo_10.config.JwtGenerator;
 import com.example.PI_grupo_10.exceptions.ResourceNotFoundException;
 import com.example.PI_grupo_10.model.dto.BookingDto;
 import com.example.PI_grupo_10.service.BookingService;
@@ -9,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Slf4j
 @RestController
@@ -30,7 +33,11 @@ public class BookingController
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity ObtenerReserva(@PathVariable int id){
+    public ResponseEntity ObtenerReserva(HttpServletRequest request, @PathVariable int id){
+        var rawToken = request.getHeader("Authorization");
+        var jwtToken = rawToken.split(" ")[1];
+        var jwtGenerator = new JwtGenerator();
+        var email = jwtGenerator.getUserLogged(jwtToken);
         var booking = this.bookingService.obtenerReserva(id);
 
         if (booking == null) {
