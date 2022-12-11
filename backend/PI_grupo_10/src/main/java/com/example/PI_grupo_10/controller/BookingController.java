@@ -55,6 +55,7 @@ public class BookingController
         }
         return ResponseEntity.ok(booking);
     }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<String> eliminarReserva(@PathVariable Integer id) throws ResourceNotFoundException {
         bookingService.eliminarReserva(id);

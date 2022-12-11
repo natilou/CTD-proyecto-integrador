@@ -50,8 +50,8 @@ public class PiGrupo10Application {
 					.authorizeRequests()
 					.antMatchers("/bookings").authenticated()
 					/////////////////
-					.antMatchers(HttpMethod.POST, "/bookings").hasRole("USER")
-					.antMatchers(HttpMethod.GET, "/bookings/users/{id}").hasRole("USER")
+					.antMatchers(HttpMethod.POST, "/bookings").hasRole("ROLE_USER")
+					.antMatchers(HttpMethod.GET, "/bookings/users/{id}").hasRole("ROLE_USER")
 					////////////////////
 					.antMatchers("/**").permitAll();
 		}
