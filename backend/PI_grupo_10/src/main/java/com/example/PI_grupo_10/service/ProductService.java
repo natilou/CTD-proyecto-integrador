@@ -5,6 +5,8 @@ import com.example.PI_grupo_10.model.*;
 import com.example.PI_grupo_10.model.dto.BookingDto;
 import com.example.PI_grupo_10.model.dto.ProductDto;
 import com.example.PI_grupo_10.repository.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,7 @@ import java.util.*;
 
 @Slf4j
 @Service
+
 public class ProductService {
 
     @Autowired
@@ -41,15 +44,16 @@ public class ProductService {
     private CategoryRepository categoryRepository;
     private FeatureRepository featureRepository;
     private ProductFeatureRepository productFeatureRepository;
-    //private static final Logger logger = Logger.getLogger(ProductService.class);
+    private UserRepository userRepository;
 
     //Inyectar la dependencia
-    public ProductService(ProductRepository productRepository, CityRepository cityRepository, CategoryRepository categoryRepository, FeatureRepository featureRepository, ProductFeatureRepository productFeatureRepository) {
+    public ProductService(ProductRepository productRepository, CityRepository cityRepository, CategoryRepository categoryRepository, FeatureRepository featureRepository, ProductFeatureRepository productFeatureRepository, UserRepository userRepository) {
         this.productRepository = productRepository;
         this.cityRepository = cityRepository;
         this.categoryRepository = categoryRepository;
         this.featureRepository = featureRepository;
         this.productFeatureRepository = productFeatureRepository;
+        this.userRepository = userRepository;
     }
 
     //------------------------------------------------------------------
@@ -78,7 +82,6 @@ public class ProductService {
 
     public List<Product> listarTodos() {
         log.info("Se buscan todos los productos");
-        //return productRepository.findTodosLosProductos();
         return productRepository.findAll();
     }
 
@@ -90,6 +93,11 @@ public class ProductService {
     public Product agregar(NewProduct newProduct) throws ResourceNotFoundException {
 //////crear nuevo producto//////////////////////////////////////////////////////////////////
         Product createdProduct = new Product();
+
+        //temporalmente hasta obtenerlo del token
+        createdProduct.setUser(userRepository.findById(newProduct.getUserId()).get());
+        //int idDePrueba = 352;
+        //createdProduct.setUser(userRepository.findById(idDePrueba).get());
 
         createdProduct.setTitle(newProduct.getTitle());
 

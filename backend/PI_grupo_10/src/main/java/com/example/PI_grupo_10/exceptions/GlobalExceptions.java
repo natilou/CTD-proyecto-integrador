@@ -16,4 +16,9 @@ public class GlobalExceptions {
     public ResponseEntity<String> tratarErrorBadRequest(BadRequestException e){
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage()+ " -GLOBAL");
     }
+
+    @ExceptionHandler({IOException.class})
+    public ResponseEntity<String> tratarErrorIO(IOException e){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage()+ " -GLOBAL");
+    }
 }
