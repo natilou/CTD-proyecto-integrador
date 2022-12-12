@@ -145,7 +145,7 @@ function Home() {
       setLoadingFilterData(false)
     }
   }
-console.log(products)
+
   return (
     <>
       {
