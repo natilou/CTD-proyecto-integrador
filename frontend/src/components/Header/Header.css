@@ -117,6 +117,9 @@
     text-decoration: none;
     color:  black;
 }
+.p_reservation:hover{
+    color: var(--main-color)
+}
 
 @media (min-width: 761px) {
     .header_buttons {

@@ -64,21 +64,22 @@ function Administration() {
             images.append("files", productImages[i].file);
         }
 
-        await fetch(urlImages, {
-            method: "POST",
-            body: images,
-        }).then(response => response.json())
-            .then(response => {
-                if (response.length === productImages.length) {
-                    postProduct(response);
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        text: 'Lamentablemente el producto no se creó. Por favor, intente más tarde',
-                    })
-                }
-            })
-            .catch(error => console.log(error))
+            await fetch(urlImages, {
+                method: "POST",
+                body: images,
+            }).then(response => response.json())
+                .then(response => {
+                    if (response.length === productImages.length) {
+                        postProduct(response);
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            text: 'Lamentablemente el producto no se creó. Por favor, intente más tarde',
+                        })
+                    }
+                })
+                .catch(error => console.log(error))
+
     }
 
     async function postProduct(imagesList) {
@@ -127,17 +128,24 @@ function Administration() {
                 headers: header,
                 body: JSON.stringify(productBody)
             })
-                .then(response => response.json())
                 .then(response => {
-                    if (response) {
-                        navigate("/successful-product-creation")
-                    } else {
+                    if(!response.ok){
                         Swal.fire({
                             icon: 'error',
                             text: 'Lamentablemente el producto no se creó. Por favor, intente más tarde',
                         })
+                    } else{
+                        return response.json()
+                        .then(response => {
+                            if (response) {
+                                navigate("/successful-product-creation")
+                            } else {
+                               
+                            }
+                        })
                     }
-                })
+                    })
+               
                 .catch(error => console.log(error))
         }
     }
@@ -160,6 +168,11 @@ function Administration() {
                 icon: 'error',
                 text: 'Debes completar el campo de categoría',
               })
+        } else if(productImages.length < 5){
+            Swal.fire({
+                icon: 'error',
+                text: 'Debes agregar como mínimo 5 imágenes del producto',
+            })
         } else{
             await postImages();
         }
@@ -597,6 +610,7 @@ function Administration() {
                                     <h3 className="product-form-sub-title">
                                         Cargar imágenes
                                     </h3>
+                                    <p className="p-img-quantity"><span className="required">*</span>Debes cargar como mínimo 5 imágenes del producto</p>
                                     <div style={{ display: 'flex', justifyContent: 'center' }}>
                                         <PictureInput getProductImages={getProductImages} />
 
