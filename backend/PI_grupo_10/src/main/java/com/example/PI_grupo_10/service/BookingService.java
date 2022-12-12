@@ -7,6 +7,7 @@ import com.example.PI_grupo_10.model.dto.BookingDto;
 import com.example.PI_grupo_10.repository.BookingRepository;
 import com.example.PI_grupo_10.repository.UserRepository;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Service
 @AllArgsConstructor
 public class BookingService {
@@ -23,8 +25,6 @@ public class BookingService {
 
     private BookingRepository _bookingRepository;
     private UserRepository _userRepository;
-
-    private static final Logger logger = Logger.getLogger(CategoryService.class);
 
     public BookingDto guardarReserva(BookingDto bookingDto){
         Booking bookingEntidad = new Booking(bookingDto);
@@ -44,11 +44,7 @@ public class BookingService {
             return null;
         return new BookingDto(booking.get());
     }
-/*NO VA MAS///////////////////////////
-    public User findUserByEmail(String email) throws ResourceNotFoundException {
-        return userService.getUserByEmail(email);
-    }
-*/
+
     public List<BookingDto> findByUserId(int userId) throws ResourceNotFoundException {
         if (!_userRepository.existsById(userId)){
             throw new ResourceNotFoundException("Not found User with id = " + userId);
@@ -57,7 +53,7 @@ public class BookingService {
         var bookings = this._bookingRepository.findByUser(_userRepository.findById(userId));
 
         if (bookings.isEmpty())
-            return null;
+            throw new ResourceNotFoundException("No hay reservas para el user id: " + userId);
 
         List<BookingDto> bookingDtos = new ArrayList<>();
 
@@ -71,11 +67,11 @@ public class BookingService {
 
     public void eliminarReserva(Integer id) throws ResourceNotFoundException {
         if (this.obtenerReserva(id)==null){
-            logger.error("Se quiere eliminar una reserva con un id inexistente en la base de datos.");
+            log.error("Se quiere eliminar una reserva con un id inexistente en la base de datos.");
             throw new ResourceNotFoundException("No existe una reserva con el ID: " + id);
         } else{
             _bookingRepository.deleteById(id);
-            logger.info("Se elimino la reserva con el id: " + id);
+            log.info("Se elimino la reserva con el id: " + id);
         }
     }
 
