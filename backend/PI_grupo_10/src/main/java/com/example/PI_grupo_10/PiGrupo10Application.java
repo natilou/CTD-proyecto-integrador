@@ -55,6 +55,7 @@ public class PiGrupo10Application {
 					.authorizeRequests()
 					.antMatchers(HttpMethod.POST, "/bookings").hasRole("USER")
 					.antMatchers(HttpMethod.GET, "/bookings").hasRole("USER")
+					.antMatchers(HttpMethod.POST, "/products").hasRole("ADMIN")
 					.antMatchers("/**").permitAll();
 		}
 	}
