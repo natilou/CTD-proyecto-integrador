@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./Gallery.css";
 import Lightbox from 'react-spring-lightbox';
+import nextIcon from "../../assets/images/icons/next.png";
+import prevIcon from "../../assets/images/icons/prev.png";
 
 
 const Gallery = (props) => {
@@ -48,12 +50,14 @@ const Gallery = (props) => {
                 </div>
               ): (
                 <Lightbox
+                renderNextButton={() => (<button style={{ backgroundColor: '#F3F1ED', border: 'none', width: "30px", height: "30px"}} onClick={() => gotoNext()}><img alt="next image" src={nextIcon} style={{ width: "30px", height: "30px", marginRight: "20px" }} /> </button>)}
+                renderPrevButton={() => (<button style={{ backgroundColor: '#F3F1ED', border: 'none', width: "30px", height: "30px"}} onClick={() => gotoPrevious()}><img alt="" src={prevIcon} style={{ width: "30px", height: "30px", marginLeft: "20px" }} /> </button>)}
                 isOpen={showCarousel}
                 onPrev={gotoPrevious}
                 onNext={gotoNext}
                 images={carouselImages}
                 currentIndex={currentImageIndex}
-                renderHeader={() => (<button style={{ backgroundColor: '#F3F1ED', color: 'black', fontSize: '2rem', fontWeight: 'bold', width: '20%', alignSelf: 'end', border: 'none', paddingTop: "15px" }} onClick={() => setShowCarousel(false)}> x </button>)}
+                renderHeader={() => (<button style={{ backgroundColor: '#F3F1ED', color: 'black', fontSize: '2.5rem', fontWeight: 'bold', width: '10%', alignSelf: 'end', border: 'none', paddingTop: "15px" }} onClick={() => setShowCarousel(false)}> x </button>)}
                 style={{ background: '#F3F1ED' }}
             />
               )
