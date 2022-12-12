@@ -17,6 +17,7 @@ public class UserService {
     private UserRepository userRepository;
 
     public User getUserByNameAndPassword(String email, String password) throws ResourceNotFoundException, BadRequestException {
+        //llamar a la otra
         User user = userRepository.findByEmail(email);
 
         if (user == null) {
@@ -25,6 +26,16 @@ public class UserService {
 
         if (!PasswordEncoder.MatchPassword(password, user.getPassword())) {
             throw new BadRequestException("Password incorrecto");
+        }
+
+        return user;
+    }
+
+    public User getUserByEmail(String email) throws ResourceNotFoundException {
+        User user = userRepository.findByEmail(email);
+
+        if (user == null) {
+            throw new ResourceNotFoundException("No existe el usuario con email: "+ email);
         }
 
         return user;

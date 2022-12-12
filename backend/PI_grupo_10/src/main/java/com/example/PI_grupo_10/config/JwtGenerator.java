@@ -34,6 +34,7 @@ public class JwtGenerator {
 
         return "Bearer " + token;
     }
+
     public String getUserLogged(String token){
         // Obtenga la clave secreta
         String secretKey = "mySecretKey";
