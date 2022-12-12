@@ -59,19 +59,30 @@ public class ProductService {
 
     //------------------------------------------------------------------
 
-    public ProductDto obtenerProduct(int id) {
+    public ProductDto buscar(int id) throws ResourceNotFoundException {
         var product = this.productRepository.findById(id);
 
-        if (!product.isPresent())
-            return null;
+        if (!product.isPresent()){
+            throw new ResourceNotFoundException("No existe el product con el Id: " + id);
+        }
 
         return new ProductDto(product.get());
     }
 
 
     //------------------------------------------------------------------
-
-    public Product buscar(Integer id) {
+/*
+    public Product buscarBis(Integer id) {
+        Product product = null;
+        Optional<Product> optionalProduct = productRepository.findById(id);
+        if (optionalProduct.isPresent()) {
+            product = optionalProduct.get();
+            log.info("Se encontró el producto con el id: " + id);
+        }
+        return product;
+    }
+*/
+    public Product busca(Integer id) {
         Product product = null;
         Optional<Product> optionalProduct = productRepository.findById(id);
         if (optionalProduct.isPresent()) {
@@ -163,6 +174,7 @@ public class ProductService {
 
         }
 */
+    //@Transactional
     public Product agregar(HttpServletRequest request, NewProduct newProduct) throws ResourceNotFoundException, IOException {
 //////crear nuevo producto//////////////////////////////////////////////////////////////////
         Product createdProduct = new Product();
