@@ -195,8 +195,7 @@
         display: flex;
         flex-direction: row;
         border-radius: 8px 8px 8px 8px;
-        transform: translateY(-0.2em);
-        transition: transform 0.1s ease;
+       
     
     }
     .img {
@@ -205,8 +204,6 @@
     .constainer_description{
          width: 350px;   
     }   
-    .card_recommendation:hover {
-       transform: translateY(-0.33em);
-      }
+   
     
 }

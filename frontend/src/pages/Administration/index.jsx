@@ -413,22 +413,6 @@ function Administration() {
     setProductImages(images);
   }
 
-  const blobToBase64 = (blob) => {
-    return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(blob);
-    reader.onloadend = () => {
-        resolve(reader.result.split(',')[1]);
-    };
-    });
-  };
-
-    const base64Images = productImages.map(async img => {
-        return {
-            base: await blobToBase64(img.file)
-        }}
-    );
-
     return (
 
         <>
@@ -475,10 +459,9 @@ function Administration() {
                                             ) :  <div className="error-input-register"></div>}
                                         </div>
                                         <div className="product-form-inputs-sub-container">
-                                            <label className="product-form-label">
+                                            <label htmlFor="category" className="product-form-label">
                                                 Categoría
                                             </label>
-                                            <Field as='select' name="category" componente={
                                             <Select
                                                 name="category"
                                                 className="product-input"
@@ -487,7 +470,8 @@ function Administration() {
                                                 isSearchable={true}
                                                 onChange={(category) => { validateCategory(category.value) }}
                                                 options={listCategories}
-                                            />}/>
+                                                validate={validateCategory}
+                                            />
                                                 {errors.category && touched.category ? (
                                               <div className="error-input-register">{errors.category}</div>
                                             ) :  <div className="error-input-register"></div>}

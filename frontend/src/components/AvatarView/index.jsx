@@ -2,11 +2,11 @@ import React from 'react';
 import { useMediaQuery } from 'react-responsive';
 import "./AvatarView.css";
 import Swal from 'sweetalert2';
-import { Link, useNavigate } from 'react-router-dom';
+import {useNavigate } from 'react-router-dom';
 
 function AvatarView({userName}){
   const letterToShowInDefaultPicture = userName?.charAt(0).toUpperCase();
-  const isMobile = useMediaQuery({ query: '(max-width: 700px)' });
+  const isMobile = useMediaQuery({ query: '(max-width: 761px)' });
   let navigate = useNavigate();
   
   function closeSession(){
