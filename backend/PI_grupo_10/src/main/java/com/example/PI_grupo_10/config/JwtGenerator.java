@@ -1,11 +1,9 @@
 package com.example.PI_grupo_10.config;
 
-import com.example.PI_grupo_10.exceptions.ResourceNotFoundException;
-import com.example.PI_grupo_10.service.UserService;
+import com.example.PI_grupo_10.model.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.stereotype.Service;
@@ -16,19 +14,17 @@ import java.util.stream.Collectors;
 @Service
 public class JwtGenerator {
 
-    @Autowired
-    private UserService userService;
-
-    public String generateToken(String email) throws ResourceNotFoundException {
+    public String generateToken(User user) {
         String secretKey = "mySecretKey";
 
         List<GrantedAuthority> grantedAuthorities = AuthorityUtils
-                .commaSeparatedStringToAuthorityList(String.valueOf(userService.getUserByEmail(email).getRole()));
+                .commaSeparatedStringToAuthorityList(user.getRole().name());
+
 
         String token = Jwts
                 .builder()
-                .setId("digitalBooking")
-                .setSubject(email)
+                .setId(Integer.toString(user.getId()) + "-" + System.currentTimeMillis())
+                .setSubject(user.getEmail())
                 .claim("authorities",
                         grantedAuthorities.stream()
                                 .map(GrantedAuthority::getAuthority)

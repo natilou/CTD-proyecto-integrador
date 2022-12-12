@@ -1,6 +1,5 @@
 package com.example.PI_grupo_10;
 
-import com.example.PI_grupo_10.model.Role;
 import com.example.PI_grupo_10.security.JWTAuthorizationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -30,10 +29,7 @@ import java.util.Arrays;
 
 @SpringBootApplication
 public class PiGrupo10Application {
-/*
-	@Autowired
-	private JWTAuthorizationFilter jwtAuthorizationFilter;
-*/
+
 	@Bean
 	public WebMvcConfigurer corsConfigurer() {
 		return new WebMvcConfigurer() {
@@ -57,9 +53,9 @@ public class PiGrupo10Application {
 			http.csrf().disable()
 					.addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
 					.authorizeRequests()
-					//.antMatchers("/bookings").authenticated()
 					.antMatchers(HttpMethod.POST, "/bookings").hasRole("USER")
 					.antMatchers(HttpMethod.GET, "/bookings").hasRole("USER")
+					.antMatchers(HttpMethod.POST, "/products").hasRole("ADMIN")
 					.antMatchers("/**").permitAll();
 		}
 	}
@@ -75,8 +71,6 @@ public class PiGrupo10Application {
 		cors.registerCorsConfiguration("/**", config);
 		return cors;
 	}
-
-
 
 	@Bean
 	public FilterRegistrationBean<CorsFilter> corsFilter() {
