@@ -145,13 +145,13 @@ function Home() {
       setLoadingFilterData(false)
     }
   }
-
+console.log(products)
   return (
     <>
       {
         isLoadingData
           ? (
-            <div style={{ width: '90%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', alignContent: 'center' }} >
+            <div style={{ width: '90%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', alignContent: 'center',marginTop:'20%', fontSize:"100px" }} >
               <span className="loading-spa">Cargando...</span>
             </div >)
           : (

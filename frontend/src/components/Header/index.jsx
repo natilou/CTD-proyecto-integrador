@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Header.css";
 import logo1N from "../../assets/images/logo1N.png";
 import { Link } from "react-router-dom";
@@ -7,15 +7,24 @@ import menuIcon from '../../assets/svgs/menuIcon.svg';
 import Menu from '../Menu'
 import AvatarView from '../AvatarView'
 
-function Header({ showLogout, showLogin, showLine }) {
+function Header({ showLogout, showLogin, showLine}) {
     const [showMenu, setShowMenu] = useState(false);
     const isMobile = useMediaQuery({ query: '(max-width: 761px)' });
     const user = JSON.parse(localStorage.getItem("user"));
-
+    const [userState, setUserState] = useState(null);
+   
     function toggleShowMenu() {
         setShowMenu(!showMenu);
     }
-
+    useEffect(() => {
+        if(user!=null){
+      if(user.role==="ROLE_USER"){
+        setUserState(true)
+      }else{
+             setUserState(false)
+      }}
+    }, [])
+    
     return (
         <header className="header" data-testid="header-container">
             <div className="container_logo" data-testid="header-container-logo">
@@ -37,8 +46,17 @@ function Header({ showLogout, showLogin, showLine }) {
                         {
                             user ? (
                                 <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'space-evenly', alignItems: 'center'}}>
-                                    <Link to="/admin" style={{ marginRight: 30 }}><button className="btn_header">Administración</button></Link>
-                                    <AvatarView userName={`${user.name} ${user.lastName}`} />
+                                    <div className='link_user_reservation '>
+                                    {
+                                        userState && (
+                                            <Link to="/reserva/booking"><p className='p_reservation'>Reservas</p></Link>)
+                                    }
+                                    {
+                                        !userState && (
+                                            <Link to="/admin"><p className='p_reservation'>Administración</p></Link>)
+                                    }
+                                    </div>
+                                    <AvatarView userName={user.name} />
                                 </div>
                             ) : (
                                 <>
