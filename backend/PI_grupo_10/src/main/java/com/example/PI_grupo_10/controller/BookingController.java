@@ -2,8 +2,10 @@ package com.example.PI_grupo_10.controller;
 
 import com.example.PI_grupo_10.config.JwtGenerator;
 import com.example.PI_grupo_10.exceptions.ResourceNotFoundException;
+import com.example.PI_grupo_10.model.User;
 import com.example.PI_grupo_10.model.dto.BookingDto;
 import com.example.PI_grupo_10.service.BookingService;
+import com.example.PI_grupo_10.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,7 +33,7 @@ public class BookingController
 
         return ResponseEntity.ok(bookingGuardado);
     }
-
+/*
     @GetMapping("/{id}")
     public ResponseEntity ObtenerReserva(HttpServletRequest request, @PathVariable int id){
         var rawToken = request.getHeader("Authorization");
@@ -40,12 +42,33 @@ public class BookingController
         var email = jwtGenerator.getUserLogged(jwtToken);
         var booking = this.bookingService.obtenerReserva(id);
 
+
         if (booking == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Reserva no encontrada");
         }
         return ResponseEntity.ok(booking);
     }
 
+ */
+//////////////OBTENER RESERVAS CORRESPONDIENTES AL USUARIO LOGUEADO///////////////////////
+    @GetMapping
+    public ResponseEntity obtenerReservasDelUserLogueado(HttpServletRequest request) throws ResourceNotFoundException {
+        var rawToken = request.getHeader("Authorization");
+        var jwtToken = rawToken.split(" ")[1];
+        var jwtGenerator = new JwtGenerator();
+        var email = jwtGenerator.getUserLogged(jwtToken);
+
+        User user = bookingService.findUserByEmail(email);
+
+        var booking = this.bookingService.findByUserId(user.getId());
+
+        if (booking == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No hay reservas del usuario: " + email);
+        }
+        return ResponseEntity.ok(booking);
+    }
+
+/////////////ENDPOINT DE PRUEBA///////////////////
     @GetMapping("/users/{id}")
     public ResponseEntity findByUserId(@PathVariable int id) throws ResourceNotFoundException {
         var booking = this.bookingService.findByUserId(id);
@@ -56,6 +79,7 @@ public class BookingController
         return ResponseEntity.ok(booking);
     }
 
+    //////////////SÓLO SI PERTENECE AL USUARIO LOGUEADO////////////////////////////////////
     @DeleteMapping("/{id}")
     public ResponseEntity<String> eliminarReserva(@PathVariable Integer id) throws ResourceNotFoundException {
         bookingService.eliminarReserva(id);
