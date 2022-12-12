@@ -44,11 +44,11 @@ public class BookingService {
             return null;
         return new BookingDto(booking.get());
     }
-
+/*NO VA MAS///////////////////////////
     public User findUserByEmail(String email) throws ResourceNotFoundException {
         return userService.getUserByEmail(email);
     }
-
+*/
     public List<BookingDto> findByUserId(int userId) throws ResourceNotFoundException {
         if (!_userRepository.existsById(userId)){
             throw new ResourceNotFoundException("Not found User with id = " + userId);
