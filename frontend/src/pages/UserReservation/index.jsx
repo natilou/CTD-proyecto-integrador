@@ -1,18 +1,22 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import BookingUser from '../../components/BookingUser'
+import { getRandomGif } from '../../components/FilterResults/utils'
 import Footer from '../../components/Footer'
 import Header from '../../components/Header'
 import "./UserReservation.css"
 
+
 function UserReservation() {
+  let gif = getRandomGif();
   const [isLoading, setIsLoading] = useState(true);
   const [product, setProduct] = useState();
   const user = JSON.parse(localStorage.getItem("user"));
- 
+
   useEffect(() => {
     getUserBooking(user.id)
   }, [])
-  
+
 
   async function getUserBooking(id) {
     setIsLoading(true);
@@ -29,7 +33,6 @@ function UserReservation() {
       setIsLoading(false);
     }
   }
-  console.log(product)
   return (
     <>
       {
@@ -50,21 +53,24 @@ function UserReservation() {
                   <img className="back" src="https://res.cloudinary.com/dbdrkxooj/image/upload/v1667606967/DH-PI/arrows-icon-left-removebg-preview_idlpxq.png" alt="Logo" data-testid="product-img" />
                 </Link>
               </div>
-
             </div>
-            
-            <Link to="/">
-              <div className="super-container-r">
-                <section className="successful-booking-container-r" data-testid="successful-container">
-                  <div className="message-container-r" data-testid="message-container">
-                    <img src={"https://cdn-icons-png.flaticon.com/512/4812/4812869.png"} alt="check" className="check-icon" data-testid="check-icon" />
-                    <h2 className="message-title" data-testid="message-title">¡UP'S !</h2>
-                    <h3 className="second-message-title-r" data-testid="second-message-title">Aún no has efectuado ninguna reserva</h3>
+            {
+              product &&
+              (<div>
+                <BookingUser data={product} />
+              </div>)
+            }
+            {
+              !product &&
+              (
+                <Link to="/">
+                  <div className="not-found">
+                    <img className="gif-not-found" src={gif} alt="no hay productos disponibles" />
+                    <p className="not-found-message_">Lo sentimos, no hay productos disponibles.</p>
                     <button className="btn-successful-r" data-testid="btn-successful">Buscar tu mejor oferta</button>
                   </div>
-                </section>
-              </div>
-            </Link>
+                </Link>)
+            }
             <Footer />
           </>
           )

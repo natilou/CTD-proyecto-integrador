@@ -137,7 +137,7 @@ function Register() {
 
   return (
       <div>
-        <Header showLogout={showlogin} />
+        <Header showLogin={showlogin} />
           <section className="container-register" data-testid="register-container">
             <h2 className="title-register" data-testid="register-title">Crear una cuenta</h2>
               <Formik

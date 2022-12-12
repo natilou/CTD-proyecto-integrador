@@ -73,7 +73,7 @@
 }
 
 
-@media (max-width: 800px) { 
+@media (max-width: 762px) { 
     .main_container{
         flex-direction: column;
         justify-content: flex-end;
