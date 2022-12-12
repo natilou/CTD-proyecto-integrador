@@ -28,11 +28,5 @@ public class ProductDto {
         this.description = product.getDescription();
         this.coverImageUrl = product.getCoverImageUrl();
     }
-/*
-    public ProductDto(Product product) {
-        this.id = product.getId();
-        this.title = product.getTitle();
-    }
 
- */
 }

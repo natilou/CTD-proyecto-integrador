@@ -3,6 +3,7 @@ package com.example.PI_grupo_10.controller;
 import com.example.PI_grupo_10.exceptions.BadRequestException;
 import com.example.PI_grupo_10.exceptions.ResourceNotFoundException;
 import com.example.PI_grupo_10.model.*;
+import com.example.PI_grupo_10.model.dto.ProductDto;
 import com.example.PI_grupo_10.repository.FeatureRepository;
 import com.example.PI_grupo_10.service.*;
 import lombok.extern.slf4j.Slf4j;
@@ -75,10 +76,11 @@ public class ProductController {
     }
 //va este????
     @GetMapping("/{id}")
-    public ResponseEntity<Product> buscar(@PathVariable Integer id) throws ResourceNotFoundException {
+    public ResponseEntity<ProductDto> buscar(@PathVariable Integer id) throws ResourceNotFoundException {
         return ResponseEntity.ok(productService.buscar(id));
     }
 //o este????
+    /*
     @GetMapping("/prueba/{id}")
     public ResponseEntity ObtenerProducto(@PathVariable int id) throws ResourceNotFoundException {
         var product = this.productService.obtenerProduct(id);
@@ -89,7 +91,7 @@ public class ProductController {
 
         return ResponseEntity.ok(product);
     }
-
+*/
     @PostMapping
     public ResponseEntity<Product> agregar(HttpServletRequest request, @RequestBody NewProduct newProduct) throws ResourceNotFoundException, IOException {
         return new ResponseEntity<>(productService.agregar(request, newProduct), HttpStatus.CREATED);
@@ -193,11 +195,12 @@ public class ProductController {
     }
 
     ////ENDPOINT DE PRUEBA////////////////////////////////////
+    /*
     @PostMapping("/uploadunaimagenabd")
-    public Image handleUploadFormImagenBd(@RequestBody Image image) {
+    public Image handleUploadFormImagenBd(@RequestBody Image image) throws ResourceNotFoundException {
         image.setProduct(productService.buscar(17));
         return imageService.agregar(image);
-    }
+    }*/
 
     ////ENDPOINT DE PRUEBA////////////////////////////////////
     @PostMapping("/uploaduna")
