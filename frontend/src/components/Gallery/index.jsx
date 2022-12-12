@@ -20,7 +20,6 @@ const Gallery = (props) => {
 
   function goToNext() {
     const newIndex = currentImageIndex + 1;
-    console.log({newIndex});
     if(newIndex !== carouselImages.length){
       setCurrentIndex(newIndex);
     }
