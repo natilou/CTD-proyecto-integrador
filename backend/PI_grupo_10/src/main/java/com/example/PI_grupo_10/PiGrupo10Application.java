@@ -49,12 +49,6 @@ public class PiGrupo10Application {
 					.addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
 					.authorizeRequests()
 					.antMatchers("/bookings").authenticated()
-					/////////////////
-					/*
-					.antMatchers(HttpMethod.POST, "/bookings").hasRole("ROLE_USER")
-					.antMatchers(HttpMethod.GET, "/bookings/users/{id}").hasRole("ROLE_USER")
-					*/
-					////////////////////
 					.antMatchers("/**").permitAll();
 		}
 	}

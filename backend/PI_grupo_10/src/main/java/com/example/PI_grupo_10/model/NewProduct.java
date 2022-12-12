@@ -36,5 +36,5 @@ public class NewProduct {
 
     private List<Image> images;
 
-    private int userId;
+    //private int userId;
 }

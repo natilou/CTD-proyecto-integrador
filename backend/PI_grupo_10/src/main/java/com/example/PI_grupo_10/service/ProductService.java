@@ -8,7 +8,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.*;
 
@@ -16,6 +18,9 @@ import java.util.*;
 @Service
 
 public class ProductService {
+
+    @Autowired
+    private AuthService authService;
 
     @Autowired
     private CategoryService categoryService;
@@ -86,48 +91,11 @@ public class ProductService {
         return productRepository.findTop8();
     }
 
-/*
-    public Product agregar(NewProduct newProduct) throws ResourceNotFoundException {
-//////crear nuevo producto//////////////////////////////////////////////////////////////////
-        Product createdProduct = new Product();
-
-        //temporalmente hasta obtenerlo del token
-        createdProduct.setUser(userRepository.findById(newProduct.getUserId()).get());
-
-        createdProduct.setTitle(newProduct.getTitle());
-
-        Category category = categoryService.buscar(newProduct.getCategoryId());
-        createdProduct.setCategory(category);
-
-        createdProduct.setAddress(newProduct.getAddress());
-
-        City city = cityService.buscar(newProduct.getCityId());
-        createdProduct.setCity(city);
-
-        createdProduct.setDescription(newProduct.getDescription());
-
-        createdProduct.setCoverImageUrl(newProduct.getCoverImageUrl());
-
-        log.info("Se crea el producto: " + createdProduct);
-
-        createdProduct = productRepository.save(createdProduct);
-
-//////agregar las features y product_id a la tabla intermedia ProductFeatures/////////////////
-        this.agregarFeaturesAProduct(createdProduct.getId(), newProduct.getFeaturesId());
-
-//////////////agregar las políticas a la tabla Policies///////////////
-        this.agregarPolicies(newProduct.getPolicies(), createdProduct);
-
-//////////////////////subir cada imagen a la tabla Images///////////////////
-        this.agregarImages(newProduct.getImages(), createdProduct);
-
-        return createdProduct;
-    }
-*/
     //@Transactional//(rollbackFor = { ResourceNotFoundException.class })
-    public Product agregar(NewProduct newProduct) throws ResourceNotFoundException, IOException {
+ /*   public Product agregar(NewProduct newProduct) throws ResourceNotFoundException, IOException {
 //////crear nuevo producto//////////////////////////////////////////////////////////////////
         Product createdProduct = new Product();
+        /*
         try {
             //temporalmente hasta obtenerlo del token
             createdProduct.setUser(userRepository.findById(newProduct.getUserId()).get());
@@ -140,10 +108,14 @@ public class ProductService {
                     newProduct.getImages()) {
                 imagesABorrar.add(imageABorrar.getUrl());
             }
+            //////////////////////////////////////////////////////////////////////////////////////
+
             imageService.eliminarImagenesDeBucketS3(imagesABorrar);
             //////////////////////////////////////////////////////////////////
             throw new ResourceNotFoundException("No existe el usuario con Id:" + newProduct.getUserId());
         }
+
+         /*
             createdProduct.setTitle(newProduct.getTitle());
 
         try {
@@ -170,9 +142,9 @@ public class ProductService {
             log.info("Se crea el producto: " + createdProduct);
 
             createdProduct = productRepository.save(createdProduct);
-
+*/
 //////agregar las features y product_id a la tabla intermedia ProductFeatures/////////////////
-        try {
+/*        try {
             this.agregarFeaturesAProduct(createdProduct.getId(), newProduct.getFeaturesId());
         }catch (Exception ex){
             //borrar imágenes del bucket S3//
@@ -190,6 +162,60 @@ public class ProductService {
             return createdProduct;
 
         }
+*/
+    public Product agregar(HttpServletRequest request, NewProduct newProduct) throws ResourceNotFoundException, IOException {
+//////crear nuevo producto//////////////////////////////////////////////////////////////////
+        Product createdProduct = new Product();
+
+        User user = authService.findUserByToken(request);
+        createdProduct.setUser(userRepository.findById(user.getId()).get());
+
+        createdProduct.setTitle(newProduct.getTitle());
+
+        try {
+            Category category = categoryService.buscar(newProduct.getCategoryId());
+            createdProduct.setCategory(category);
+        }catch (Exception ex) {
+            //borrar imágenes del bucket S3//
+            throw new ResourceNotFoundException("No existe la category con Id: " + newProduct.getCategoryId());
+        }
+
+        createdProduct.setAddress(newProduct.getAddress());
+
+        try {
+            City city = cityService.buscar(newProduct.getCityId());
+            createdProduct.setCity(city);
+        }catch (Exception ex){
+            //borrar imágenes del bucket S3//
+            throw new ResourceNotFoundException("No existe la city con Id: " + newProduct.getCityId());
+        }
+        createdProduct.setDescription(newProduct.getDescription());
+
+        createdProduct.setCoverImageUrl(newProduct.getCoverImageUrl());
+
+        log.info("Se crea el producto: " + createdProduct);
+
+        createdProduct = productRepository.save(createdProduct);
+
+//////agregar las features y product_id a la tabla intermedia ProductFeatures/////////////////
+        try {
+            this.agregarFeaturesAProduct(createdProduct.getId(), newProduct.getFeaturesId());
+        }catch (Exception ex){
+            //borrar imágenes del bucket S3//
+            throw new ResourceNotFoundException("Revisar featuresId - " + ex.getMessage());
+        }
+//////////////agregar las políticas a la tabla Policies///////////////
+        try {
+            this.agregarPolicies(newProduct.getPolicies(), createdProduct);
+        }catch (Exception ex){
+            throw new ResourceNotFoundException("Revisar policies - " + ex.getMessage());
+        }
+//////////////////////subir cada imagen a la tabla Images///////////////////
+        this.agregarImages(newProduct.getImages(), createdProduct);
+
+        return createdProduct;
+
+    }
 
     public void agregarFeaturesAProduct(Integer productId, List<Integer> featuresId) throws ResourceNotFoundException {
         productFeatureService.agregarFeaturesAProduct(productId, featuresId);

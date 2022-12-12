@@ -12,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
+
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -89,13 +91,8 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<Product> agregar(@RequestBody NewProduct newProduct) throws ResourceNotFoundException, IOException {
-        return new ResponseEntity<>(productService.agregar(newProduct), HttpStatus.CREATED);
-    }
-
-    @PostMapping("/agregarBis")
-    public ResponseEntity<Product> agregarBis(@RequestBody NewProduct newProduct) throws ResourceNotFoundException, IOException {
-        return new ResponseEntity<>(productService.agregar(newProduct), HttpStatus.CREATED);
+    public ResponseEntity<Product> agregar(HttpServletRequest request, @RequestBody NewProduct newProduct) throws ResourceNotFoundException, IOException {
+        return new ResponseEntity<>(productService.agregar(request, newProduct), HttpStatus.CREATED);
     }
 
 //*********************************************************************************************
@@ -146,9 +143,7 @@ public class ProductController {
 
         if(cityId==null && initialDate == null && endDate == null){
             log.error("No se recibió ningún parámetro: initialDate, endDate, cityId");
-            //throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "No se recibió ningún parámetro: initialDate, endDate, cityId");
             throw new BadRequestException("No se recibió ningún parámetro: initialDate, endDate, cityId");
-            //throw new ResourceNotFoundException("No se recibió ningún parámetro: initialDate, endDate, cityId");
         }
         else if(cityId != null && initialDate == null && endDate == null)
         {
