@@ -180,8 +180,8 @@ public class ProductService {
         Product createdProduct = new Product();
 
         User user = authService.findUserByToken(request);
-        createdProduct.setUser(userRepository.findById(user.getId()).get());
-
+        createdProduct.setUser(user);
+        
         createdProduct.setTitle(newProduct.getTitle());
 
         try {
