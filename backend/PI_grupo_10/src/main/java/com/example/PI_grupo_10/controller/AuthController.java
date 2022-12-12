@@ -36,7 +36,7 @@ public class AuthController {
 
             AuthDto auth = new AuthDto();
             auth.email = userData.getEmail();
-            auth.token = (jwtGenerator.generateToken(email));
+            auth.token = (jwtGenerator.generateToken(userData));
             auth.name = userData.getName();
             auth.lastName = userData.getLastName();
             auth.role = userData.getRole();
