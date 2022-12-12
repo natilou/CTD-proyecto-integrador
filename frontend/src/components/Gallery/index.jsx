@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./Gallery.css";
 import Lightbox from 'react-spring-lightbox';
+import nextIcon from "../../assets/images/icons/next.png";
+import prevIcon from "../../assets/images/icons/prev.png";
 
 
 const Gallery = (props) => {
@@ -9,12 +11,23 @@ const Gallery = (props) => {
   const [isLoading, setIsLoading] = useState(true);
   const [currentImageIndex, setCurrentIndex] = useState(0);
 
-  const gotoPrevious = () =>
-    currentImageIndex > 0 && setCurrentIndex(currentImageIndex - 1);
+  function goToPrevious() {
+    const newIndex = currentImageIndex - 1;
+    if (currentImageIndex > 0){
+      setCurrentIndex(newIndex);
+    }
+  }
 
-  const gotoNext = () =>
-    currentImageIndex + 1 < carouselImages.length &&
-    setCurrentIndex(currentImageIndex + 1);
+  function goToNext() {
+    const newIndex = currentImageIndex + 1;
+    console.log({newIndex});
+    if(newIndex !== carouselImages.length){
+      setCurrentIndex(newIndex);
+    }
+    if(newIndex === carouselImages.length) {
+      setCurrentIndex(0);
+    }
+  }
 
   useEffect(() => {
     getCarouselImages();
@@ -48,12 +61,14 @@ const Gallery = (props) => {
                 </div>
               ): (
                 <Lightbox
+                renderNextButton={() => (<button style={{ backgroundColor: 'transparent', border: 'none', zIndex: 5}} onClick={() => goToNext()}><img alt="next" src={nextIcon} style={{ width: "30px", height: "30px", marginRight: "10px" }} /> </button>)}
+                renderPrevButton={() => (<button style={{ backgroundColor: 'transparent', border: 'none', zIndex: 5}} onClick={() => goToPrevious()}><img alt="previous" src={prevIcon} style={{ width: "30px", height: "30px", marginLeft: "10px" }} /> </button>)}
                 isOpen={showCarousel}
-                onPrev={gotoPrevious}
-                onNext={gotoNext}
+                onPrev={goToPrevious}
+                onNext={goToNext}
                 images={carouselImages}
                 currentIndex={currentImageIndex}
-                renderHeader={() => (<button style={{ backgroundColor: '#F3F1ED', color: 'black', fontSize: '2rem', fontWeight: 'bold', width: '20%', alignSelf: 'end', border: 'none', paddingTop: "15px" }} onClick={() => setShowCarousel(false)}> x </button>)}
+                renderHeader={() => (<button style={{ backgroundColor: '#F3F1ED', color: 'black', fontSize: '2.5rem', fontWeight: 'bold', width: '10%', alignSelf: 'end', border: 'none', paddingTop: "15px" }} onClick={() => setShowCarousel(false)}> x </button>)}
                 style={{ background: '#F3F1ED' }}
             />
               )
