@@ -4,6 +4,7 @@ import com.example.PI_grupo_10.config.JwtGenerator;
 import com.example.PI_grupo_10.exceptions.ResourceNotFoundException;
 import com.example.PI_grupo_10.model.User;
 import com.example.PI_grupo_10.model.dto.BookingDto;
+import com.example.PI_grupo_10.service.AuthService;
 import com.example.PI_grupo_10.service.BookingService;
 import com.example.PI_grupo_10.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +24,9 @@ public class BookingController
 {
     @Autowired
     private BookingService bookingService;
+
+    @Autowired
+    private AuthService authService;
 
     @PostMapping
     public ResponseEntity<BookingDto> crearReserva(@RequestBody BookingDto booking){
@@ -53,6 +57,8 @@ public class BookingController
 //////////////OBTENER RESERVAS CORRESPONDIENTES AL USUARIO LOGUEADO///////////////////////
     @GetMapping
     public ResponseEntity obtenerReservasDelUserLogueado(HttpServletRequest request) throws ResourceNotFoundException {
+        User user = authService.findUserByToken(request);
+        /*
         var rawToken = request.getHeader("Authorization");
         var jwtToken = rawToken.split(" ")[1];
         var jwtGenerator = new JwtGenerator();
@@ -60,15 +66,17 @@ public class BookingController
 
         User user = bookingService.findUserByEmail(email);
 
+         */
+
         var booking = this.bookingService.findByUserId(user.getId());
 
         if (booking == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No hay reservas del usuario: " + email);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No hay reservas del usuario: " + user.getEmail());
         }
         return ResponseEntity.ok(booking);
     }
 
-/////////////ENDPOINT DE PRUEBA///////////////////
+/////////////ENDPOINT DE PRUEBA///////////////////NO VA MAS/////////////////////
     @GetMapping("/users/{id}")
     public ResponseEntity findByUserId(@PathVariable int id) throws ResourceNotFoundException {
         var booking = this.bookingService.findByUserId(id);
