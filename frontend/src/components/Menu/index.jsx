@@ -93,7 +93,7 @@ function Menu({ close, showLogin, showLogout, showLine, user }) {
 
                             {
                                 showLogin && (
-                                    <Link onClick={() => close()} to="/login" className="button">Inciar sesion</Link>
+                                    <Link onClick={() => close()} to="/login" className="button">Iniciar sesión</Link>
                                 )
 
                             }
