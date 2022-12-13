@@ -1,7 +1,7 @@
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import "./LogIn.css"
-import { Link, useNavigate } from "react-router-dom";
+import { json, Link, useNavigate } from "react-router-dom";
 import { validateEmailRegex } from './utils'
 import Swal from 'sweetalert2';
 import { Formik, Field } from 'formik';
@@ -45,30 +45,36 @@ function LogIn() {
         icon: 'error',
         text: 'Debes completar todos los campos correctamente para iniciar sesión',
       })
-    }
-    fetch(`http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/auth/?email=${email}&password=${password}`, {
-      method: "POST", 
-      headers: {
-        "content-type": "application/json",
-        "accept": "application/json"
+    } else {
+      let payload = {
+        email: email,
+        password: password
       }
-    })
-    .then(response => {
-      if(!response.ok){
-        Swal.fire({
-          icon: 'error',
-          text: 'Credenciales inválidas. Por favor intenta nuevamente.',
-        })
-      } else {
-        return response.json()
-          .then(response => {
-            localStorage.setItem("user", JSON.stringify({id: response.id, name: response.name, lastName: response.lastName, email: response.email, role: response.role})); 
-            localStorage.setItem("jwt", JSON.stringify({token: response.token})); 
-            navigate("/")      
-        })
-      }
-    }).catch(error => console.log(error))
-  }
+      
+      fetch(`http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/auth`, {
+        method: "POST", 
+        headers: {
+          "content-type": "application/json",
+          "accept": "application/json"
+        },
+        body: JSON.stringify(payload)
+      })
+      .then(response => {
+        if(!response.ok){
+          Swal.fire({
+            icon: 'error',
+            text: 'Credenciales inválidas. Por favor intenta nuevamente.',
+          })
+        } else {
+          return response.json()
+            .then(response => {
+              localStorage.setItem("user", JSON.stringify({id: response.id, name: response.name, lastName: response.lastName, email: response.email, role: response.role})); 
+              localStorage.setItem("jwt", JSON.stringify({token: response.token})); 
+              navigate("/")      
+          })
+        }
+      }).catch(error => console.log(error))
+  }}
 
   return (
     <div>
