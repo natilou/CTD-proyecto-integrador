@@ -73,6 +73,7 @@ function Menu({ close, showLogin, showLogout, showLine, user }) {
                                     <>
                                         <Link onClick={() => close()} to="/admin" className="button" style={{ marginRight: 30 }}>Administración</Link>
                                         <img src={line} alt="line" className="line" />
+                                        <Link onClick={() => close()} to="/admin/product" className="button" style={{ marginRight: 30 }}>Mis Publicaciones</Link>
                                     </>
                                 )
                             }
