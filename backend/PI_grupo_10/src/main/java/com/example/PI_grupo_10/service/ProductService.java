@@ -2,6 +2,7 @@ package com.example.PI_grupo_10.service;
 
 import com.example.PI_grupo_10.exceptions.ResourceNotFoundException;
 import com.example.PI_grupo_10.model.*;
+import com.example.PI_grupo_10.model.dto.BookingDto;
 import com.example.PI_grupo_10.model.dto.ProductDto;
 import com.example.PI_grupo_10.repository.*;
 import lombok.extern.slf4j.Slf4j;
@@ -256,6 +257,30 @@ public class ProductService {
 
     }
 
+    public List<Product> findByUserId(int userId) throws ResourceNotFoundException {
+        if (!userRepository.existsById(userId)){
+            throw new ResourceNotFoundException("Not found User with id = " + userId);
+        }
+
+        var products = productRepository.findByUserId(userId);
+
+        if (products.isEmpty()) {
+            throw new ResourceNotFoundException("No hay reservas para el user id: " + userId);
+        }
+
+        return products;
+        /*
+        List<BookingDto> bookingDtos = new ArrayList<>();
+
+        for (Booking booking:
+                bookings) {
+            bookingDtos.add(new BookingDto(booking));
+        }
+
+        return bookingDtos;
+
+         */
+    }
 }
 
 
