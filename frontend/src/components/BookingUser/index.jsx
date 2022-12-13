@@ -5,7 +5,9 @@ import "./BookingUser.css";
 
 function BookingUser({ data }){
 
-  function deleteBookingId(id){
+  function deleteBookingId(e){
+    let id = e.target.id
+    console.log(id)
     Swal.fire({
       title: '¿Deseas Eliminar esta reserva?',
       showDenyButton: true,
@@ -13,33 +15,54 @@ function BookingUser({ data }){
       denyButtonText: `No`,
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire('La reserva se Elimino!', '', 'success')
         deleteOperation(id)
-        setTimeout(()=>{
-        window.location.reload(true)
-        }, 900)
       } else if (result.isDenied) {
-        Swal.fire('Las mejores opciones', '', 'success')
+        Swal.fire('La reserva no fue eliminada', '', 'success')
       }
     })
   }
 
-  async function deleteOperation(id) {
-    let result = await fetch(`http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/bookings/${Number(id)}`, {
-      method: "DELETE"
-
-    });console.log(result)
+  function deleteOperation(id) {
+    const jwt =  JSON.parse(localStorage.getItem("jwt"));
+    fetch(`http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/bookings/${Number(id)}`, {
+      method: "DELETE",
+      headers: {
+        "Authorization": `${jwt.token}`,
+        "content-type": "application/json",
+        "accept": "application/json"
+      }
+    }).then(response => {
+      if(!response.ok){
+        Swal.fire({
+          icon: 'error',
+          text: 'Ha ocurrido un problema, por favor intenta nuevamente.',
+        })
+      } else {
+        return response.json()
+        .then(
+          Swal.fire({
+            icon: 'success',
+            text: 'La reserva se eliminó correctamente',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              setTimeout(()=>{
+                window.location.reload()
+                },500) 
+            }}
+          )
+        )}
+    })
   }
-
   return (
     <>
       <section className="container_cards_recommendation">
         {
           data.map((item) => (
+       
             <section className='container_booking_cars' key={item.id}>
               <div className='container_title_booking'>
                 <h2 className='title_booking_cars' >Tu Reserva {item.initialDate} hasta {item.endDate}</h2>
-                <button className='btn_delete_booking' onClick={deleteBookingId}>x</button>
+                <button className='btn_delete_booking' id={item.id} onClick={deleteBookingId}>x</button>
               </div>
               <CardRecommendation dataLodging={item.product} />
             </section>
