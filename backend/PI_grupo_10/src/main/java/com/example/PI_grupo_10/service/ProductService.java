@@ -257,7 +257,7 @@ public class ProductService {
 
     }
 
-    public List<Product> findByUserId(int userId) throws ResourceNotFoundException {
+    public List<ProductDto> findByUserId(int userId) throws ResourceNotFoundException {
         if (!userRepository.existsById(userId)){
             throw new ResourceNotFoundException("Not found User with id = " + userId);
         }
@@ -268,7 +268,16 @@ public class ProductService {
             throw new ResourceNotFoundException("No hay reservas para el user id: " + userId);
         }
 
-        return products;
+
+        //return products;
+        List<ProductDto> productDtos = new ArrayList<>();
+
+        for (Product product:
+                products) {
+            productDtos.add(new ProductDto(product));
+        }
+
+        return productDtos;
         /*
         List<BookingDto> bookingDtos = new ArrayList<>();
 
