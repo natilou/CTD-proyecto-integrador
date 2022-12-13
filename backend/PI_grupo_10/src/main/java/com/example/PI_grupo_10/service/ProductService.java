@@ -2,22 +2,19 @@ package com.example.PI_grupo_10.service;
 
 import com.example.PI_grupo_10.exceptions.ResourceNotFoundException;
 import com.example.PI_grupo_10.model.*;
-import com.example.PI_grupo_10.model.dto.BookingDto;
 import com.example.PI_grupo_10.model.dto.ProductDto;
 import com.example.PI_grupo_10.repository.*;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestBody;
-
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.*;
 
 @Slf4j
 @Service
-
+@AllArgsConstructor
 public class ProductService {
 
     @Autowired
@@ -47,21 +44,8 @@ public class ProductService {
     private ProductRepository productRepository;
     private CityRepository cityRepository;
     private CategoryRepository categoryRepository;
-    private FeatureRepository featureRepository;
     private ProductFeatureRepository productFeatureRepository;
     private UserRepository userRepository;
-
-    //Inyectar la dependencia
-    public ProductService(ProductRepository productRepository, CityRepository cityRepository, CategoryRepository categoryRepository, FeatureRepository featureRepository, ProductFeatureRepository productFeatureRepository, UserRepository userRepository) {
-        this.productRepository = productRepository;
-        this.cityRepository = cityRepository;
-        this.categoryRepository = categoryRepository;
-        this.featureRepository = featureRepository;
-        this.productFeatureRepository = productFeatureRepository;
-        this.userRepository = userRepository;
-    }
-
-    //------------------------------------------------------------------
 
     public ProductDto buscar(int id) throws ResourceNotFoundException {
         var product = this.productRepository.findById(id);
@@ -268,8 +252,6 @@ public class ProductService {
             throw new ResourceNotFoundException("No hay reservas para el user id: " + userId);
         }
 
-
-        //return products;
         List<ProductDto> productDtos = new ArrayList<>();
 
         for (Product product:
@@ -278,17 +260,7 @@ public class ProductService {
         }
 
         return productDtos;
-        /*
-        List<BookingDto> bookingDtos = new ArrayList<>();
 
-        for (Booking booking:
-                bookings) {
-            bookingDtos.add(new BookingDto(booking));
-        }
-
-        return bookingDtos;
-
-         */
     }
 }
 

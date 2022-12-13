@@ -20,6 +20,4 @@ public class UserController {
     public ResponseEntity<User> registrarUsuario(@RequestBody User user) throws BadRequestException {
         return new ResponseEntity<>(userService.agregarUsuario(user), HttpStatus.CREATED);
     }
-
-
 }

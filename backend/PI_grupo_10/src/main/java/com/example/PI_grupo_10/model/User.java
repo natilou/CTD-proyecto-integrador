@@ -3,7 +3,6 @@ package com.example.PI_grupo_10.model;
 import lombok.*;
 import javax.persistence.*;
 
-
 @Getter
 @Setter
 @NoArgsConstructor
@@ -30,5 +29,4 @@ public class User {
         this.password = password;
         this.role = role;
     }
-
 }

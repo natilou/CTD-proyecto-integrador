@@ -4,7 +4,6 @@ import com.example.PI_grupo_10.exceptions.BadRequestException;
 import com.example.PI_grupo_10.exceptions.ResourceNotFoundException;
 import com.example.PI_grupo_10.model.*;
 import com.example.PI_grupo_10.model.dto.ProductDto;
-import com.example.PI_grupo_10.repository.FeatureRepository;
 import com.example.PI_grupo_10.service.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
-
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.text.ParseException;
@@ -38,25 +36,7 @@ public class ProductController {
     private ImageService imageService;
 
     @Autowired
-    private FeatureService featureService;
-
-    @Autowired
-    private CategoryService categoryService;
-
-    @Autowired
-    private CityService cityService;
-
-    @Autowired
-    private FeatureRepository featureRepository;
-
-    @Autowired
     private ProductFeatureService productFeatureService;
-
-    @Autowired
-    private PolicyService policyService;
-
-    @Autowired
-    private TypeService typeService;
 
     @Autowired
     private AuthService authService;
@@ -192,14 +172,6 @@ public class ProductController {
 
         return message;
     }
-
-    ////ENDPOINT DE PRUEBA////////////////////////////////////
-    /*
-    @PostMapping("/uploadunaimagenabd")
-    public Image handleUploadFormImagenBd(@RequestBody Image image) throws ResourceNotFoundException {
-        image.setProduct(productService.buscar(17));
-        return imageService.agregar(image);
-    }*/
 
     ////ENDPOINT DE PRUEBA////////////////////////////////////
     @PostMapping("/uploaduna")

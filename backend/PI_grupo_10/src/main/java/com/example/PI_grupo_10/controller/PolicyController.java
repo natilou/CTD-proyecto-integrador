@@ -2,7 +2,6 @@ package com.example.PI_grupo_10.controller;
 
 import com.example.PI_grupo_10.exceptions.ResourceNotFoundException;
 import com.example.PI_grupo_10.model.Policy;
-import com.example.PI_grupo_10.model.Product;
 import com.example.PI_grupo_10.service.PolicyService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

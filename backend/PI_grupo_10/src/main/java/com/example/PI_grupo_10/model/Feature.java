@@ -1,11 +1,7 @@
 package com.example.PI_grupo_10.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -21,24 +17,6 @@ public class Feature {
     private String name;
     private String pathIcon;
 
-//----------------------------------
-    /*
-    @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            },
-            mappedBy = "features")
-    @JsonIgnore
-    private Set<Product> products = new HashSet<>();
-    */
-    //----------------------------------
-/*
-    @OneToMany(mappedBy = "feature")
-    @JsonManagedReference
-    @JsonIgnore
-    private Set<ProductFeature> productFeatures;
-*/
     public Feature(String name, String pathIcon) {
         this.name = name;
         this.pathIcon = pathIcon;

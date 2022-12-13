@@ -5,12 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-
-@NoArgsConstructor//este quizás tmb
-@AllArgsConstructor// este creo que está de más por la forma en que se construyen los DTOs
+@NoArgsConstructor
+@AllArgsConstructor
 @Data
 public class ProductDto {
+
     public int id;
     public String title;
     public Category category;
@@ -28,5 +27,4 @@ public class ProductDto {
         this.description = product.getDescription();
         this.coverImageUrl = product.getCoverImageUrl();
     }
-
 }
