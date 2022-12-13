@@ -37,36 +37,11 @@ public class BookingController
 
         return ResponseEntity.ok(bookingGuardado);
     }
-/*
-    @GetMapping("/{id}")
-    public ResponseEntity ObtenerReserva(HttpServletRequest request, @PathVariable int id){
-        var rawToken = request.getHeader("Authorization");
-        var jwtToken = rawToken.split(" ")[1];
-        var jwtGenerator = new JwtGenerator();
-        var email = jwtGenerator.getUserLogged(jwtToken);
-        var booking = this.bookingService.obtenerReserva(id);
 
-
-        if (booking == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Reserva no encontrada");
-        }
-        return ResponseEntity.ok(booking);
-    }
-
- */
 //////////////OBTENER RESERVAS CORRESPONDIENTES AL USUARIO LOGUEADO///////////////////////
     @GetMapping
     public ResponseEntity obtenerReservasDelUserLogueado(HttpServletRequest request) throws ResourceNotFoundException {
         User user = authService.findUserByToken(request);
-        /*
-        var rawToken = request.getHeader("Authorization");
-        var jwtToken = rawToken.split(" ")[1];
-        var jwtGenerator = new JwtGenerator();
-        var email = jwtGenerator.getUserLogged(jwtToken);
-
-        User user = bookingService.findUserByEmail(email);
-
-         */
 
         var booking = this.bookingService.findByUserId(user.getId());
 
@@ -88,6 +63,7 @@ public class BookingController
     }
 
     //////////////SÓLO SI PERTENECE AL USUARIO LOGUEADO////////////////////////////////////
+    ///PREGUNTARLE A MIGUE//////
     @DeleteMapping("/{id}")
     public ResponseEntity<String> eliminarReserva(@PathVariable Integer id) throws ResourceNotFoundException {
         bookingService.eliminarReserva(id);
