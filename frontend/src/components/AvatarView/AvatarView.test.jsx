@@ -5,8 +5,7 @@ import '@testing-library/jest-dom';
 import AvatarView from '.';
 
 
-const userName = "viajero";
-
+const userName = "viajero"; 
 
 describe("Test avatar", () => {
 
@@ -120,6 +119,31 @@ describe("Test avatar", () => {
         const btn = screen.getByRole("closeSession");
         fireEvent.click(btn)
         expect(screen.getByRole("dialog")).toBeInTheDocument();
-        expect(screen.getByRole("dialog")).toHaveTextContext("¿Deseas cerrar sesión?")
     })
+
+    it("should close session when click confirm button", () => {
+        render(
+            <BrowserRouter>
+                 <AvatarView 
+                userName={userName}
+                />
+            </BrowserRouter>
+        )
+        const element = document.querySelector("swal2-confirm swal2-styled");
+        expect(element).toBeInTheDocument();
+    })
+
+    // it("should render alert to continue navigating when don't close session", () => {
+    //     render(
+    //         <BrowserRouter>
+    //              <AvatarView 
+    //             userName={userName}
+    //             />
+    //         </BrowserRouter>
+    //     )
+    //     const btn = screen.getByText("No");
+    //     fireEvent.click(btn)
+    //     expect(screen.getByRole("dialog")).toBeInTheDocument();
+    //     expect(screen.getByRole("dialog")).toHaveTextContext("Sigue navegando!")
+    // })
 });

@@ -23,12 +23,11 @@ function BookingAction({ id }){
     }
 
     return(
-        <div className="booking-action">
-            <div>
-                <h4 className="booking-message">Agregá tus fechas de viaje para obtener precios exactos</h4>
+        <div className="booking-action" data-testid="booking-action-container">
+            <div data-testid="booking-action-sub-container">
+                <h4 className="booking-message" data-testid="booking-action-message">Agregá tus fechas de viaje para obtener precios exactos</h4>
             </div>
-             <button  className="btn-booking" onClick={handleClick}>Iniciar reserva</button>
-            <br/>
+             <button className="btn-booking" onClick={handleClick} data-testid="btn-booking-action">Iniciar reserva</button>
         </div>
     )
 }
