@@ -2,6 +2,8 @@ package com.example.PI_grupo_10.service;
 
 import com.example.PI_grupo_10.exceptions.ResourceNotFoundException;
 import com.example.PI_grupo_10.model.Booking;
+import com.example.PI_grupo_10.model.Product;
+import com.example.PI_grupo_10.model.User;
 import com.example.PI_grupo_10.model.dto.BookingDto;
 import com.example.PI_grupo_10.repository.BookingRepository;
 import com.example.PI_grupo_10.repository.ProductRepository;
@@ -11,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +22,9 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class BookingService {
+
+    @Autowired
+    private AuthService authService;
 
     private BookingRepository _bookingRepository;
     private UserRepository _userRepository;
@@ -97,13 +103,22 @@ public class BookingService {
         return bookingDtos;
     }
 
-    public void eliminarReserva(Integer id) throws ResourceNotFoundException {
-        if (this.obtenerReserva(id)==null){
-            log.error("Se quiere eliminar una reserva con un id inexistente en la base de datos.");
-            throw new ResourceNotFoundException("No existe una reserva con el ID: " + id);
-        } else{
-            _bookingRepository.deleteById(id);
-            log.info("Se elimino la reserva con el id: " + id);
+    public String eliminarReserva(HttpServletRequest request, Integer bookingId) throws ResourceNotFoundException {
+        User user = authService.findUserByToken(request);
+
+        Booking booking = _bookingRepository.findById(bookingId).get();
+
+        if(user.equals(booking.getUser())) {
+            if (this.obtenerReserva(bookingId) == null) {
+                log.error("Se quiere eliminar una reserva con un id inexistente en la base de datos.");
+                throw new ResourceNotFoundException("No existe una reserva con el ID: " + bookingId);
+            } else {
+                _bookingRepository.deleteById(bookingId);
+                log.info("Se elimino la reserva con el id: " + bookingId);
+                return "Se eliminó la reserva con el id: " + bookingId;
+            }
+        }else{
+            return "La reserva con id " + bookingId + " no corresponde al usuario logueado";
         }
     }
 

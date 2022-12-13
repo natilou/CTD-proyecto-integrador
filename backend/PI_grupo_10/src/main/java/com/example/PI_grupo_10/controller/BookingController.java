@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 
 @Slf4j
 @RestController
@@ -62,11 +63,9 @@ public class BookingController
         return ResponseEntity.ok(booking);
     }
 
-    //////////////SÓLO SI PERTENECE AL USUARIO LOGUEADO////////////////////////////////////
-    ///PREGUNTARLE A MIGUE//////
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> eliminarReserva(@PathVariable Integer id) throws ResourceNotFoundException {
-        bookingService.eliminarReserva(id);
-        return ResponseEntity.ok().body("Booking eliminada");
+    @DeleteMapping("/{bookingId}")
+    public String eliminarReserva(HttpServletRequest request, @PathVariable int bookingId) throws ResourceNotFoundException {
+        return bookingService.eliminarReserva(request, bookingId);
     }
+
 }

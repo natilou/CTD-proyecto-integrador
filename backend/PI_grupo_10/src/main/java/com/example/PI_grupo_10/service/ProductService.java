@@ -241,7 +241,7 @@ public class ProductService {
             {
                 for (Booking booking:
                         bookings) {
-                    bookingService.eliminarReserva(booking.getId());
+                    bookingService.eliminarReserva(request, booking.getId());
                 }
             }
 
