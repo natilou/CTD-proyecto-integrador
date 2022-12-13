@@ -9,6 +9,7 @@ import SuccessfulProductionCreation from "../../pages/SuccessfulProductionCreati
 import Booking from "../../pages/Booking";
 import Administration from "../../pages/Administration"
 import UserReservation  from "../../pages/UserReservation";
+import ProductAdministration from "../../pages/ProductAdministration";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Route path="/booking/:id" element={<Booking/>}/>
             <Route path='/admin' element={<Administration/>} />
             <Route path="/reserva/booking" element={<UserReservation/>}/>
+            <Route path="/admin/product" element={<ProductAdministration/>}/>
         </Routes>
   </BrowserRouter>
   );

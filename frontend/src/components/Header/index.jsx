@@ -53,7 +53,11 @@ function Header({ showLogout, showLogin, showLine}) {
                                     }
                                     {
                                         !userState && (
-                                            <Link to="/admin"><p className='p_reservation'>Administración</p></Link>)
+                                            <>
+                                                <Link to="/admin"><p className='p_reservation'>Administración</p></Link>
+                                                <Link to="/admin/product"><p className='p_reservation'>Mis Publicaciones</p></Link>
+                                            </>
+                                        )
                                     }
                                     </div>
                                     <AvatarView userName={user.name} />
