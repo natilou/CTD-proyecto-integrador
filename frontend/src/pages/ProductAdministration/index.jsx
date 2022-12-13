@@ -11,7 +11,6 @@ function ProductAdministration() {
   let gif = getRandomGif();
   const [isLoading, setIsLoading] = useState(true);
   const [product, setProduct] = useState();
-  const user = JSON.parse(localStorage.getItem("user"));
   const jwt =  JSON.parse(localStorage.getItem("jwt"));
   const header = {
     "Authorization": `${jwt.token}`,
@@ -20,11 +19,11 @@ function ProductAdministration() {
 }
 
   useEffect(() => {
-    getAdminProducts(user.id)
+    getAdminProducts()
   }, [])
 
 
-  async function getAdminProducts(id) {
+  async function getAdminProducts() {
     setIsLoading(true);
     try {
       setIsLoading(true);
