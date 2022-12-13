@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -57,6 +58,9 @@ public class ProductController {
     @Autowired
     private TypeService typeService;
 
+    @Autowired
+    private AuthService authService;
+
     @GetMapping("/{productId}/images")
     public ResponseEntity<List<Image>> buscarPorProductId(@PathVariable Integer productId) throws ResourceNotFoundException {
         return ResponseEntity.ok(imageService.buscarPorProductId(productId));
@@ -72,6 +76,19 @@ public class ProductController {
         return ResponseEntity.ok(productService.listarTodos());
     }
 
+    //////////////OBTENER PRODUCTOS CORRESPONDIENTES AL ADMIN LOGUEADO///////////////////////
+    @GetMapping("/admin")
+    public ResponseEntity obtenerReservasDelUserLogueado(HttpServletRequest request) throws ResourceNotFoundException {
+        User user = authService.findUserByToken(request);
+
+        var product = productService.findByUserId(user.getId());
+
+        if (product == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No hay productos del usuario: " + user.getEmail());
+        }
+        return ResponseEntity.ok(product);
+    }
+    ////////////////////////////////////////////
     @GetMapping
     public ResponseEntity<List<Product>> listarOchoProductos(){
         return ResponseEntity.ok(productService.listarOchoProductos());

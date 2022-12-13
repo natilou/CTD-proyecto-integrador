@@ -2,6 +2,7 @@ package com.example.PI_grupo_10.service;
 
 import com.example.PI_grupo_10.exceptions.ResourceNotFoundException;
 import com.example.PI_grupo_10.model.*;
+import com.example.PI_grupo_10.model.dto.BookingDto;
 import com.example.PI_grupo_10.model.dto.ProductDto;
 import com.example.PI_grupo_10.repository.*;
 import lombok.extern.slf4j.Slf4j;
@@ -245,11 +246,50 @@ public class ProductService {
                 }
             }
 
+            int categoryId = product.getCategory().getId();
+
+            //eliminar producto
             productRepository.delete(product);
+
+            //actualizar cantidad de productos de la categoría correspondiente
+            categoryService.actualizarProductAmount(categoryId);
         }
 
     }
 
+    public List<ProductDto> findByUserId(int userId) throws ResourceNotFoundException {
+        if (!userRepository.existsById(userId)){
+            throw new ResourceNotFoundException("Not found User with id = " + userId);
+        }
+
+        var products = productRepository.findByUserId(userId);
+
+        if (products.isEmpty()) {
+            throw new ResourceNotFoundException("No hay reservas para el user id: " + userId);
+        }
+
+
+        //return products;
+        List<ProductDto> productDtos = new ArrayList<>();
+
+        for (Product product:
+                products) {
+            productDtos.add(new ProductDto(product));
+        }
+
+        return productDtos;
+        /*
+        List<BookingDto> bookingDtos = new ArrayList<>();
+
+        for (Booking booking:
+                bookings) {
+            bookingDtos.add(new BookingDto(booking));
+        }
+
+        return bookingDtos;
+
+         */
+    }
 }
 
 
