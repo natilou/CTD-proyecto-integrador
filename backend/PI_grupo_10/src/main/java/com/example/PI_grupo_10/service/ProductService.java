@@ -245,7 +245,13 @@ public class ProductService {
                 }
             }
 
+            int categoryId = product.getCategory().getId();
+
+            //eliminar producto
             productRepository.delete(product);
+
+            //actualizar cantidad de productos de la categoría correspondiente
+            categoryService.actualizarProductAmount(categoryId);
         }
 
     }

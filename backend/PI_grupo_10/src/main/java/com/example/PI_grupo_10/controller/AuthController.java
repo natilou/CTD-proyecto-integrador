@@ -1,6 +1,7 @@
 package com.example.PI_grupo_10.controller;
 
 import com.example.PI_grupo_10.config.JwtGenerator;
+import com.example.PI_grupo_10.model.AuthCredential;
 import com.example.PI_grupo_10.model.User;
 import com.example.PI_grupo_10.model.dto.AuthDto;
 import com.example.PI_grupo_10.service.UserService;
@@ -22,13 +23,15 @@ public class AuthController {
     private JwtGenerator jwtGenerator;
 
 
-    @PostMapping()
-    public ResponseEntity<AuthDto> login(@RequestParam("email") String email, @RequestParam("password") String password) {
+    @PostMapping
+
+    public ResponseEntity<AuthDto> login(@RequestBody AuthCredential authCredential) {
         try {
-            if(email == null || password == null) {
+            if(authCredential.getEmail() == null || authCredential.getPassword() == null) {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email o contrasena vacios");
             }
-            User userData = userService.getUserByNameAndPassword(email, password);
+
+            User userData = userService.getUserByNameAndPassword(authCredential.getEmail(), authCredential.getPassword());
 
             if(userData == null){
                 throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Email o contrasena invalidos");
