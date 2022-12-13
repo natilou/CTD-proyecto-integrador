@@ -224,6 +224,8 @@ public class ProductService {
         }
 //////////////////////subir cada imagen a la tabla Images///////////////////
         this.agregarImages(newProduct.getImages(), createdProduct);
+////////////actualizar cantidad de productos de la categoría///////////////
+        categoryService.actualizarProductAmount(newProduct.getCategoryId());
 
         return createdProduct;
 

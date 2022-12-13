@@ -20,8 +20,11 @@ public class Category {
     @NotEmpty
     private String description;
     private String urlImage;
+    //////////////////
+    private long productAmount;
+    /////////////
 
-    //Constructor sin id
+    //Constructor sin id ni productAmount
     public Category(String title, String description, String urlImage) {
         this.title = title;
         this.description = description;

@@ -39,4 +39,9 @@ public class CategoryController {
     public ResponseEntity<Category> agregar(@RequestBody Category category){
         return new ResponseEntity<>(categoryService.agregar(category), HttpStatus.CREATED);
     }
+
+    @GetMapping("/actualizarProductAmount/{id}")
+    public ResponseEntity<Long> actualizarProductAmount(@PathVariable Integer id){
+        return new ResponseEntity<>(categoryService.actualizarProductAmount(id), HttpStatus.ACCEPTED);
+    }
 }
