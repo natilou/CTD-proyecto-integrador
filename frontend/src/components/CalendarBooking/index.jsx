@@ -1,14 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DatePicker, { registerLocale, setDefaultLocale } from "react-datepicker";
 import es from "date-fns/locale/es";
-import { addDays } from 'date-fns';
 import { useMediaQuery } from 'react-responsive';
 import "./CalendarBooking.css"
 
-function CalendarProduct({ handleStartDateChange, handleEndDateChange }) {
+function CalendarProduct({ handleStartDateChange, handleEndDateChange, unavailableDates}) {
 
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
+    const [disabledDates, setDisabledDates] = useState([])
+
 
     const onChange = (dates) => {
         const [start, end] = dates;
@@ -23,9 +24,31 @@ function CalendarProduct({ handleStartDateChange, handleEndDateChange }) {
         const endYear = end.getFullYear();
         handleEndDateChange(`${endYear}-${endMonth}-${endDay}`)
     }
+
     const isMobile = useMediaQuery({ query: '(max-width: 1500px)' });
     registerLocale("es", es);
     setDefaultLocale("es");
+
+    const getDaysArray = (start, end) => {
+        for(var arr=[],dt=new Date(start); dt<=new Date(end); dt.setDate(dt.getDate()+1)){
+            let date = new Date(dt)
+            date.setDate(date.getDate() + 1)
+            arr.push(date);
+        }
+        return arr;
+    };
+    
+    const pairwise = (arr) => {
+        let dates = []
+        for(let i=0; i < arr.length-1; i+=2){
+            dates.push(...getDaysArray(arr[i], arr[i + 1]))
+        }
+        setDisabledDates(dates);
+    }
+
+    useEffect(() => {
+        pairwise(unavailableDates)
+    }, [])
 
     return(
         <DatePicker
@@ -37,16 +60,7 @@ function CalendarProduct({ handleStartDateChange, handleEndDateChange }) {
         selectsRange={true}
         locale="es"
         changeMonth
-        excludeDates={
-            [
-                addDays(new Date(), 3),
-                addDays(new Date(), 4),
-                addDays(new Date(), 5),
-                addDays(new Date(), 30),
-                addDays(new Date(), 31),
-                addDays(new Date(), 32),
-                addDays(new Date(), 33),
-            ]}
+        excludeDates={disabledDates}
         inline
         />
     )
