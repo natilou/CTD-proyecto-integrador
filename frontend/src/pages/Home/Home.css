@@ -19,3 +19,9 @@
        
     }
 }
+
+@media (max-width: 500px) {
+    .main_title_recommedation{
+        text-align: center;       
+    }
+}
