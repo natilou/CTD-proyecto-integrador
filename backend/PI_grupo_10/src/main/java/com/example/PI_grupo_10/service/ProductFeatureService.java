@@ -32,12 +32,12 @@ public class ProductFeatureService {
     private FeatureRepository featureRepository;
     private ProductRepository productRepository;
 
-    public List<Optional<Feature>> findByProductId(Integer productId) throws ResourceNotFoundException {
+    public List<Optional<Feature>> findFeaturesByProductId(Integer productId) throws ResourceNotFoundException {
         if (!productRepository.existsById(productId)) {
             throw new ResourceNotFoundException("Not found Product with id = " + productId);
         }
 
-        List<Integer> featuresId = productFeatureRepository.findByProductId(productId);
+        List<Integer> featuresId = productFeatureRepository.findFeaturesByProductId(productId);
 
         List<Optional<Feature>> productFeatures = new ArrayList<>();
 

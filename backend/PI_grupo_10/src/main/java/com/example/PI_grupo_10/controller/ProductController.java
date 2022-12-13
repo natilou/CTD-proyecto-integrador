@@ -12,7 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -65,7 +64,7 @@ public class ProductController {
 
     @GetMapping("/{productId}/features")
     public ResponseEntity<List<Optional<Feature>>> getAllFeaturesByProductId(@PathVariable(value = "productId") Integer productId) throws ResourceNotFoundException {
-        return ResponseEntity.ok(productFeatureService.findByProductId(productId));
+        return ResponseEntity.ok(productFeatureService.findFeaturesByProductId(productId));
     }
 
     @GetMapping("/all")
@@ -77,47 +76,22 @@ public class ProductController {
     public ResponseEntity<List<Product>> listarOchoProductos(){
         return ResponseEntity.ok(productService.listarOchoProductos());
     }
-//va este????
+
     @GetMapping("/{id}")
     public ResponseEntity<ProductDto> buscar(@PathVariable Integer id) throws ResourceNotFoundException {
         return ResponseEntity.ok(productService.buscar(id));
     }
-//o este????
-    /*
-    @GetMapping("/prueba/{id}")
-    public ResponseEntity ObtenerProducto(@PathVariable int id) throws ResourceNotFoundException {
-        var product = this.productService.obtenerProduct(id);
 
-        if (product == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Product no encontrado");
-        }
-
-        return ResponseEntity.ok(product);
-    }
-*/
     @PostMapping
     public ResponseEntity<Product> agregar(HttpServletRequest request, @RequestBody NewProduct newProduct) throws ResourceNotFoundException, IOException {
         return new ResponseEntity<>(productService.agregar(request, newProduct), HttpStatus.CREATED);
     }
 
-//*********************************************************************************************
-    //Agregar validación para que sólo puedan hacerlo usuarios ADMIN
-    //METODO PARA ACTUALIZAR PRODUCTO
-    /*
-    @PutMapping
-    public ResponseEntity<Product> actualizar(@RequestBody Product product){
-
-        ResponseEntity<Product> response;
-
-        if (product.getId() != 0 && productService.buscar(product.getId()) != null) {
-            response = ResponseEntity.ok(productService.actualizar(product));
-        } else {
-            response = ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-        return response;
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> borrar(HttpServletRequest request, @PathVariable Integer id) throws ResourceNotFoundException, IOException {
+        productService.eliminar(request,id);
+        return new ResponseEntity<>("Product con id " + id + " eliminado", HttpStatus.ACCEPTED);
     }
-    */
-//***********************************************************************************************
 
     @GetMapping("/cities/{cityId}")
     public ResponseEntity<List<Product>> buscarPorCityId(@PathVariable Integer cityId) throws ResourceNotFoundException {
@@ -143,7 +117,7 @@ public class ProductController {
 
     @GetMapping("/{productId}/unavailableDates")
     public List<LocalDate> obtenerFechasOcupadasDeProducto(@PathVariable Integer productId) throws ResourceNotFoundException {
-        return bookingService.findByProductId(productId);
+        return bookingService.findDatesByProductId(productId);
     }
 
 //Puede recibir Ciudad o fechas Límite o las 3

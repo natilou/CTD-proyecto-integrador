@@ -8,7 +8,8 @@ import java.util.List;
 
 
 public interface ProductFeatureRepository extends JpaRepository<ProductFeature, ProductFeatureKey> {
-
     @Query(value="SELECT feature_id FROM products_features WHERE product_id =?1", nativeQuery = true)
-    List findByProductId(Integer productId);
+    List findFeaturesByProductId(Integer productId);
+
+    List<ProductFeature> findByProductId(Integer productId);
 }

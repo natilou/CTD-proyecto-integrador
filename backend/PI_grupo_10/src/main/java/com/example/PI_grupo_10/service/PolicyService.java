@@ -35,4 +35,7 @@ public class PolicyService {
         }
     }
 
+    public void eliminar(Policy policy) {
+        policyRepository.delete(policy);
+    }
 }
