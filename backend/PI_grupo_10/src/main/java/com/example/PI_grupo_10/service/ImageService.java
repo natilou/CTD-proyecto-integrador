@@ -50,16 +50,13 @@ public class ImageService {
         return "Se eliminaron del bucket S3 las imágenes: " + imagenesCargadas;
     }
 
-    public String eliminarImagenesDeBucketS3Bis(List<String> imagenesCargadas) throws IOException {
-        for (String imagenABorrar:
-                imagenesCargadas)
-        {
-            S3Util.deleteFile(imagenABorrar);
-            log.info("Se borró del bucket S3: " + imagenABorrar);
+    public String eliminarImagenesBD(List<Image> images){
+        for (Image image:
+             images) {
+            imageRepository.delete(image);
         }
-        return "Se eliminaron del bucket S3 las imágenes: " + imagenesCargadas;
+        return "Se eliminaron las imágenes";
     }
-
 
     public List<String> subirImagenesABucketS3(List<MultipartFile> multiparts) throws IOException {
         List<String> filenamesUploaded = new ArrayList<>();

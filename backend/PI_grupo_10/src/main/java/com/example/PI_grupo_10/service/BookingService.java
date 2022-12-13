@@ -43,7 +43,20 @@ public class BookingService {
         return new BookingDto(booking.get());
     }
 
-    public List<LocalDate> findByProductId(int productId) throws ResourceNotFoundException {
+    public List<Booking> findByProductId(int productId) throws ResourceNotFoundException {
+        if (!_productRepository.existsById(productId)){
+            throw new ResourceNotFoundException("Not found Product with id = " + productId);
+        }
+
+        var bookings = this._bookingRepository.findByProductId(productId);
+/*
+        if (bookings.isEmpty())
+            throw new ResourceNotFoundException("No hay reservas para el product id: " + productId);
+*/
+        return bookings;
+    }
+
+    public List<LocalDate> findDatesByProductId(int productId) throws ResourceNotFoundException {
         if (!_productRepository.existsById(productId)){
             throw new ResourceNotFoundException("Not found Product with id = " + productId);
         }
