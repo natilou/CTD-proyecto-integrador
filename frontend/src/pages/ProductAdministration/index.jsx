@@ -19,31 +19,6 @@ function ProductAdministration() {
     "accept": "application/json"
 }
 
-// const product = [
-//     {
-//         id: 1,
-//         title: "Hunid",
-//         category: {
-//             id: 1,
-//             title: "Hoteles",
-//             description: "Hotel",
-//             urlImage: "https://www.cronista.com/files/image/307/307135/5ffe2f480d5e8.jpg",
-//             productAmount: 8
-//         },
-//         address: "Sarmiento y Uruguay",
-//         city: {
-//             id: 1,
-//             name: "Buenos Aires",
-//             country: {
-//                 id: 1,
-//                 name: "Argentina"
-//             }
-//         },
-//         description: "El Huinid Obelisco Hotel se encuentra en Buenos Aires, a menos de 1 km del Obelisco de Buenos Aires, y ofrece alojamiento con centro de fitness, estacionamiento privado y bar. El alojamiento está a unos 2,1 km de la basílica del Santísimo Sacramento, a 2,2 km del centro cultural Kirchner y a 2,5 km de la plaza de Mayo. Hay recepción 24 horas y wifi gratis en todas las instalaciones.\n\nLas habitaciones disponen de aire acondicionado, escritorio, caja fuerte, TV de pantalla plana y baño privado con bidet. También incluyen armario.\n\nEl Huinid Obelisco Hotel sirve un desayuno buffet.\n\nEn las inmediaciones hay varios lugares de interés, como el teatro Colón, la cafetería Tortoni y el Palacio Barolo. El aeropuerto más cercano es el aeropuerto Jorge Newbery, ubicado a 6 km del Huinid Obelisco Hotel.\n\nNuestros clientes dicen que esta parte de Buenos Aires es su favorita, según los comentarios independientes. ",
-//         coverImageUrl: "https://s3-group-10-c6.s3.us-east-2.amazonaws.com/1-1-portada.jpg"
-//     },
-// ]
-
   useEffect(() => {
     getAdminProducts(user.id)
   }, [])
