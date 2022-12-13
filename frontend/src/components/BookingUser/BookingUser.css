@@ -27,6 +27,11 @@
     bottom: 13px;
     cursor: pointer;
 }
+
+.btn_delete_booking:hover{
+    color: #f2f0f0
+}
+
 .title_booking_cars{
     padding-left: 10px;
 }
