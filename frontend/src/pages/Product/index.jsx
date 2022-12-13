@@ -17,6 +17,7 @@ function Product() {
     const [productPolicies, setProductPolicies] = useState([]);
     const [features, setFeatures] = useState([])
     const [isLoading, setIsLoading] = useState(true);
+    const [unavailableDates, setUnavailableDates] = useState([]);
     const { id } = useParams()
     const { category } = useParams()
     const showLogin = true;
@@ -24,6 +25,7 @@ function Product() {
     const showLine = true;
     const urlFeaturesID = `http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/products/${id}/features`;
     const urlProductID = ` http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/products/${id}`;
+    const unavailableDatesUrl = `http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/products/${id}/unavailableDates`
 
     useEffect(() => {
         getData();
@@ -49,6 +51,11 @@ function Product() {
             await fetch(urlFeaturesID)
                 .then((response) => response.json())
                 .then((cities) => setFeatures(cities));
+            await fetch(unavailableDatesUrl)
+                .then((response) => response.json())
+                .then((response) => {
+                    setUnavailableDates(response)
+                })
             setIsLoading(false);
         } catch (error) {
             console.log({ error });
@@ -141,7 +148,7 @@ function Product() {
                                         <div className="calendar-booking-container">
                                             <div className="booking-row">
                                                 <div className="booking-col">
-                                                    <CalendarProduct />
+                                                    <CalendarProduct unavailableDates={unavailableDates}/>
                                                 </div>
                                                 <div className="booking-col">
                                                     <BookingAction id={id}

@@ -16,11 +16,14 @@ function Booking() {
     const [isLoading, setIsLoading] = useState(true);
     const [start, setStar] = useState(null);
     const [end, setEnd] = useState(null);
+    const [unavailableDates, setUnavailableDates] = useState([]);
     const { id } = useParams()
     const showLogin = true;
     const showLogout = true;
     const showLine = true;
     const urlProductID = ` http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/products/${id}`;
+    const unavailableDatesUrl = `http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/products/${id}/unavailableDates`
+
 
     const user = JSON.parse(localStorage.getItem("user"));
   
@@ -51,6 +54,11 @@ function Booking() {
             await fetch(urlProductID)
                 .then((response) => response.json())
                 .then((data) => setProduct(data));
+            await fetch(unavailableDatesUrl)
+                .then((response) => response.json())
+                .then((response) => {
+                    setUnavailableDates(response)
+                })
             setIsLoading(false);
         } catch (error) {
             console.log({ error });
@@ -85,7 +93,7 @@ function Booking() {
                                         <BookingForm user={user} />
                                         <div className="booking-calendar-container">
                                             <h2 style={{ marginBottom: '20px' }}>Seleccioná tu fecha de reserva</h2>
-                                            <CalendarBooking handleStartDateChange={handleStartDateChange} handleEndDateChange={handleEndDateChange} />
+                                            <CalendarBooking handleStartDateChange={handleStartDateChange} handleEndDateChange={handleEndDateChange} unavailableDates={unavailableDates} />
                                         </div>
                                     </div>
                                     <div className="booking-detail-container">
