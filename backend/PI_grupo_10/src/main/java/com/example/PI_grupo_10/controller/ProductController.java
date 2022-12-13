@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.*;
 
 
@@ -27,6 +28,8 @@ import java.util.*;
 @RequestMapping("/products")
 public class ProductController {
 
+    @Autowired
+    private BookingService bookingService;
 
     @Autowired
     private ProductService productService;
@@ -136,6 +139,11 @@ public class ProductController {
         Date eDate = simpleDateFormat.parse(endDate);
         log.info("Se convierten los datos:" + iDate +" "+eDate);
         return productService.buscarPorFechasDisponibles(iDate, eDate);
+    }
+
+    @GetMapping("/{productId}/unavailableDates")
+    public List<LocalDate> obtenerFechasOcupadasDeProducto(@PathVariable Integer productId) throws ResourceNotFoundException {
+        return bookingService.findByProductId(productId);
     }
 
 //Puede recibir Ciudad o fechas Límite o las 3

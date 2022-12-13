@@ -2,16 +2,16 @@ package com.example.PI_grupo_10.service;
 
 import com.example.PI_grupo_10.exceptions.ResourceNotFoundException;
 import com.example.PI_grupo_10.model.Booking;
-import com.example.PI_grupo_10.model.User;
 import com.example.PI_grupo_10.model.dto.BookingDto;
 import com.example.PI_grupo_10.repository.BookingRepository;
+import com.example.PI_grupo_10.repository.ProductRepository;
 import com.example.PI_grupo_10.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,11 +20,9 @@ import java.util.List;
 @AllArgsConstructor
 public class BookingService {
 
-    @Autowired
-    private UserService userService;
-
     private BookingRepository _bookingRepository;
     private UserRepository _userRepository;
+    private ProductRepository _productRepository;
 
     public BookingDto guardarReserva(BookingDto bookingDto){
         Booking bookingEntidad = new Booking(bookingDto);
@@ -44,6 +42,27 @@ public class BookingService {
             return null;
         return new BookingDto(booking.get());
     }
+
+    public List<LocalDate> findByProductId(int productId) throws ResourceNotFoundException {
+        if (!_productRepository.existsById(productId)){
+            throw new ResourceNotFoundException("Not found Product with id = " + productId);
+        }
+
+        var bookings = this._bookingRepository.findByProductId(productId);
+
+        if (bookings.isEmpty())
+            throw new ResourceNotFoundException("No hay reservas para el product id: " + productId);
+
+        List<LocalDate> bookedDates = new ArrayList<>();
+        for (Booking booking:
+                bookings) {
+            bookedDates.add(booking.getInitialDate());
+            bookedDates.add(booking.getEndDate());
+        }
+
+        return bookedDates;
+    }
+
 
     public List<BookingDto> findByUserId(int userId) throws ResourceNotFoundException {
         if (!_userRepository.existsById(userId)){
