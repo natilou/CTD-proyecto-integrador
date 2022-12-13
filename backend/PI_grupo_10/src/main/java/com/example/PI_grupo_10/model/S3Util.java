@@ -2,7 +2,6 @@ package com.example.PI_grupo_10.model;
 
 import java.io.IOException;
 import java.io.InputStream;
-
 import software.amazon.awssdk.awscore.exception.AwsServiceException;
 import software.amazon.awssdk.core.exception.SdkClientException;
 import software.amazon.awssdk.core.sync.RequestBody;
@@ -42,6 +41,4 @@ public class S3Util {
 
         client.deleteObject(request);
     }
-
-
 }

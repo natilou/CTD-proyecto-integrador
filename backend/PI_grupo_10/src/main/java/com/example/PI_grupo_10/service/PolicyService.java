@@ -8,9 +8,7 @@ import com.example.PI_grupo_10.repository.TypeRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @AllArgsConstructor
@@ -19,7 +17,6 @@ public class PolicyService {
 
     private PolicyRepository policyRepository;
     private ProductRepository productRepository;
-    private TypeRepository typeRepository;
 
     public Policy agregar(Policy policy){
         log.info("Se crea la policy: " + policy);

@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
-@NoArgsConstructor//este quizás tmb
-@AllArgsConstructor// este creo que está de más por la forma en que se construyen los DTOs
+@NoArgsConstructor
+@AllArgsConstructor
 @Data
 public class BookingDto {
     public int id;

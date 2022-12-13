@@ -4,7 +4,6 @@ import com.example.PI_grupo_10.model.dto.BookingDto;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;

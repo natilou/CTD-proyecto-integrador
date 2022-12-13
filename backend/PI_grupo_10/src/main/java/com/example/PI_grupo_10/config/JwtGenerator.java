@@ -20,7 +20,6 @@ public class JwtGenerator {
         List<GrantedAuthority> grantedAuthorities = AuthorityUtils
                 .commaSeparatedStringToAuthorityList(user.getRole().name());
 
-
         String token = Jwts
                 .builder()
                 .setId(Integer.toString(user.getId()) + "-" + System.currentTimeMillis())
@@ -30,7 +29,7 @@ public class JwtGenerator {
                                 .map(GrantedAuthority::getAuthority)
                                 .collect(Collectors.toList()))
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                // Setear expiration dede application.properties
+                // Setear expiration de application.properties
                 .setExpiration(new Date(System.currentTimeMillis() + 2400000))
                 .signWith(SignatureAlgorithm.HS512,
                         secretKey.getBytes()).compact();
@@ -46,7 +45,6 @@ public class JwtGenerator {
                 .setSigningKey(secretKey.getBytes())
                 .parseClaimsJws(token)
                 .getBody();
-
         // Acceda a la información contenida en el token
         String subject = claims.getSubject();
         return subject;

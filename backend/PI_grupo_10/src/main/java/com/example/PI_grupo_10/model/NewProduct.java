@@ -1,15 +1,6 @@
 package com.example.PI_grupo_10.model;
 
 import lombok.*;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-import org.springframework.ui.Model;
-import org.springframework.web.multipart.MultipartFile;
-
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import java.util.List;
 
 @Getter
@@ -35,6 +26,4 @@ public class NewProduct {
     private List<NewPolicy> policies;
 
     private List<Image> images;
-
-    //private int userId;
 }

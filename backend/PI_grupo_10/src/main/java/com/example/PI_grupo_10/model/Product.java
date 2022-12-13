@@ -1,16 +1,11 @@
 package com.example.PI_grupo_10.model;
 
-import com.example.PI_grupo_10.model.dto.BookingDto;
 import com.example.PI_grupo_10.model.dto.ProductDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
-
 
 @Getter
 @Setter
@@ -26,7 +21,6 @@ public class Product {
     private int id;
 
     /////////////////////USER ID del ADMIN que publicó el producto///////////////////
-
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -71,5 +65,4 @@ public class Product {
         this.description = productDto.description;
         this.coverImageUrl = productDto.coverImageUrl;
     }
-
 }

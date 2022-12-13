@@ -2,7 +2,6 @@ package com.example.PI_grupo_10.service;
 
 import com.example.PI_grupo_10.exceptions.ResourceNotFoundException;
 import com.example.PI_grupo_10.model.Booking;
-import com.example.PI_grupo_10.model.Product;
 import com.example.PI_grupo_10.model.User;
 import com.example.PI_grupo_10.model.dto.BookingDto;
 import com.example.PI_grupo_10.repository.BookingRepository;
@@ -26,13 +25,13 @@ public class BookingService {
     @Autowired
     private AuthService authService;
 
-    private BookingRepository _bookingRepository;
-    private UserRepository _userRepository;
-    private ProductRepository _productRepository;
+    private BookingRepository bookingRepository;
+    private UserRepository userRepository;
+    private ProductRepository productRepository;
 
     public BookingDto guardarReserva(BookingDto bookingDto){
         Booking bookingEntidad = new Booking(bookingDto);
-        Booking bookingGuardada = this._bookingRepository.save(bookingEntidad);
+        Booking bookingGuardada = this.bookingRepository.save(bookingEntidad);
 
         if (bookingGuardada.getId() > 0) {
             bookingDto.id = bookingGuardada.getId();
@@ -43,31 +42,28 @@ public class BookingService {
     }
 
     public BookingDto obtenerReserva(int id) {
-        var booking = this._bookingRepository.findById(id);
+        var booking = this.bookingRepository.findById(id);
         if (!booking.isPresent())
             return null;
         return new BookingDto(booking.get());
     }
 
     public List<Booking> findByProductId(int productId) throws ResourceNotFoundException {
-        if (!_productRepository.existsById(productId)){
+        if (!productRepository.existsById(productId)){
             throw new ResourceNotFoundException("Not found Product with id = " + productId);
         }
 
-        var bookings = this._bookingRepository.findByProductId(productId);
-/*
-        if (bookings.isEmpty())
-            throw new ResourceNotFoundException("No hay reservas para el product id: " + productId);
-*/
+        var bookings = this.bookingRepository.findByProductId(productId);
+
         return bookings;
     }
 
     public List<LocalDate> findDatesByProductId(int productId) throws ResourceNotFoundException {
-        if (!_productRepository.existsById(productId)){
+        if (!productRepository.existsById(productId)){
             throw new ResourceNotFoundException("Not found Product with id = " + productId);
         }
 
-        var bookings = this._bookingRepository.findByProductId(productId);
+        var bookings = this.bookingRepository.findByProductId(productId);
 
         if (bookings.isEmpty())
             throw new ResourceNotFoundException("No hay reservas para el product id: " + productId);
@@ -84,11 +80,11 @@ public class BookingService {
 
 
     public List<BookingDto> findByUserId(int userId) throws ResourceNotFoundException {
-        if (!_userRepository.existsById(userId)){
+        if (!userRepository.existsById(userId)){
             throw new ResourceNotFoundException("Not found User with id = " + userId);
         }
 
-        var bookings = this._bookingRepository.findByUser(_userRepository.findById(userId));
+        var bookings = this.bookingRepository.findByUser(userRepository.findById(userId));
 
         if (bookings.isEmpty())
             throw new ResourceNotFoundException("No hay reservas para el user id: " + userId);
@@ -106,14 +102,14 @@ public class BookingService {
     public String eliminarReserva(HttpServletRequest request, Integer bookingId) throws ResourceNotFoundException {
         User user = authService.findUserByToken(request);
 
-        Booking booking = _bookingRepository.findById(bookingId).get();
+        Booking booking = bookingRepository.findById(bookingId).get();
 
         if(user.equals(booking.getUser())) {
             if (this.obtenerReserva(bookingId) == null) {
                 log.error("Se quiere eliminar una reserva con un id inexistente en la base de datos.");
                 throw new ResourceNotFoundException("No existe una reserva con el ID: " + bookingId);
             } else {
-                _bookingRepository.deleteById(bookingId);
+                bookingRepository.deleteById(bookingId);
                 log.info("Se elimino la reserva con el id: " + bookingId);
                 return "Se eliminó la reserva con el id: " + bookingId;
             }

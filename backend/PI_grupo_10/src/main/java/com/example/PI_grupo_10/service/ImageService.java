@@ -2,18 +2,14 @@ package com.example.PI_grupo_10.service;
 
 import com.example.PI_grupo_10.exceptions.ResourceNotFoundException;
 import com.example.PI_grupo_10.model.Image;
-import com.example.PI_grupo_10.model.Product;
 import com.example.PI_grupo_10.model.S3Util;
 import com.example.PI_grupo_10.repository.ImageRepository;
 import com.example.PI_grupo_10.repository.ProductRepository;
 import com.fasterxml.uuid.Generators;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -85,15 +81,6 @@ public class ImageService {
             } catch (Exception ex) {
                 if(!filenamesUploaded.isEmpty()) {
                     this.eliminarImagenesDeBucketS3(filenamesUploaded);
-                    /*
-                    for (String filenameUploaded:
-                         filenamesUploaded)
-                    {
-                        S3Util.deleteFile(filenameUploaded);
-                        log.info("Se borró del bucket S3: " + filenameUploaded);
-                    }
-
-                     */
                 }
                 throw new IOException("Falló la subida de imágenes");
             }

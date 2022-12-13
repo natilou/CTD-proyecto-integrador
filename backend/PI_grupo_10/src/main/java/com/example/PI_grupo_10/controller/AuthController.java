@@ -17,14 +17,13 @@ import org.springframework.web.server.ResponseStatusException;
 @CrossOrigin
 @RequestMapping("/auth")
 public class AuthController {
+
     @Autowired
     private UserService userService;
     @Autowired
     private JwtGenerator jwtGenerator;
 
-
     @PostMapping
-
     public ResponseEntity<AuthDto> login(@RequestBody AuthCredential authCredential) {
         try {
             if(authCredential.getEmail() == null || authCredential.getPassword() == null) {
@@ -52,6 +51,4 @@ public class AuthController {
             return new ResponseEntity(e.getMessage(), HttpStatus.CONFLICT);
         }
     }
-
-
 }
