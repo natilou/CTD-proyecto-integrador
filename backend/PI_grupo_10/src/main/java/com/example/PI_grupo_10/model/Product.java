@@ -1,13 +1,11 @@
 package com.example.PI_grupo_10.model;
 
+import com.example.PI_grupo_10.model.dto.ProductDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
-
 
 @Getter
 @Setter
@@ -21,6 +19,15 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_sequence")
     private int id;
+
+    /////////////////////USER ID del ADMIN que publicó el producto///////////////////
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private User user;
+
+
     private String title;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
@@ -37,30 +44,25 @@ public class Product {
 
     private String description;
 
-    @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            })
-    @JoinTable(name = "products_features",
-            joinColumns = { @JoinColumn(name = "product_id") },
-            inverseJoinColumns = { @JoinColumn(name = "feature_id") })
-    @JsonIgnore
-    private Set<Feature> features = new HashSet<>();
-
-
     @JoinColumn(name = "cover_image_url", nullable = false)
     private String coverImageUrl;
 
     public Product(String title, Category category, String address, City city, String description, String coverImageUrl) {
-
-    //private String mainImage;  implementar en base de datos y borrarla de la tabla de IMAGES
-
         this.title = title;
         this.category = category;
         this.address = address;
         this.city = city;
         this.description = description;
         this.coverImageUrl = coverImageUrl;
+    }
+
+    public Product(ProductDto productDto) {
+        this.id = productDto.id;
+        this.title = productDto.title;
+        this.category = productDto.category;
+        this.address = productDto.address;
+        this.city = productDto.city;
+        this.description = productDto.description;
+        this.coverImageUrl = productDto.coverImageUrl;
     }
 }

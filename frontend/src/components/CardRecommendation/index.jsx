@@ -12,8 +12,6 @@ function CardRecommendation({ dataLodging }) {
 
     const { id, title, category, address, description, city, coverImageUrl } = dataLodging
 
-    //, score, label_score,
-    //    ,city,distance
 
     return (
         <article className="card_recommendation" data-testid="cardrecommendation-container">
@@ -54,7 +52,6 @@ function CardRecommendation({ dataLodging }) {
                     <div className="location_lodging" data-testid="cardrecommendation-location">
                         <img className="icongps" src={iconGps} alt="icon gps" data-testid="cardrecommendation-location-icon" />
                         <p className="m_location" data-testid="cardrecommendation-location-address">{address}, {city.name} </p>
-                        <p className="link_gps" data-testid="cardrecommendation-location-link">MOSTRAR EN EL MAPA</p>
                     </div>
                     <div className="container_logding_icons" data-testid="cardrecommendation-icons">
                         <img src={iconwifi} alt="star" data-testid="cardrecommendation-wifi"/>

@@ -1,7 +1,6 @@
 package com.example.PI_grupo_10.model;
 
 import lombok.*;
-
 import javax.persistence.*;
 
 @Getter

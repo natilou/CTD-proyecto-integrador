@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import "./Booking.css"
-import CalendarProduct from "../../components/CalendarProduct";
+import CalendarBooking from "../../components/CalendarBooking";
 import ProductPolices from "../../components/ProductPolices";
 import BookingForm from "../../components/BookingForm";
 import BookingDetail from "../../components/BookingDetail";
@@ -11,24 +11,22 @@ import BookingDetail from "../../components/BookingDetail";
 
 function Booking() {
     const [productImages, setProductImages] = useState([]);
+    const [productPolicies, setProductPolicies] = useState([]);
     const [product, setProduct] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [start, setStar] = useState(null);
     const [end, setEnd] = useState(null);
+    const [unavailableDates, setUnavailableDates] = useState([]);
     const { id } = useParams()
-    const { category } = useParams()
     const showLogin = true;
     const showLogout = true;
     const showLine = true;
     const urlProductID = ` http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/products/${id}`;
+    const unavailableDatesUrl = `http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/products/${id}/unavailableDates`
+
 
     const user = JSON.parse(localStorage.getItem("user"));
-    const bookingInformationForBd = {
-        userId: user.id,
-        productId: id,
-        startDate: start,
-        endDate: end,
-    }
+  
     useEffect(() => {
         getData();
     }, []);
@@ -49,9 +47,18 @@ function Booking() {
                 .then((response) => response.json())
                 .then((data) =>
                     setProductImages(data));
+            await fetch(`http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/policies/product/${id}`)
+                .then((response) => response.json())
+                .then((data) =>
+            setProductPolicies(data));
             await fetch(urlProductID)
                 .then((response) => response.json())
                 .then((data) => setProduct(data));
+            await fetch(unavailableDatesUrl)
+                .then((response) => response.json())
+                .then((response) => {
+                    setUnavailableDates(response)
+                })
             setIsLoading(false);
         } catch (error) {
             console.log({ error });
@@ -86,14 +93,14 @@ function Booking() {
                                         <BookingForm user={user} />
                                         <div className="booking-calendar-container">
                                             <h2 style={{ marginBottom: '20px' }}>Seleccioná tu fecha de reserva</h2>
-                                            <CalendarProduct handleStartDateChange={handleStartDateChange} handleEndDateChange={handleEndDateChange} />
+                                            <CalendarBooking handleStartDateChange={handleStartDateChange} handleEndDateChange={handleEndDateChange} unavailableDates={unavailableDates} />
                                         </div>
                                     </div>
                                     <div className="booking-detail-container">
-                                        <BookingDetail productImages={productImages} product={product} start={start} end={end}/>
+                                        <BookingDetail user={user} productImages={productImages} product={product} start={start} end={end}/>
                                     </div>
                                 </div>
-                                <ProductPolices />
+                                <ProductPolices productPolicies={productPolicies}/>
                             </div>
                         <Footer />
                     </div>

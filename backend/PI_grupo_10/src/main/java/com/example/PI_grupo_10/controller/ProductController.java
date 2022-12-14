@@ -1,22 +1,24 @@
 package com.example.PI_grupo_10.controller;
 
+import com.example.PI_grupo_10.exceptions.BadRequestException;
 import com.example.PI_grupo_10.exceptions.ResourceNotFoundException;
-import com.example.PI_grupo_10.model.Booking;
-import com.example.PI_grupo_10.model.Feature;
-import com.example.PI_grupo_10.model.Image;
-import com.example.PI_grupo_10.model.Product;
-import com.example.PI_grupo_10.service.FeatureService;
-import com.example.PI_grupo_10.service.ImageService;
-import com.example.PI_grupo_10.service.ProductService;
+import com.example.PI_grupo_10.model.*;
+import com.example.PI_grupo_10.model.dto.ProductDto;
+import com.example.PI_grupo_10.service.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
+import java.time.LocalDate;
+import java.util.*;
+
 
 @Slf4j
 @RestController
@@ -25,13 +27,19 @@ import java.util.List;
 public class ProductController {
 
     @Autowired
+    private BookingService bookingService;
+
+    @Autowired
     private ProductService productService;
 
     @Autowired
     private ImageService imageService;
 
     @Autowired
-    private FeatureService featureService;
+    private ProductFeatureService productFeatureService;
+
+    @Autowired
+    private AuthService authService;
 
     @GetMapping("/{productId}/images")
     public ResponseEntity<List<Image>> buscarPorProductId(@PathVariable Integer productId) throws ResourceNotFoundException {
@@ -39,8 +47,8 @@ public class ProductController {
     }
 
     @GetMapping("/{productId}/features")
-    public ResponseEntity<List<Feature>> getAllFeaturesByProductId(@PathVariable(value = "productId") Integer productId) throws ResourceNotFoundException {
-        return ResponseEntity.ok(featureService.findFeaturesByProductsId(productId));
+    public ResponseEntity<List<Optional<Feature>>> getAllFeaturesByProductId(@PathVariable(value = "productId") Integer productId) throws ResourceNotFoundException {
+        return ResponseEntity.ok(productFeatureService.findFeaturesByProductId(productId));
     }
 
     @GetMapping("/all")
@@ -48,19 +56,38 @@ public class ProductController {
         return ResponseEntity.ok(productService.listarTodos());
     }
 
+    //////////////OBTENER PRODUCTOS CORRESPONDIENTES AL ADMIN LOGUEADO///////////////////////
+    @GetMapping("/admin")
+    public ResponseEntity obtenerReservasDelUserLogueado(HttpServletRequest request) throws ResourceNotFoundException {
+        User user = authService.findUserByToken(request);
+
+        var product = productService.findByUserId(user.getId());
+
+        if (product == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No hay productos del usuario: " + user.getEmail());
+        }
+        return ResponseEntity.ok(product);
+    }
+    ////////////////////////////////////////////
     @GetMapping
     public ResponseEntity<List<Product>> listarOchoProductos(){
         return ResponseEntity.ok(productService.listarOchoProductos());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Product> buscar(@PathVariable Integer id) throws ResourceNotFoundException {
+    public ResponseEntity<ProductDto> buscar(@PathVariable Integer id) throws ResourceNotFoundException {
         return ResponseEntity.ok(productService.buscar(id));
     }
 
     @PostMapping
-    public ResponseEntity<Product> agregar(@RequestBody Product product){
-        return ResponseEntity.ok(productService.agregar(product));
+    public ResponseEntity<Product> agregar(HttpServletRequest request, @RequestBody NewProduct newProduct) throws ResourceNotFoundException, IOException {
+        return new ResponseEntity<>(productService.agregar(request, newProduct), HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> borrar(HttpServletRequest request, @PathVariable Integer id) throws ResourceNotFoundException, IOException {
+        productService.eliminar(request,id);
+        return new ResponseEntity<>("Product con id " + id + " eliminado", HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/cities/{cityId}")
@@ -73,6 +100,7 @@ public class ProductController {
         return ResponseEntity.ok(productService.buscarPorCategoryId(categoryId));
     }
 
+    ///NO VA MÁS//-------------------************-----------------*********---------------******---------
     @GetMapping("/dates")
     public List<Product> obtenerProductosPorFechasDisponibles(@RequestParam String initialDate, @RequestParam String endDate) throws ParseException {
         log.info("Se reciben los datos:" + initialDate +" "+endDate);
@@ -81,7 +109,106 @@ public class ProductController {
         Date iDate = simpleDateFormat.parse(initialDate);
         Date eDate = simpleDateFormat.parse(endDate);
         log.info("Se convierten los datos:" + iDate +" "+eDate);
-        return productService.obtenerProductosPorFechasDisponibles(iDate, eDate);
+        return productService.buscarPorFechasDisponibles(iDate, eDate);
+    }
+
+    @GetMapping("/{productId}/unavailableDates")
+    public List<LocalDate> obtenerFechasOcupadasDeProducto(@PathVariable Integer productId) throws ResourceNotFoundException {
+        return bookingService.findDatesByProductId(productId);
+    }
+
+//Puede recibir Ciudad o fechas Límite o las 3
+    @GetMapping("/availability")
+    public List<Product> buscarPorFechasDisponiblesCiudad(@RequestParam(required = false) String initialDate, @RequestParam(required = false) String endDate, @RequestParam(required = false) Integer cityId) throws ParseException, ResourceNotFoundException, BadRequestException {
+        log.info("Se reciben los datos: fechaInicio: " + initialDate +", fechaFinal: "+endDate+", cityID: "+cityId);
+
+        if(cityId==null && initialDate == null && endDate == null){
+            log.error("No se recibió ningún parámetro: initialDate, endDate, cityId");
+            throw new BadRequestException("No se recibió ningún parámetro: initialDate, endDate, cityId");
+        }
+        else if(cityId != null && initialDate == null && endDate == null)
+        {
+            return productService.buscarPorCityId(cityId);
+        }else if(cityId==null && initialDate != null && endDate != null){
+            String pattern = "yyyy-MM-dd";
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+            Date iDate = simpleDateFormat.parse(initialDate);
+            Date eDate = simpleDateFormat.parse(endDate);
+            log.info("Se convierten los datos:" + iDate +" "+eDate);
+            return productService.buscarPorFechasDisponibles(iDate,eDate);
+        }else
+        {
+            String pattern = "yyyy-MM-dd";
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+            Date iDate = simpleDateFormat.parse(initialDate);
+            Date eDate = simpleDateFormat.parse(endDate);
+            log.info("Se convierten los datos:" + iDate +" "+eDate);
+            return productService.buscarPorFechasDisponiblesYCiudad(iDate, eDate, cityId);
+        }
+    }
+
+    /*-------------------------------------------------------------------------------------------*/
+
+    //////////////////////ENDPOINTS DE PRUEBA///////////////////////////////////////////////////////
+
+    /*-------------------------------------------------------------------------------------------*/
+
+    ////ENDPOINT DE PRUEBA////////////////////////////////////
+    @PostMapping("/uploadvarias")
+    public String handleUploadForm(@RequestParam("files") List<MultipartFile> multiparts) {
+        String message = "";
+        for (int i = 0; i < multiparts.size(); i++) {
+            String fileName = multiparts.get(i).getOriginalFilename();
+
+            System.out.println("filename: " + fileName);
+
+            try {
+                S3Util.uploadFile(fileName, multiparts.get(i).getInputStream());
+                message = "Se cargaron todas tus imágenes";
+            } catch (Exception ex) {
+                message = "Quizás se cargaron algunas imágenes pero alguna dio Error uploading file: " + ex.getMessage();
+            }
+        }
+
+        return message;
+    }
+
+    ////ENDPOINT DE PRUEBA////////////////////////////////////
+    @PostMapping("/uploaduna")
+    public String handleUploadForm(@RequestParam("file") MultipartFile multipart) {
+        String fileName = multipart.getOriginalFilename();
+
+        System.out.println("filename: " + fileName);
+
+        String message = "";
+
+        try {
+            S3Util.uploadFile(fileName, multipart.getInputStream());
+            message = "Se cargó una imagen";
+        } catch (Exception ex) {
+            message = "Error uploading file: " + ex.getMessage();
+        }
+
+        return message;
+    }
+
+    ////ENDPOINT DE PRUEBA////////////////////////////////////
+    @DeleteMapping("/borraruna")
+    public String deleteImageS3(@RequestParam("FileName") String filename) throws IOException {
+        S3Util.deleteFile(filename);
+        return "Se borró la imagen: " + filename;
+    }
+
+    ////ENDPOINT DE PRUEBA////////////////////////////////////
+    @DeleteMapping("/borrarvarias")
+    public List<String> deleteImageS3(@RequestParam("FilesNames") List<String> filename) throws IOException {
+        List<String> message = new ArrayList<>();
+        for (int i = 0; i < filename.size(); i++) {
+
+            S3Util.deleteFile(filename.get(i));
+            message.add("Se borró: " + filename.get(i));
+        }
+        return message;
     }
 
 }

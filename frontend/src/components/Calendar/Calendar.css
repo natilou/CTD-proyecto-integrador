@@ -25,11 +25,16 @@
     justify-content: center;
     height: 40px;
     align-self: center;
-    color: #000;
-    font-size: 0.9rem;
+    color: black;
     font-weight: bold;
+    font-size:var(--font-size-medium);
     padding-left: 5px;
+    border-radius: 3px;
 
+}
+input::placeholder{
+  color: #afafaf;
+  font-weight: bold;
 }
 
 @media (max-width: 768px) {
@@ -64,23 +69,6 @@
   }
 
 }
-
-/* @media (min-width: 420px) {
-  .react-datepicker {
-    font-family: "Helvetica Neue", helvetica, arial, sans-serif;
-    font-size: 0.8rem;
-    background-color: #fff;
-    color: #000;
-    border-top: 2px solid #aeaeae;
-    border-bottom: 2px solid #aeaeae;
-    border-radius: 0.3rem;
-    display: flex;
-    position: relative;
-    width: 100%;
-    align-content: center;
-  }
-
-} */
 
 .date-picker {
   display: flex;

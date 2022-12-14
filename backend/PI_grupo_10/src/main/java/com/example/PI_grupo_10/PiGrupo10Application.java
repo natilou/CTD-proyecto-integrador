@@ -1,6 +1,7 @@
 package com.example.PI_grupo_10;
 
 import com.example.PI_grupo_10.security.JWTAuthorizationFilter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -8,9 +9,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -47,7 +53,9 @@ public class PiGrupo10Application {
 			http.csrf().disable()
 					.addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
 					.authorizeRequests()
-					.antMatchers("/bookings").authenticated()
+					.antMatchers(HttpMethod.POST, "/bookings").hasRole("USER")
+					.antMatchers(HttpMethod.GET, "/bookings").hasRole("USER")
+					.antMatchers(HttpMethod.POST, "/products").hasRole("ADMIN")
 					.antMatchers("/**").permitAll();
 		}
 	}
@@ -63,11 +71,6 @@ public class PiGrupo10Application {
 		cors.registerCorsConfiguration("/**", config);
 		return cors;
 	}
-
-	//
-	// Registro los filtros configurados anteriormente para que sea un filter implementado por sprinb
-	//  de esta manera uso e implemento el registro y apertura de los cors
-	//
 
 	@Bean
 	public FilterRegistrationBean<CorsFilter> corsFilter() {

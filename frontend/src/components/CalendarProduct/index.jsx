@@ -1,56 +1,63 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DatePicker, { registerLocale, setDefaultLocale } from "react-datepicker";
 import es from "date-fns/locale/es";
-import { addDays } from 'date-fns';
 import { useMediaQuery } from 'react-responsive';
-import moment from 'moment';
 import "./CalendarProduct.css"
 
-function CalendarProduct({ handleStartDateChange, handleEndDateChange }) {
+
+function CalendarProduct({ unavailableDates }) {
 
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
+    const [disabledDates, setDisabledDates] = useState([])
 
     const onChange = (dates) => {
         const [start, end] = dates;
         setStartDate(start);
         setEndDate(end);
-        const startDay = start.getDate();
-        const startMonth = start.getMonth() + 1;
-        const startYear = start.getFullYear();
-        handleStartDateChange(`${startYear}-${startMonth}-${startDay}`);
-        const endDay = end.getDate();
-        const endMonth = end.getMonth() + 1;
-        const endYear = end.getFullYear();
-        handleEndDateChange(`${endYear}-${endMonth}-${endDay}`);
-
     }
+
     const isMobile = useMediaQuery({ query: '(max-width: 761px)' });
     registerLocale("es", es);
     setDefaultLocale("es");
 
+    const getDaysArray = (start, end) => {
+        for(var arr=[],dt=new Date(start); dt<=new Date(end); dt.setDate(dt.getDate()+1)){
+            let date = new Date(dt)
+            date.setDate(date.getDate() + 1)
+            arr.push(date);
+        }
+        return arr;
+    };
+    
+    const pairwise = (arr) => {
+        let dates = []
+        for(let i=0; i < arr.length-1; i+=2){
+            dates.push(...getDaysArray(arr[i], arr[i + 1]))
+        }
+        setDisabledDates(dates);
+    }
+
+    useEffect(() => {
+        pairwise(unavailableDates)
+    }, [])
+    
     return(
+        
         <DatePicker
         monthsShown={isMobile ? 1 : 2}
         onChange={onChange}
         startDate={startDate}
         endDate={endDate}
-        minDate={moment().toDate()}
+        minDate={new Date()}
         selectsRange={true}
         locale="es"
         changeMonth
-        excludeDates={
-            [
-                addDays(new Date(), 3),
-                addDays(new Date(), 4),
-                addDays(new Date(), 5),
-                addDays(new Date(), 30),
-                addDays(new Date(), 31),
-                addDays(new Date(), 32),
-                addDays(new Date(), 33),
-            ]}
+        excludeDates={disabledDates}
         inline
         />
+    
+        
     )
 }
 

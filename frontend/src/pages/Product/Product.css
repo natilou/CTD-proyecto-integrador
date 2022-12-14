@@ -124,15 +124,18 @@
     text-align: center;
     font-size: 18px;
     font-weight: 500;
+    justify-content: space-around;
 }
+
 .icons_features{
     display: flex;
     flex-direction: row;
     padding-right: 0px;
-    width: 160px;
     padding-top: 8px;
     padding-bottom: 15px;
+    justify-content: space-between;
 }
+
 .hr{
   height: 3px;
   opacity: 0.3;
@@ -162,7 +165,7 @@
     width: 90%;
 }
 .politic{
-    margin: 15px 10px;
+    margin: 15px 0px;
     font-weight: 300;
 }
 

@@ -1,9 +1,6 @@
 package com.example.PI_grupo_10.model;
 
 import lombok.*;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
 import javax.persistence.*;
 
 @Getter
@@ -14,6 +11,7 @@ import javax.persistence.*;
 @Entity
 @Table(name= "users")
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_sequence")
     private int id;
@@ -21,10 +19,7 @@ public class User {
     private String lastName;
     private String email;
     private String password;
-
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "role_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @Enumerated(EnumType.STRING)
     private Role role;
 
     public User(String name, String lastName, String email, String password, Role role) {

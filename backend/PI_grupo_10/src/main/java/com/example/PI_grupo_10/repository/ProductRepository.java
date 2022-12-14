@@ -6,8 +6,12 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.Date;
 import java.util.List;
 
+
 public interface ProductRepository extends JpaRepository <Product, Integer> {
+    List<Product> findByUserId (int userId);
+
     List<Product> findByCityId (int cityId);
+
     List<Product> findByCategoryId (int categoryId);
 
     @Query(value="SELECT * FROM products ORDER BY rand() LIMIT 8", nativeQuery=true)
@@ -23,4 +27,15 @@ public interface ProductRepository extends JpaRepository <Product, Integer> {
                     "OR (?1 <= b.initial_date AND b.end_date <= ?2))"+
                     "); ", nativeQuery = true)
     List<Product> findByAvailableDate(Date iDate, Date eDate);
+
+    @Query(
+            value = "select p.* from products p " +
+                    "where p.city_id=?3 AND p.id not in( "+
+                    "select distinct b.product_id "+
+                    "from bookings b "+
+                    "where ((b.initial_date <= ?1 AND ?1 <= b.end_date)"+
+                    "OR (b.initial_date <= ?2 AND ?2 <= b.end_date)"+
+                    "OR (?1 <= b.initial_date AND b.end_date <= ?2))"+
+                    "); ", nativeQuery = true)
+    List<Product> findByAvailableDateCity(Date iDate, Date eDate, int cityId);
 }

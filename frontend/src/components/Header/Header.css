@@ -37,7 +37,7 @@
 .btn_header{
     height: 40px;
     font-size: var(--font-size-medium);
-    padding: 11px 20px 10px 22px;
+    padding: 9px 10px 10px 10px;
     border: 1px solid var(--main-color);
     position: relative;
     overflow: hidden;
@@ -69,6 +69,7 @@
    
 .btn_header:hover {
     color: white;
+    cursor: pointer;
    }
 
 .menu_icon_container {
@@ -98,6 +99,26 @@
 
 .menu_icon:hover{
     cursor: pointer;
+}
+.link_user_reservation{
+    display: flex;
+    flex-direction: row;
+    text-decoration: none;
+    border-right: solid 3px  #f0572d;
+    margin-right: 20px;
+    height: 50px;
+   font-weight: bolder;
+   font-size: 1.2rem;
+   padding-right: 20px;
+}
+.p_reservation{
+    margin-top: 10px;
+    margin-left: 25px; 
+    text-decoration: none;
+    color:  black;
+}
+.p_reservation:hover{
+    color: var(--main-color)
 }
 
 @media (min-width: 761px) {

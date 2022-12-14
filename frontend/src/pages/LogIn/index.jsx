@@ -1,123 +1,115 @@
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import "./LogIn.css"
-import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
-import { validateEmail, validatePasswordLength, validateEmailAndPassword, getUser } from './utils'
+import { json, Link, useNavigate } from "react-router-dom";
+import { validateEmailRegex } from './utils'
 import Swal from 'sweetalert2';
-
+import { Formik, Field } from 'formik';
+import { useState } from "react";
 
 function LogIn() {
-
   const showLogout = true;
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   let navigate = useNavigate();
 
-  function handleOnChangeEmail(e){
-    let email = e.target.value;
-    setEmail(email)
-  }
+  const validateEmail = value => {
+    let error;
+    if (!value) {
+      error = 'Debes completar el campo del correo electronico';
+    } else if(!validateEmailRegex(value)){
+      error = 'El correo electrónico ingresado es inválido'
+    } else if (value && validateEmailRegex(value)){
+      setEmail(value)
+    }
+    return error;
+  };
 
-  function handleOnChangePassword(e){
-    let password = e.target.value;
-    setPassword(password)
-  }
+  const validatePassword = value => {
+    let error;
+    if (!value) {
+      error = 'Debes completar el campo de la contraseña';
+    } else if (value.length < 6) {
+      error = 'La contraseña debe tener más de 6 caracteres';
+    } else if(value && value.length > 6){
+      setPassword(value)
+    }
+    return error;
+  };
 
-  function handleSubmit(){
-    if(email === "" && password === ""){
+  const handleSubmit = () => {
+     
+    if(!email && !password){
       Swal.fire({
         icon: 'error',
-        text: 'Todos los campos son obligatorios',
+        text: 'Debes completar todos los campos correctamente para iniciar sesión',
       })
-    } 
-    else if(!validatePasswordLength(password) && validateEmail(email)){
-      Swal.fire({
-        icon: 'error',
-        text: 'La contraseña debe tener más de 6 caracteres',
-      })
-    }
-    else if(!validatePasswordLength(password) && email === ""){
-      Swal.fire({
-        icon: 'error',
-        text: ' La contraseña debe tener más de 6 caracteres y debes completar el campo del correo electronico',
-      })
-    }
-    else if(validatePasswordLength(password) && email === ""){
-      Swal.fire({
-        icon: 'error',
-        text: 'Debes completar el campo del correo electronico',
-      })
-    }
-    else if(!validateEmail(email) && validatePasswordLength(password)){
-      Swal.fire({
-        icon: 'error',
-        text: 'Correo electrónico inválido',
-      })
-    }
-    else if(!validateEmail(email) && password === ""){
-      Swal.fire({
-        icon: 'error',
-        text: 'El correo electrónico es inválido y debe completar el campo de la contraseña',
-      })
-    }
-    else if(validateEmail(email) && password === ""){
-      Swal.fire({
-        icon: 'error',
-        text: 'Debe completar el campo de la contraseña',
-      })
-    }
-    else if(validateEmailAndPassword(email, password)){
-      let user = getUser(email, password);
-      fetch(`http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/auth/?email=${email}&&password=${password}`, {
+    } else {
+      let payload = {
+        email: email,
+        password: password
+      }
+      
+      fetch(`http://ec2-3-21-197-14.us-east-2.compute.amazonaws.com:8080/auth`, {
         method: "POST", 
         headers: {
           "content-type": "application/json",
           "accept": "application/json"
-        }
+        },
+        body: JSON.stringify(payload)
       })
-      .then(response => response.json())
       .then(response => {
-        if (response){
-          localStorage.setItem("user", JSON.stringify({id: user.id, email: user.email, name: user.name, lastName: user.lastName})); 
-          localStorage.setItem("jwt", JSON.stringify({jwt: response.token})); 
-          navigate("/")
-        } else {
+        if(!response.ok){
           Swal.fire({
             icon: 'error',
-            text: 'Lamentablemente no ha podido iniciar sesión. Por favor, intente más tarde',
+            text: 'Credenciales inválidas. Por favor intenta nuevamente.',
+          })
+        } else {
+          return response.json()
+            .then(response => {
+              localStorage.setItem("user", JSON.stringify({id: response.id, name: response.name, lastName: response.lastName, email: response.email, role: response.role})); 
+              localStorage.setItem("jwt", JSON.stringify({token: response.token})); 
+              navigate("/")      
           })
         }
-        
-      })
-      .catch(error => console.log(error))
-    } else if((validateEmail(email) && validatePasswordLength(password)) && !validateEmailAndPassword(email, password)){
-      Swal.fire({
-        icon: 'error',
-        text: 'Por favor vuelva a intentarlo, sus credenciales son inválidas',
-      })
-    }
-  }
+      }).catch(error => console.log(error))
+  }}
 
   return (
     <div>
       <Header showLogout={showLogout} />
         <section className="container-login" data-testid="login-container">
             <h2 className="title-login" data-testid="login-title">Iniciar Sesión</h2>
-            <div className="row" data-testid="login-row">
-              <label className="label-login" data-testid="login-email-label">Correo electrónico</label>
-              <input type="email" className="input-login" onChange={handleOnChangeEmail} data-testid="login-email-input"/>
-              <label className="label-login" data-testid="login-password-label">Contraseña</label>
-              <input type="password" className="input-login" onChange={handleOnChangePassword} data-testid="login-password-input"/>
-            </div>
-            <button className="btn-login" onClick={handleSubmit} data-testid="login-btn">Ingresar</button>
-            <div className="alternative-login" data-testid="login-alternative">
-              <span className="span-login" data-testid="login-span1-alternative">¿Aún no tienes cuenta?</span><Link to="/register" data-testid="register-link"><span className="link-register" data-testid="login-span2-alternative">Registrate</span></Link>
-            </div>
+            <Formik
+            initialValues={{
+              email: '',
+              password: '',
+            }}
+            >
+            {({ errors, touched }) => (
+              <form className="row">
+                  <label className="label-login" data-testid="login-email-label">Correo electrónico</label>
+                  <Field name="email" validate={validateEmail} className="input-login"  data-testid="login-email-input" />
+                  {errors.email && touched.email ? (
+                    <div className="error-input" data-testid="error-input">{errors.email}</div>
+                  ) :  <div className="error-input"></div>}
+                  <label className="label-login" data-testid="login-password-label">Contraseña</label>
+                  <Field name="password" type="password" validate={validatePassword} className="input-login" data-testid="login-password-input"/>
+                  {errors.password && touched.password ? (
+                    <div className="error-input">{errors.password}</div>
+                  ) :  <div className="error-input"></div>}
+              </form>
+            )}
+          </Formik>
+          <button onClick={handleSubmit} className="btn-login" data-testid="login-btn">Ingresar</button>
+          <div className="alternative-login" data-testid="login-alternative">
+            <span className="span-login" data-testid="login-span1-alternative">¿Aún no tienes cuenta?</span><Link to="/register" data-testid="register-link"><span className="link-register" data-testid="login-span2-alternative">Registrate</span></Link>
+          </div>
         </section>
-      <Footer/>
-    </div>
+    <Footer/>
+   </div>
   );
-}
+};
 
 export default LogIn;

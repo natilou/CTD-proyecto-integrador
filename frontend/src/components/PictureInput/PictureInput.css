@@ -1,0 +1,64 @@
+@import "../../commons/_styles.css";
+
+.picture-input-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 30px;
+  width: 95%;
+  background-color: white;
+}
+
+.picture-input-label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 210px;
+  height: 50px;
+  border: 1px;
+  border-color: var(--main-color);
+  border-radius: 5px;
+  margin-bottom: 30px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: white;
+  background-color: var(--main-color);
+  
+}
+.picture-input-label:hover{
+  cursor: pointer;
+}
+
+.picture-input-images-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.picture-input-delete-image-button {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  background-color: var(--main-color);
+  border: none;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+}
+  
+.img-responsive {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+}
+
+.product-form-checkbox{
+  cursor: pointer;
+}
+
+.css-1fdsijx-ValueContainer:hover{
+  cursor: pointer;
+}
