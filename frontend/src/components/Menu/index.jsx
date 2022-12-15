@@ -37,7 +37,7 @@ function Menu({ close, showLogin, showLogout, showLine, user }) {
                 }, 900)
 
             } else if (result.isDenied) {
-                Swal.fire('Sigue navegando!', '', 'success')
+                Swal.fire('Sigue navegando', '', 'success')
             }
         })
     }
