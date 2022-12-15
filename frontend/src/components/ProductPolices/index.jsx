@@ -44,7 +44,7 @@ const ProductPolices = ({ productPolicies }) => {
                 </div >
             ) : (
                 <>
-                        <h2 className="title_politics">Qué tenés que saber</h2>
+                        <h2 className="title_politics">¿Qué tenés que saber?</h2>
         <hr className="hr" />
         <div className="container_politics">
             {
